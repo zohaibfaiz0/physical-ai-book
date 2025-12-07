@@ -1,0 +1,180 @@
+---
+title: "Nodes, Topics, Services, and Actions: Communication Primitives in ROS 2"
+description: "Comprehensive guide to ROS 2 communication patterns and their implementation"
+week: "Weeks 3–5"
+---
+
+# Nodes, Topics, Services, and Actions: Communication Primitives in ROS 2
+
+## Nodes: The Fundamental Computational Units
+
+Nodes represent the basic computational units in ROS 2, encapsulating specific functionality within a single process. Each node contains the logic for a particular task, such as sensor data processing, control algorithms, or user interfaces. The node concept provides a modular approach to robot software development, enabling complex systems to be built from smaller, manageable components that can be developed, tested, and maintained independently.
+
+In ROS 2, nodes are implemented as classes that inherit from `rclcpp::Node` (in C++) or `rclpy.Node` (in Python), providing access to the ROS 2 communication infrastructure. Each node must be initialized with a unique name within its namespace, and can contain publishers, subscribers, services, clients, and action servers/clients. The node's lifecycle is managed by the ROS 2 execution model, which handles initialization, spinning (processing callbacks), and cleanup.
+
+Modern ROS 2 nodes in 2025 utilize the composition pattern, allowing multiple nodes to be loaded into a single process to reduce inter-process communication overhead. This approach is particularly beneficial for systems with high-frequency communication requirements or limited computational resources. The composition manager enables dynamic loading and unloading of nodes at runtime, providing flexibility for system reconfiguration without restart.
+
+```python
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+
+class MinimalPublisher(Node):
+    def __init__(self):
+        super().__init__('minimal_publisher')
+        self.publisher_ = self.create_publisher(String, 'topic', 10)
+        timer_period = 0.5  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.i = 0
+
+    def timer_callback(self):
+        msg = String()
+        msg.data = f'Hello World: {self.i}'
+        self.publisher_.publish(msg)
+        self.get_logger().info(f'Publishing: "{msg.data}"')
+        self.i += 1
+
+def main(args=None):
+    rclpy.init(args=args)
+    minimal_publisher = MinimalPublisher()
+    rclpy.spin(minimal_publisher)
+    minimal_publisher.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+Node parameters provide a mechanism for configuring node behavior at runtime without recompilation. Parameters can be declared with type information, default values, and validation callbacks, ensuring that nodes receive appropriate configuration values. The parameter system supports hierarchical namespaces and can be configured through launch files, command-line arguments, or parameter files.
+
+## Topics: Asynchronous Message Passing
+
+Topics form the backbone of ROS 2's publish-subscribe communication model, enabling asynchronous data exchange between nodes. Publishers send messages to topics, while subscribers receive messages from topics without direct knowledge of each other's existence. This decoupling allows for flexible system architectures where components can be added, removed, or replaced without affecting other parts of the system.
+
+The topic communication model supports multiple publishers and subscribers on the same topic, enabling data distribution to multiple consumers and data aggregation from multiple sources. Message types are defined using Interface Definition Language (IDL) files that specify the structure and data types of messages. The ROS 2 build system automatically generates language-specific message implementations from these definitions.
+
+Quality of Service (QoS) policies provide fine-grained control over topic communication behavior, including reliability (guaranteed vs. best-effort delivery), durability (data persistence for late joiners), and deadline constraints. These policies ensure that different types of data can be transmitted with appropriate reliability and timing characteristics.
+
+```python
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import LaserScan
+from geometry_msgs.msg import Twist
+
+class ScanProcessor(Node):
+    def __init__(self):
+        super().__init__('scan_processor')
+        self.subscription = self.create_subscription(
+            LaserScan,
+            'scan',
+            self.scan_callback,
+            10)
+        self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.subscription  # prevent unused variable warning
+
+    def scan_callback(self, msg):
+        # Process laser scan data and publish velocity commands
+        min_distance = min(msg.ranges)
+        cmd = Twist()
+        if min_distance < 1.0:
+            cmd.linear.x = 0.0
+            cmd.angular.z = 0.5
+        else:
+            cmd.linear.x = 0.5
+            cmd.angular.z = 0.0
+        self.publisher.publish(cmd)
+```
+
+Topic statistics and monitoring tools help developers understand communication patterns and identify performance bottlenecks. The ROS 2 introspection tools can visualize topic connections, message rates, and latency information, providing insights into system behavior during development and operation.
+
+## Services: Synchronous Request-Response Communication
+
+Services in ROS 2 provide synchronous request-response communication, suitable for operations that require a direct response to a specific request. Unlike topics, services establish a direct connection between a client and a server for each request, ensuring that the client receives a response to its specific request. This pattern is ideal for operations like configuration changes, data queries, or command execution where a response is required.
+
+Service definitions use the same IDL format as messages but specify both request and response types. The server implements the service logic and responds to client requests, while clients send requests and wait for responses. Service communication is reliable by default, ensuring that requests and responses are delivered successfully.
+
+```python
+# Service definition in srv/AddTwoInts.srv
+# int64 a
+# int64 b
+# ---
+# int64 sum
+
+import rclpy
+from rclpy.node import Node
+from example_interfaces.srv import AddTwoInts
+
+class MinimalService(Node):
+    def __init__(self):
+        super().__init__('minimal_service')
+        self.srv = self.create_service(AddTwoInts, 'add_two_ints', self.add_two_ints_callback)
+
+    def add_two_ints_callback(self, request, response):
+        response.sum = request.a + request.b
+        self.get_logger().info(f'Incoming request\na: {request.a}, b: {request.b}')
+        return response
+
+def main(args=None):
+    rclpy.init(args=args)
+    minimal_service = MinimalService()
+    rclpy.spin(minimal_service)
+    rclpy.shutdown()
+```
+
+Service clients can be implemented to send requests and receive responses. The service client handles connection management and request routing, providing a simple interface for making service calls. Services can include timeout mechanisms to prevent clients from waiting indefinitely for responses from unresponsive servers.
+
+## Actions: Goal-Oriented Long-Running Tasks
+
+Actions represent the most sophisticated communication pattern in ROS 2, designed for long-running tasks that require goal setting, feedback, and result reporting. Actions combine the features of services and topics, providing a goal-oriented interface for complex operations like navigation, manipulation, or calibration that may take significant time to complete.
+
+An action interface includes three message types: goal (what to do), feedback (progress updates), and result (final outcome). The action client sends goals to the action server, receives periodic feedback during execution, and receives the final result when the goal is completed. This pattern enables sophisticated coordination between components that need to track progress and respond to intermediate states.
+
+```python
+import rclpy
+from rclpy.action import ActionServer
+from rclpy.node import Node
+from example_interfaces.action import Fibonacci
+
+class FibonacciActionServer(Node):
+    def __init__(self):
+        super().__init__('fibonacci_action_server')
+        self._action_server = ActionServer(
+            self,
+            Fibonacci,
+            'fibonacci',
+            self.execute_callback)
+
+    def execute_callback(self, goal_handle):
+        self.get_logger().info('Executing goal...')
+
+        feedback_msg = Fibonacci.Feedback()
+        feedback_msg.sequence = [0, 1]
+
+        for i in range(1, goal_handle.request.order):
+            if goal_handle.is_cancel_requested:
+                goal_handle.canceled()
+                self.get_logger().info('Goal canceled')
+                return Fibonacci.Result()
+
+            feedback_msg.sequence.append(
+                feedback_msg.sequence[i] + feedback_msg.sequence[i-1])
+
+            goal_handle.publish_feedback(feedback_msg)
+            time.sleep(1)
+
+        goal_handle.succeed()
+        result = Fibonacci.Result()
+        result.sequence = feedback_msg.sequence
+        self.get_logger().info('Returning result: {0}'.format(result.sequence))
+        return result
+```
+
+Action servers can handle multiple concurrent goals, providing appropriate feedback and result reporting for each. The action interface includes built-in support for goal preemption, allowing new goals to interrupt ongoing operations when appropriate.
+
+## Communication Pattern Selection and Best Practices
+
+Selecting the appropriate communication pattern depends on the specific requirements of the interaction. Topics are ideal for continuous data streams like sensor readings or state updates where loose coupling and multiple subscribers are beneficial. Services are appropriate for operations that require a direct response, such as configuration changes or data queries. Actions are best suited for complex, long-running operations that require progress tracking and result reporting.
+
+Best practices for communication in ROS 2 include using appropriate message types and QoS policies, implementing proper error handling and timeouts, and following naming conventions that make the system's structure clear. The ROS 2 design patterns emphasize loose coupling, modularity, and testability, enabling the development of robust and maintainable robotic systems.
+
+Performance considerations include minimizing message size to reduce network overhead, using appropriate QoS policies for different data types, and designing systems to handle communication failures gracefully. The ROS 2 tools provide profiling and monitoring capabilities that help developers optimize communication patterns for their specific applications.

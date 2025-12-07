@@ -1,0 +1,112 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-navbar-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --ifm-footer-background-color: #1e293b;
+  --ifm-hero-background-color: #f8fafc;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #3b82f6;
+  --ifm-color-primary-dark: #2563eb;
+  --ifm-color-primary-darker: #1d4ed8;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #60a5fa;
+  --ifm-color-primary-lighter: #93c5fd;
+  --ifm-color-primary-lightest: #bfdbfe;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-navbar-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --ifm-hero-background-color: #0f172a;
+  --ifm-footer-background-color: #0f172a;
+}
+
+/* Improved hero banner styling */
+.hero--primary {
+  background: var(--ifm-hero-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+/* Enhanced feature section styling */
+.features {
+  background-color: var(--ifm-background-color);
+  padding: 3rem 0;
+}
+
+/* Improved button styling */
+.button--secondary {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.button--secondary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+  color: white;
+}
+
+/* Chatbot styling */
+.chatbot-container {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  padding: var(--ifm-global-spacing);
+  margin: var(--ifm-global-spacing) 0;
+  background-color: var(--ifm-color-emphasis-100);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-frame {
+  background-color: white;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  padding: var(--ifm-global-spacing);
+  min-height: 200px;
+}
+
+/* Improved footer styling */
+.footer--dark {
+  background-color: var(--ifm-footer-background-color);
+}
+
+/* Better typography */
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  font-weight: 600;
+}
+
+/* Improved code block styling */
+.prism-code {
+  border-radius: var(--ifm-global-radius);
+}
+
+/* Better sidebar styling */
+.menu {
+  font-size: 0.9rem;
+}
+
+/* Responsive improvements */
+@media (max-width: 996px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+}

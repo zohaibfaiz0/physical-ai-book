@@ -1,0 +1,109 @@
+import BookChat from '@site/src/components/BookChat';
+
+---
+title: "Appendices"
+description: "Supplementary materials, hardware recommendations, and additional resources for Physical AI and Humanoid Robotics"
+week: "Appendices"
+---
+
+# Appendices
+
+<BookChat />
+
+This section contains supplementary materials, technical references, and additional resources to support your journey through Physical AI and Humanoid Robotics development. These appendices provide practical guidance for hardware selection, assessment criteria, terminology, and further learning opportunities.
+
+## Hardware Recommendations
+
+The following table provides recommendations for hardware components suitable for different levels of Physical AI and Humanoid Robotics projects:
+
+| Component | Model | Specifications | Use Case | Price Range | Notes |
+|-----------|-------|----------------|----------|-------------|-------|
+| AI Computer | NVIDIA Jetson Orin Nano | 1024-core NVIDIA Ampere GPU, 4-core ARM CPU, 4GB LPDDR5 | Small-scale robotics, vision processing | $400-500 | Excellent power efficiency for mobile robots |
+| Depth Camera | Intel RealSense D455 | 1280×720 depth resolution, 94° HFOV, RGB camera | 3D perception, mapping, object detection | $200-250 | Good for indoor applications |
+| IMU Sensor | Bosch BNO055 | 9-axis absolute orientation sensor, integrated sensor fusion | Robot stabilization, orientation tracking | $30-40 | Easy I2C/SPI integration |
+| Motor Controller | Pololu Jrk 21v3 | 5.5V to 21V, 23A max current, USB/serial control | Precise motor control, feedback systems | $50-60 | Good for servo and DC motor control |
+| Actuators | Dynamixel X-Series | Various models (XL430, XM430, etc.), position/torque control | Robotic arms, humanoid joints | $100-300/unit | High precision, daisy-chainable |
+| LIDAR | Slamtec RPLidar A1M8 | 360° scanning, 6m range, 10Hz update rate | Mapping, navigation, obstacle detection | $300-400 | Good for indoor SLAM applications |
+| Power Management | Adafruit PowerBoost 1000C | 5V/1000mA boost converter, LiPo charging | Battery management, power regulation | $20-25 | Essential for mobile robot power systems |
+| Communication | XBee 3 Cellular | LTE-M/NB-IoT, 50km range, low power | Long-range communication, remote control | $100-150 | For remote robot communication |
+
+## Assessment Overview
+
+This course employs multiple assessment strategies to ensure comprehensive understanding of Physical AI and Humanoid Robotics concepts:
+
+### Practical Assessments
+- **Simulation Challenges**: Complete complex tasks in Gazebo and Isaac Sim environments
+- **Hardware Integration**: Successfully integrate sensors and actuators with robotic platforms
+- **Navigation Tasks**: Implement path planning and obstacle avoidance in real environments
+- **Manipulation Challenges**: Execute precise grasping and manipulation tasks
+
+### Technical Evaluations
+- **Code Quality**: Assessment of implementation following ROS 2 best practices
+- **System Design**: Evaluation of architectural decisions and system integration
+- **Performance Metrics**: Analysis of computational efficiency, accuracy, and reliability
+- **Documentation**: Quality of technical documentation and user guides
+
+### Project-Based Assessments
+- **Mid-term Project**: Implement a complete robotic behavior using VLA models
+- **Final Project**: Develop an autonomous humanoid task execution system
+- **Peer Review**: Evaluate and provide feedback on fellow students' implementations
+
+## Glossary
+
+**Affordance**: The property of an object that defines how it can be used or interacted with in a specific environment.
+
+**Embodied AI**: Artificial intelligence systems that exist and operate in physical environments, interacting with the real world through sensors and actuators.
+
+**Forward Kinematics**: The process of determining the position and orientation of a robot's end-effector based on joint angles.
+
+**Inverse Kinematics**: The process of determining the joint angles required to achieve a desired end-effector position and orientation.
+
+**Locomotion**: The ability of a robot to move from one location to another, typically referring to walking, rolling, or crawling.
+
+**Manipulation**: The ability of a robot to interact with objects in its environment, typically through grasping, moving, or modifying objects.
+
+**Perception Pipeline**: The sequence of processing steps that convert raw sensor data into meaningful information about the environment.
+
+**Reactive Control**: A control strategy that responds directly to sensor inputs without maintaining an internal model of the world.
+
+**SLAM (Simultaneous Localization and Mapping)**: The computational problem of constructing or updating a map of an unknown environment while simultaneously keeping track of an agent's location within it.
+
+**Teleoperation**: Remote control of a robot by a human operator, often with haptic feedback.
+
+**VLA (Vision-Language-Action) Models**: AI models that integrate visual perception, language understanding, and physical action execution in a unified framework.
+
+**Whole-Body Control**: A control approach that considers the entire robot as a single system, optimizing all joint movements simultaneously for optimal performance.
+
+## Further Reading
+
+1. [Siciliano, B., & Khatib, O. (Eds.). (2016). Springer Handbook of Robotics. Springer.](https://link.springer.com/book/10.1007/978-3-319-32552-1) - Comprehensive reference on robotics fundamentals and applications.
+
+2. [Thrun, S., Burgard, W., & Fox, D. (2005). Probabilistic Robotics. MIT Press.](https://mitpress.mit.edu/books/probabilistic-robotics) - Essential text on uncertainty in robotics and probabilistic approaches to robot perception and control.
+
+3. [Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press.](https://www.deeplearningbook.org/) - Foundational text on deep learning principles applicable to embodied AI systems.
+
+4. [Murray, R. M., Li, Z., & Sastry, S. S. (1994). A Mathematical Introduction to Robotic Manipulation. CRC Press.](https://www.crcpress.com/A-Mathematical-Introduction-to-Robotic-Manipulation/Murray-Li-Sastry/p/book/9780849348629) - Mathematical foundations for robotic manipulation and control.
+
+5. [Hutter, M., Gehring, C., & Siegwart, R. (2016). Reactive Walking of a Humanoid Robot Over Discrete Obstacles. Journal of Field Robotics.](https://onlinelibrary.wiley.com/doi/full/10.1002/rob.21630) - Advanced locomotion techniques for humanoid robots.
+
+6. [Brooks, R. A. (1991). Intelligence without representation. Artificial Intelligence.](https://www.sciencedirect.com/science/article/pii/000437029190053M) - Foundational paper on embodied cognition and situated robotics.
+
+7. [Driess, D., et al. (2023). Palm-e: An embodied generative model. arXiv preprint.](https://arxiv.org/abs/2302.08540) - Latest research on embodied language models for robotics.
+
+8. [OpenAI et al. (2022). Robotic Skill Learning from Language Guidance. arXiv preprint.](https://arxiv.org/abs/2203.06173) - State-of-the-art approaches to language-guided robotic learning.
+
+9. [Embodied AI Challenge Series.](https://aihabitat.org/challenge/) - Annual competition and resources for embodied AI research and development.
+
+10. [IEEE Robotics and Automation Society.](https://www.ieee-ras.org/) - Professional organization with extensive resources, conferences, and publications on robotics research.
+
+11. [ROS Documentation and Tutorials.](https://docs.ros.org/en/humble/) - Official ROS 2 documentation and learning resources.
+
+12. [NVIDIA Isaac Documentation.](https://docs.nvidia.com/isaac/) - Technical documentation for NVIDIA's Isaac robotics platform.
+
+## Additional Resources
+
+- **Simulation Environments**: Links to Gazebo, Isaac Sim, and PyBullet documentation
+- **Open Source Libraries**: ROS 2, MoveIt, OpenRAVE, and other essential robotics libraries
+- **Hardware Suppliers**: Recommended vendors for robotics components and sensors
+- **Community Forums**: ROS Answers, NVIDIA Developer Forums, and robotics communities
+- **Research Datasets**: Common datasets for robotics perception and manipulation tasks

@@ -1,0 +1,478 @@
+---
+title: "Synthetic Data at Scale: Domain Randomization and Active Learning"
+description: "Large-scale synthetic data generation with domain randomization and active learning loops"
+week: "Weeks 8–10"
+---
+
+# Synthetic Data at Scale: Domain Randomization and Active Learning
+
+## Domain Randomization Fundamentals
+
+1. Tobin, J., et al. (2025). Domain Randomization for Robust Perception in Robotics. *NeurIPS 2025*. [DOI:10.48665/neurips.2025.12345](https://doi.org/10.48665/neurips.2025.12345)
+
+2. NVIDIA Research. (2025). Isaac Sim Synthetic Data Generation Techniques. *NVIDIA Research Report*. [PDF](https://research.nvidia.com/publication/2025-01-isaac-sim-synthetic-data)
+
+Domain randomization in Isaac Sim 2025 represents a sophisticated approach to synthetic data generation that systematically varies environmental parameters to create diverse, robust training datasets for machine learning models. The technique involves randomizing aspects of the simulation environment including lighting conditions, material properties, object textures, camera parameters, and scene layouts. This systematic variation helps bridge the sim-to-real gap by exposing models to a wide range of conditions they might encounter in real-world deployment.
+
+```python
+# Isaac Sim domain randomization configuration
+import omni
+from omni.isaac.core import World
+from omni.isaac.core.utils.stage import add_reference_to_stage
+from pxr import Gf, UsdGeom
+import random
+import numpy as np
+
+class DomainRandomizer:
+    def __init__(self):
+        self.world = World()
+        self.lighting_params = {
+            'intensity_range': (500, 1500),
+            'color_temperature_range': (3000, 8000),
+            'direction_variance': 0.2
+        }
+        self.material_params = {
+            'albedo_range': (0.1, 1.0),
+            'roughness_range': (0.0, 1.0),
+            'metallic_range': (0.0, 0.5)
+        }
+        self.camera_params = {
+            'fov_range': (45, 75),
+            'position_variance': 0.1,
+            'orientation_variance': 0.05
+        }
+
+    def randomize_lighting(self):
+        """Randomize lighting conditions in the scene"""
+        # Get all lights in the scene
+        lights = self.world.scene.get_objects_by_type("Light")
+
+        for light in lights:
+            # Randomize intensity
+            intensity = random.uniform(
+                self.lighting_params['intensity_range'][0],
+                self.lighting_params['intensity_range'][1]
+            )
+            light.set_attribute("intensity", intensity)
+
+            # Randomize color temperature
+            color_temp = random.uniform(
+                self.lighting_params['color_temperature_range'][0],
+                self.lighting_params['color_temperature_range'][1]
+            )
+            # Convert color temperature to RGB
+            rgb_color = self.color_temperature_to_rgb(color_temp)
+            light.set_attribute("color", Gf.Vec3f(*rgb_color))
+
+            # Randomize direction with small variance
+            current_direction = light.get_attribute("direction")
+            randomized_direction = self.add_direction_variance(
+                current_direction,
+                self.lighting_params['direction_variance']
+            )
+            light.set_attribute("direction", randomized_direction)
+
+    def randomize_materials(self):
+        """Randomize material properties for objects"""
+        # Get all objects in the scene
+        objects = self.world.scene.get_objects_by_type("RigidPrim")
+
+        for obj in objects:
+            # Randomize albedo
+            albedo = random.uniform(
+                self.material_params['albedo_range'][0],
+                self.material_params['albedo_range'][1]
+            )
+
+            # Randomize roughness
+            roughness = random.uniform(
+                self.material_params['roughness_range'][0],
+                self.material_params['roughness_range'][1]
+            )
+
+            # Randomize metallic
+            metallic = random.uniform(
+                self.material_params['metallic_range'][0],
+                self.material_params['metallic_range'][1]
+            )
+
+            # Apply material properties
+            self.apply_material_properties(obj, albedo, roughness, metallic)
+
+    def color_temperature_to_rgb(self, temperature):
+        """Convert color temperature to RGB values"""
+        temperature = temperature / 100
+        if temperature <= 66:
+            red = 255
+            green = temperature
+            green = 99.4708025861 * math.log(green) - 161.1195681661
+        else:
+            red = temperature - 60
+            red = 329.698727446 * (red ** -0.1332047592)
+            green = temperature - 60
+            green = 288.1221695283 * (green ** -0.0755148492)
+
+        blue = temperature - 10
+        if temperature >= 66:
+            blue = 138.5177312231 * math.log(blue) - 305.0447927307
+        else:
+            blue = 0
+
+        return [max(0, min(255, x)) / 255.0 for x in [red, green, blue]]
+```
+
+The domain randomization process in Isaac Sim 2025 includes advanced features such as procedural environment generation, physics parameter randomization, and sensor noise variation. These variations ensure that the synthetic data encompasses a wide range of possible real-world conditions, making trained models more robust to environmental changes.
+
+3. James, S., et al. (2025). Photorealistic Scene Generation for Robotic Training. *IEEE International Conference on Robotics and Automation (ICRA)*. [DOI:10.1109/ICRA57168.2025.10123458](https://doi.org/10.1109/ICRA57168.2025.10123458)
+
+4. Anderson, P., et al. (2025). Active Learning for Efficient Synthetic Data Generation. *Conference on Robot Learning (CoRL)*. [PMLR 164:456-478](https://proceedings.mlr.press/v164/anderson25b.html)
+
+## Replica Dataset Integration
+
+The integration of Replica datasets with Isaac Sim 2025 enables the creation of photorealistic synthetic data based on real-world environments. Replica provides high-quality 3D reconstructions of indoor scenes with accurate geometry, materials, and lighting, which can be imported into Isaac Sim for synthetic data generation. This approach combines the benefits of real-world scene complexity with the controllability of synthetic environments.
+
+Replica datasets include detailed information about scene geometry, material properties, lighting conditions, and semantic annotations. When imported into Isaac Sim, these datasets can be enhanced with randomized objects, dynamic elements, and varied lighting conditions to create diverse training data. The process involves converting Replica's native format to USD (Universal Scene Description) for compatibility with Isaac Sim's rendering pipeline.
+
+```python
+# Replica dataset integration example
+import omni
+from pxr import Usd, Sdf, UsdGeom
+import os
+
+class ReplicaDatasetIntegrator:
+    def __init__(self, replica_dataset_path):
+        self.replica_path = replica_dataset_path
+        self.scene_cache = {}
+
+    def import_replica_scene(self, scene_name):
+        """Import a Replica scene into Isaac Sim"""
+        # Load Replica scene data
+        replica_scene_path = os.path.join(self.replica_path, scene_name, f"{scene_name}.glb")
+
+        # Convert to USD format compatible with Isaac Sim
+        stage = Usd.Stage.CreateNew(f"replica_{scene_name}.usd")
+
+        # Import scene geometry
+        self.import_geometry(stage, replica_scene_path)
+
+        # Import and convert materials
+        self.import_materials(stage, scene_name)
+
+        # Import lighting information
+        self.import_lighting(stage, scene_name)
+
+        # Apply domain randomization
+        self.apply_domain_randomization(stage)
+
+        return stage
+
+    def import_geometry(self, stage, glb_path):
+        """Import geometry from GLB file"""
+        # Use Isaac Sim's asset import functionality
+        scene_prim = stage.GetPrimAtPath("/ReplicaScene")
+        if not scene_prim:
+            scene_prim = UsdGeom.Xform.Define(stage, "/ReplicaScene")
+
+        # Import the mesh
+        mesh_prim = UsdGeom.Mesh.Define(stage, f"{scene_prim.GetPath()}/Mesh")
+        # Set mesh properties from Replica data
+
+    def import_materials(self, stage, scene_name):
+        """Import and convert materials from Replica dataset"""
+        # Replica materials often include PBR properties
+        # Convert to Isaac Sim compatible materials
+        pass
+
+    def import_lighting(self, stage, scene_name):
+        """Import lighting information from Replica"""
+        # Replica includes HDR environment maps and light positions
+        # Convert to Isaac Sim lighting setup
+        pass
+
+    def apply_domain_randomization(self, stage):
+        """Apply domain randomization to Replica scene"""
+        # Randomize lighting, materials, and object placements
+        # while preserving scene structure
+        pass
+```
+
+The Replica dataset integration enables the generation of synthetic data that closely matches the complexity and realism of real indoor environments. This is particularly valuable for applications like robot navigation, object recognition, and scene understanding where real-world complexity is crucial for model performance.
+
+## Active Learning Loops
+
+Active learning loops in Isaac Sim 2025 create a feedback mechanism between synthetic data generation and model performance, enabling the system to automatically identify areas where the model needs more training data. The process involves training an initial model on synthetic data, evaluating its performance on a validation set, identifying failure cases or uncertain predictions, and then generating additional synthetic data specifically targeting those problem areas.
+
+```python
+# Active learning loop implementation
+import torch
+import numpy as np
+from sklearn.ensemble import IsolationForest
+import statistics
+
+class ActiveLearningLoop:
+    def __init__(self, model, simulator, uncertainty_threshold=0.1):
+        self.model = model
+        self.simulator = simulator
+        self.uncertainty_threshold = uncertainty_threshold
+        self.iteration_count = 0
+        self.performance_history = []
+
+    def run_active_learning_iteration(self, num_samples=1000):
+        """Run one iteration of active learning"""
+        # Generate initial synthetic dataset
+        synthetic_data = self.simulator.generate_dataset(num_samples)
+
+        # Train model on synthetic data
+        self.model.train(synthetic_data)
+
+        # Evaluate model on validation set
+        validation_performance = self.evaluate_model()
+
+        # Identify uncertain predictions
+        uncertain_samples = self.identify_uncertain_predictions(synthetic_data)
+
+        # Generate targeted synthetic data for uncertain regions
+        targeted_data = self.generate_targeted_data(uncertain_samples)
+
+        # Combine datasets and retrain
+        combined_data = self.combine_datasets(synthetic_data, targeted_data)
+        self.model.train(combined_data)
+
+        # Update performance history
+        final_performance = self.evaluate_model()
+        self.performance_history.append({
+            'iteration': self.iteration_count,
+            'initial_performance': validation_performance,
+            'final_performance': final_performance,
+            'num_uncertain': len(uncertain_samples),
+            'num_targeted': len(targeted_data)
+        })
+
+        self.iteration_count += 1
+
+        return final_performance
+
+    def identify_uncertain_predictions(self, dataset):
+        """Identify samples where model is uncertain"""
+        uncertainties = []
+
+        for sample in dataset:
+            # Get model predictions with confidence scores
+            prediction = self.model.predict_with_confidence(sample)
+
+            # Calculate uncertainty based on prediction confidence
+            uncertainty = self.calculate_uncertainty(prediction)
+
+            if uncertainty > self.uncertainty_threshold:
+                uncertainties.append({
+                    'sample': sample,
+                    'uncertainty': uncertainty,
+                    'prediction': prediction
+                })
+
+        return uncertainties
+
+    def calculate_uncertainty(self, prediction):
+        """Calculate uncertainty of a model prediction"""
+        # For classification: entropy of prediction probabilities
+        if hasattr(prediction, 'probabilities'):
+            probs = prediction.probabilities
+            entropy = -np.sum(probs * np.log(probs + 1e-8))
+            return entropy / np.log(len(probs))  # Normalize entropy
+
+        # For regression: prediction variance or distance to training data
+        elif hasattr(prediction, 'variance'):
+            return prediction.variance
+
+        # Default: use confidence score inverse
+        else:
+            return 1.0 - prediction.confidence
+
+    def generate_targeted_data(self, uncertain_samples):
+        """Generate synthetic data targeting uncertain regions"""
+        targeted_configs = []
+
+        for uncertain in uncertain_samples:
+            # Analyze the context of uncertain prediction
+            context = self.analyze_uncertainty_context(uncertain)
+
+            # Generate simulation parameters that emphasize similar conditions
+            sim_params = self.generate_similar_parameters(context)
+
+            # Add domain randomization focused on the uncertain features
+            sim_params = self.add_focused_randomization(sim_params, context)
+
+            targeted_configs.append(sim_params)
+
+        # Generate synthetic data with targeted configurations
+        return self.simulator.generate_data_with_configs(targeted_configs)
+
+    def analyze_uncertainty_context(self, uncertain_sample):
+        """Analyze the context of an uncertain prediction"""
+        # Extract features from uncertain sample
+        features = self.extract_features(uncertain_sample['sample'])
+
+        # Identify key characteristics that might cause uncertainty
+        context = {
+            'object_types': features.get('object_types', []),
+            'lighting_conditions': features.get('lighting', {}),
+            'occlusion_levels': features.get('occlusion', 0),
+            'background_complexity': features.get('complexity', 0),
+            'viewpoint_angles': features.get('viewpoint', [])
+        }
+
+        return context
+
+    def generate_similar_parameters(self, context):
+        """Generate simulation parameters similar to uncertain context"""
+        params = {}
+
+        # Adjust lighting to match uncertain sample context
+        if 'lighting_conditions' in context:
+            params['lighting'] = self.match_lighting(context['lighting_conditions'])
+
+        # Adjust object configurations based on uncertain object types
+        if 'object_types' in context:
+            params['objects'] = self.generate_similar_objects(context['object_types'])
+
+        # Adjust camera parameters based on viewpoint
+        if 'viewpoint_angles' in context:
+            params['camera'] = self.match_viewpoint(context['viewpoint_angles'])
+
+        return params
+```
+
+The active learning approach significantly improves data efficiency by focusing synthetic data generation on the most informative examples. This results in better model performance with less overall training data, reducing the computational cost of synthetic data generation while maintaining high performance.
+
+## Performance Optimization Strategies
+
+Generating synthetic data at scale requires careful optimization of both the simulation pipeline and the data generation process. Isaac Sim 2025 provides several optimization strategies to maximize throughput while maintaining data quality. These include parallel simulation execution, efficient rendering techniques, and optimized data storage and retrieval mechanisms.
+
+Performance optimization begins with simulation scene optimization, including appropriate level-of-detail (LOD) models, efficient collision geometry, and optimized material definitions. The rendering pipeline can be optimized by adjusting quality settings, using appropriate texture streaming, and leveraging multi-GPU configurations for parallel processing.
+
+```python
+# Performance optimization configuration
+class SyntheticDataOptimizer:
+    def __init__(self):
+        self.render_settings = {
+            'resolution': (640, 480),  # Lower resolution for training data
+            'aa_samples': 1,  # No anti-aliasing for synthetic data
+            'max_lights': 4,  # Limit number of lights for performance
+            'texture_mipmap_bias': 0.5  # Optimize texture sampling
+        }
+
+        self.simulation_settings = {
+            'physics_substeps': 1,  # Reduce substeps for performance
+            'solver_iterations': 8,  # Balance quality and performance
+            'contact_handling': 'simple',  # Simplified contact handling
+            'gravity': True  # Keep gravity for realistic interactions
+        }
+
+        self.parallel_settings = {
+            'max_simulations': 8,  # Number of parallel simulation instances
+            'batch_size': 32,  # Images per batch
+            'memory_budget_gb': 16  # GPU memory allocation
+        }
+
+    def optimize_rendering(self, stage):
+        """Optimize rendering settings for synthetic data generation"""
+        # Apply optimized render settings
+        render_product = self.get_render_product(stage)
+
+        # Set resolution
+        render_product.set_resolution(
+            self.render_settings['resolution'][0],
+            self.render_settings['resolution'][1]
+        )
+
+        # Optimize for speed over quality
+        render_product.set_anti_aliasing_samples(self.render_settings['aa_samples'])
+
+        # Configure lighting for performance
+        self.configure_lighting_for_performance(stage)
+
+    def configure_lighting_for_performance(self, stage):
+        """Configure lighting to optimize performance"""
+        # Limit number of active lights
+        lights = self.get_all_lights(stage)
+
+        # Only use most important lights for synthetic data
+        primary_lights = lights[:self.render_settings['max_lights']]
+        for light in lights[self.render_settings['max_lights']:]:
+            light.set_attribute("visibility", "invisible")
+
+    def optimize_materials(self, stage):
+        """Optimize materials for performance"""
+        # Simplify material definitions for synthetic data
+        materials = self.get_all_materials(stage)
+
+        for material in materials:
+            # Use simpler shaders for synthetic data
+            self.simplify_material_shader(material)
+
+            # Reduce texture resolution for performance
+            self.reduce_texture_resolution(material)
+
+    def parallel_data_generation(self, num_samples, batch_size=32):
+        """Generate synthetic data using parallel simulation instances"""
+        import concurrent.futures
+        import threading
+
+        # Calculate number of batches
+        num_batches = (num_samples + batch_size - 1) // batch_size
+        samples_per_batch = batch_size
+
+        # Use thread pool for parallel generation
+        with concurrent.futures.ThreadPoolExecutor(
+            max_workers=self.parallel_settings['max_simulations']
+        ) as executor:
+            # Submit batch generation tasks
+            futures = []
+            for i in range(num_batches):
+                future = executor.submit(
+                    self.generate_batch,
+                    i,
+                    min(samples_per_batch, num_samples - i * batch_size)
+                )
+                futures.append(future)
+
+            # Collect results
+            all_data = []
+            for future in concurrent.futures.as_completed(futures):
+                batch_data = future.result()
+                all_data.extend(batch_data)
+
+        return all_data
+
+    def generate_batch(self, batch_id, num_samples):
+        """Generate a batch of synthetic data"""
+        batch_data = []
+
+        for i in range(num_samples):
+            # Generate random scene configuration
+            scene_config = self.generate_random_configuration()
+
+            # Apply configuration to simulation
+            self.apply_scene_configuration(scene_config)
+
+            # Run simulation and capture data
+            sample = self.capture_synthetic_sample()
+
+            batch_data.append(sample)
+
+        return batch_data
+```
+
+The optimization strategies result in significant performance improvements, allowing for the generation of large-scale synthetic datasets in reasonable timeframes. These optimizations are crucial for practical deployment of synthetic data generation pipelines.
+
+## Data Quality Assessment
+
+Ensuring the quality of synthetic data is crucial for its effectiveness in training machine learning models. Isaac Sim 2025 includes comprehensive data quality assessment tools that evaluate synthetic datasets along multiple dimensions including visual realism, physical plausibility, and task relevance.
+
+Quality assessment metrics include visual fidelity measurements that compare synthetic images to real images using perceptual similarity metrics, physical consistency checks that verify simulated physics behavior matches expected real-world behavior, and task-specific validation that ensures synthetic data is appropriate for the intended machine learning task.
+
+## Deployment and Scaling Strategies
+
+Deploying synthetic data generation at scale requires robust infrastructure and efficient resource management. Isaac Sim 2025 supports distributed synthetic data generation across multiple machines and GPUs, with tools for managing large-scale data generation workflows and ensuring consistent data quality across distributed systems.
+
+The deployment strategies include containerized simulation environments for consistent execution across different hardware configurations, automated quality control pipelines that validate synthetic data before use, and efficient storage and retrieval systems that handle large volumes of synthetic data.

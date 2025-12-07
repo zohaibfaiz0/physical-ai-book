@@ -1,0 +1,23 @@
+{
+  "id": "test",
+  "title": "Test Document",
+  "description": "This is a test document to ensure the RAG system has content to work with.",
+  "source": "@site/docs/test.mdx",
+  "sourceDirName": ".",
+  "slug": "/test",
+  "permalink": "/book/docs/test",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/test.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Test Document",
+    "week": "Week 1"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "preface",
+    "permalink": "/book/docs/preface"
+  }
+}

@@ -1,0 +1,607 @@
+---
+title: "RCLPY and Agent Integration: Python Robotics with AI Agents"
+description: "Connecting Python-based ROS 2 nodes with AI agents and decision-making systems"
+week: "Weeks 3–5"
+---
+
+# RCLPY and Agent Integration: Python Robotics with AI Agents
+
+## RCLPY Fundamentals: Python Client Library for ROS 2
+
+The Robot Client Library for Python (rclpy) provides the Python interface to ROS 2, enabling developers to create ROS 2 nodes using Python's intuitive syntax while maintaining the performance and reliability of the underlying ROS 2 architecture. RCLPY serves as the Python equivalent to rclcpp, implementing the same core concepts of nodes, publishers, subscribers, services, and actions within Python's object-oriented framework. The library abstracts the complexity of the underlying C client library (rcl) while preserving the full functionality of ROS 2 communication patterns.
+
+RCLPY's architecture follows the same patterns as other ROS 2 client libraries, with nodes serving as the primary container for publishers, subscribers, services, and other ROS 2 entities. The library provides context management through the `rclpy.init()` and `rclpy.shutdown()` functions, which initialize and clean up the ROS 2 client library. The event loop is managed through `rclpy.spin()` and related functions, which process incoming messages and service requests while allowing the node to perform other operations.
+
+```python
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import LaserScan
+from geometry_msgs.msg import Twist
+from std_msgs.msg import String
+import numpy as np
+
+class RobotAgentNode(Node):
+    def __init__(self):
+        super().__init__('robot_agent_node')
+
+        # Initialize publishers
+        self.cmd_vel_publisher = self.create_publisher(
+            Twist,
+            '/cmd_vel',
+            10
+        )
+
+        self.status_publisher = self.create_publisher(
+            String,
+            '/agent_status',
+            10
+        )
+
+        # Initialize subscribers
+        self.scan_subscription = self.create_subscription(
+            LaserScan,
+            '/scan',
+            self.scan_callback,
+            10
+        )
+
+        self.odom_subscription = self.create_subscription(
+            String,  # Simplified for example
+            '/odom',
+            self.odom_callback,
+            10
+        )
+
+        # Timer for agent decision making
+        self.agent_timer = self.create_timer(
+            0.1,  # 10 Hz
+            self.agent_decision_loop
+        )
+
+        # Internal state
+        self.scan_data = None
+        self.odom_data = None
+        self.current_goal = None
+        self.agent_state = "IDLE"
+
+        self.get_logger().info("Robot Agent Node initialized")
+
+    def scan_callback(self, msg):
+        """Process laser scan data"""
+        self.scan_data = np.array(msg.ranges)
+        self.get_logger().debug(f"Received scan with {len(self.scan_data)} points")
+
+    def odom_callback(self, msg):
+        """Process odometry data"""
+        self.odom_data = msg.data
+        self.get_logger().debug(f"Received odometry: {self.odom_data}")
+
+    def agent_decision_loop(self):
+        """Main agent decision-making loop"""
+        if self.scan_data is not None:
+            # Perform agent decision making
+            cmd_vel = self.make_navigation_decision()
+            self.cmd_vel_publisher.publish(cmd_vel)
+
+            # Update status
+            status_msg = String()
+            status_msg.data = f"Agent state: {self.agent_state}, Goal: {self.current_goal}"
+            self.status_publisher.publish(status_msg)
+
+    def make_navigation_decision(self):
+        """Make navigation decisions based on sensor data"""
+        cmd = Twist()
+
+        if self.scan_data is not None:
+            # Simple obstacle avoidance
+            min_distance = np.min(self.scan_data)
+
+            if min_distance < 0.5:
+                # Obstacle detected, turn
+                cmd.linear.x = 0.0
+                cmd.angular.z = 0.5
+                self.agent_state = "AVOIDING"
+            else:
+                # Clear path, move forward
+                cmd.linear.x = 0.3
+                cmd.angular.z = 0.0
+                self.agent_state = "MOVING"
+
+        return cmd
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    robot_agent = RobotAgentNode()
+
+    try:
+        rclpy.spin(robot_agent)
+    except KeyboardInterrupt:
+        robot_agent.get_logger().info("Interrupted by user")
+    finally:
+        robot_agent.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+RCLPY's parameter system provides dynamic configuration capabilities similar to other ROS 2 client libraries. Parameters can be declared with type information, default values, and validation callbacks, ensuring that nodes receive appropriate configuration values. The parameter system supports hierarchical namespaces and can be configured through launch files, command-line arguments, or parameter files.
+
+The library includes sophisticated QoS (Quality of Service) configuration capabilities that allow fine-tuning of communication behavior. Python developers can specify reliability, durability, deadline, and other QoS policies when creating publishers and subscribers, ensuring that different types of data are transmitted with appropriate reliability and timing characteristics.
+
+RCLPY also provides execution management through executors, which control how callbacks are processed. The default single-threaded executor processes callbacks sequentially, while the multi-threaded executor can process multiple callbacks concurrently, improving performance for systems with many callbacks or computationally intensive operations.
+
+## AI Agent Integration Patterns
+
+The integration of AI agents with ROS 2 systems requires careful consideration of communication patterns, timing constraints, and data flow architectures. AI agents typically operate at different temporal scales than traditional ROS 2 nodes, requiring sophisticated synchronization mechanisms to ensure proper coordination between high-frequency sensor/actuator interfaces and lower-frequency decision-making processes.
+
+The agent integration pattern typically involves a ROS 2 node that acts as a bridge between the ROS 2 communication infrastructure and the AI agent's decision-making system. This bridge node subscribes to relevant sensor topics, processes the data into the format required by the AI agent, and publishes the agent's decisions to appropriate command topics. The bridge must handle timing differences, data buffering, and state synchronization between the real-time ROS 2 system and the potentially non-real-time AI agent.
+
+```python
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import Image, LaserScan
+from geometry_msgs.msg import Twist
+from std_msgs.msg import String
+from std_msgs.msg import Bool
+import numpy as np
+import threading
+import queue
+import time
+
+class AIAgentBridge(Node):
+    def __init__(self):
+        super().__init__('ai_agent_bridge')
+
+        # Publishers
+        self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.agent_status_pub = self.create_publisher(String, '/agent_status', 10)
+
+        # Subscribers
+        self.image_sub = self.create_subscription(
+            Image, '/camera/image_raw', self.image_callback, 10)
+        self.scan_sub = self.create_subscription(
+            LaserScan, '/scan', self.scan_callback, 10)
+        self.goal_sub = self.create_subscription(
+            String, '/goal', self.goal_callback, 10)
+
+        # Agent control
+        self.agent_enabled_sub = self.create_subscription(
+            Bool, '/agent_enabled', self.agent_control_callback, 10)
+
+        # Internal data structures
+        self.image_queue = queue.Queue(maxsize=5)
+        self.scan_queue = queue.Queue(maxsize=10)
+        self.current_goal = None
+        self.agent_enabled = True
+        self.agent_thread = None
+        self.should_stop = False
+
+        # Start AI agent thread
+        self.agent_thread = threading.Thread(target=self.ai_agent_loop)
+        self.agent_thread.start()
+
+        self.get_logger().info("AI Agent Bridge initialized")
+
+    def image_callback(self, msg):
+        """Handle incoming image data"""
+        if self.agent_enabled and not self.image_queue.full():
+            try:
+                # Convert ROS image to format suitable for AI processing
+                image_data = self.process_ros_image(msg)
+                self.image_queue.put_nowait(image_data)
+            except queue.Full:
+                self.get_logger().warn("Image queue is full, dropping frame")
+
+    def scan_callback(self, msg):
+        """Handle incoming laser scan data"""
+        if self.agent_enabled and not self.scan_queue.full():
+            try:
+                # Process laser scan data
+                scan_data = np.array(msg.ranges)
+                self.scan_queue.put_nowait(scan_data)
+            except queue.Full:
+                self.get_logger().warn("Scan queue is full, dropping data")
+
+    def goal_callback(self, msg):
+        """Handle incoming goal commands"""
+        self.current_goal = msg.data
+        self.get_logger().info(f"New goal received: {self.current_goal}")
+
+    def agent_control_callback(self, msg):
+        """Handle agent enable/disable commands"""
+        self.agent_enabled = msg.data
+        self.get_logger().info(f"Agent enabled: {self.agent_enabled}")
+
+    def process_ros_image(self, ros_image):
+        """Convert ROS image message to numpy array"""
+        # Simplified conversion - in practice, use cv_bridge
+        return np.array(ros_image.data).reshape(
+            ros_image.height, ros_image.width, -1
+        )
+
+    def ai_agent_loop(self):
+        """Main AI agent processing loop"""
+        while not self.should_stop:
+            if self.agent_enabled:
+                # Get latest sensor data
+                latest_scan = None
+                latest_image = None
+
+                # Get latest scan (non-blocking)
+                try:
+                    while not self.scan_queue.empty():
+                        latest_scan = self.scan_queue.get_nowait()
+                except queue.Empty:
+                    pass
+
+                # Get latest image (non-blocking)
+                try:
+                    while not self.image_queue.empty():
+                        latest_image = self.image_queue.get_nowait()
+                except queue.Empty:
+                    pass
+
+                if latest_scan is not None:
+                    # Process with AI agent
+                    action = self.run_ai_agent(latest_scan, latest_image)
+                    if action:
+                        self.cmd_vel_pub.publish(action)
+
+            time.sleep(0.05)  # 20 Hz processing rate
+
+    def run_ai_agent(self, scan_data, image_data):
+        """Execute AI agent decision making"""
+        cmd_vel = Twist()
+
+        # Example AI decision logic
+        if scan_data is not None:
+            min_dist = np.min(scan_data[np.isfinite(scan_data)])
+
+            if min_dist < 0.8:
+                # Obstacle avoidance
+                cmd_vel.linear.x = 0.0
+                cmd_vel.angular.z = 0.8
+            elif self.current_goal:
+                # Navigate toward goal
+                cmd_vel.linear.x = 0.5
+                cmd_vel.angular.z = 0.0
+            else:
+                # Stop if no goal
+                cmd_vel.linear.x = 0.0
+                cmd_vel.angular.z = 0.0
+
+        return cmd_vel
+
+    def destroy_node(self):
+        """Clean up before node destruction"""
+        self.should_stop = True
+        if self.agent_thread:
+            self.agent_thread.join(timeout=2.0)
+        super().destroy_node()
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    ai_bridge = AIAgentBridge()
+
+    try:
+        rclpy.spin(ai_bridge)
+    except KeyboardInterrupt:
+        ai_bridge.get_logger().info("Interrupted by user")
+    finally:
+        ai_bridge.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+The agent integration pattern must also handle error conditions gracefully, including sensor failures, agent failures, and communication timeouts. Robust implementations include fallback behaviors and graceful degradation when components fail, ensuring that the robot can maintain safe operation even when the AI agent is not functioning properly.
+
+## Advanced Agent Communication Patterns
+
+Advanced AI agent integration patterns in ROS 2 include multi-agent systems, hierarchical decision-making architectures, and reinforcement learning integration. Multi-agent systems involve multiple AI agents coordinating to achieve complex tasks, requiring sophisticated communication protocols and coordination mechanisms. These systems often use service calls, actions, or custom topics to coordinate between different agents with specialized capabilities.
+
+Hierarchical agent architectures separate high-level planning from low-level execution, with different agents responsible for different temporal and spatial scales of decision making. High-level agents might plan routes or tasks, while low-level agents handle immediate obstacle avoidance and motion control. The communication between these levels must preserve the intent of high-level decisions while allowing low-level adaptation to local conditions.
+
+```python
+import rclpy
+from rclpy.node import Node
+from rclpy.action import ActionClient
+from geometry_msgs.msg import PoseStamped
+from nav2_msgs.action import NavigateToPose
+from std_msgs.msg import String
+from std_msgs.msg import Bool
+
+class HierarchicalAgentNode(Node):
+    def __init__(self):
+        super().__init__('hierarchical_agent')
+
+        # Publishers
+        self.status_pub = self.create_publisher(String, '/hierarchical_agent_status', 10)
+        self.high_level_goal_pub = self.create_publisher(String, '/high_level_goal', 10)
+
+        # Subscribers
+        self.task_sub = self.create_subscription(
+            String, '/mission_task', self.task_callback, 10)
+        self.environment_sub = self.create_subscription(
+            String, '/environment_status', self.environment_callback, 10)
+
+        # Action clients for navigation
+        self.nav_client = ActionClient(
+            self,
+            NavigateToPose,
+            'navigate_to_pose'
+        )
+
+        # Internal state
+        self.current_mission = None
+        self.current_subgoal = None
+        self.high_level_agent_active = True
+        self.low_level_agent_active = True
+        self.environment_state = "UNKNOWN"
+
+        # Mission timer
+        self.mission_timer = self.create_timer(1.0, self.mission_loop)
+
+        self.get_logger().info("Hierarchical Agent Node initialized")
+
+    def task_callback(self, msg):
+        """Handle incoming mission tasks"""
+        self.current_mission = msg.data
+        self.get_logger().info(f"Received mission: {self.current_mission}")
+        self.execute_high_level_plan()
+
+    def environment_callback(self, msg):
+        """Handle environment updates"""
+        self.environment_state = msg.data
+        self.get_logger().info(f"Environment state: {self.environment_state}")
+
+    def mission_loop(self):
+        """Main mission execution loop"""
+        if self.current_mission:
+            status_msg = String()
+            status_msg.data = f"Mission: {self.current_mission}, State: {self.environment_state}"
+            self.status_pub.publish(status_msg)
+
+    def execute_high_level_plan(self):
+        """Execute high-level mission planning"""
+        if not self.high_level_agent_active:
+            return
+
+        # Example: Parse mission and generate subgoals
+        if self.current_mission == "EXPLORE_ROOM":
+            self.generate_exploration_subgoals()
+        elif self.current_mission == "FOLLOW_ROUTE":
+            self.generate_navigation_subgoals()
+
+        # Execute first subgoal
+        if self.current_subgoal:
+            self.execute_navigation_subgoal()
+
+    def generate_exploration_subgoals(self):
+        """Generate subgoals for room exploration"""
+        # In a real implementation, this would use path planning
+        # algorithms and environment maps to generate exploration points
+        exploration_points = [
+            (1.0, 1.0),
+            (2.0, 1.0),
+            (2.0, 2.0),
+            (1.0, 2.0),
+            (0.0, 1.0)
+        ]
+
+        self.get_logger().info(f"Generated {len(exploration_points)} exploration points")
+        # For this example, just use the first point
+        self.current_subgoal = exploration_points[0]
+
+    def generate_navigation_subgoals(self):
+        """Generate subgoals for route following"""
+        # Parse route and generate navigation goals
+        self.current_subgoal = (5.0, 5.0)  # Example destination
+
+    def execute_navigation_subgoal(self):
+        """Execute a navigation subgoal using Nav2"""
+        if not self.nav_client.wait_for_server(timeout_sec=1.0):
+            self.get_logger().error("Navigation server not available")
+            return
+
+        goal_msg = NavigateToPose.Goal()
+        goal_msg.pose.header.frame_id = 'map'
+        goal_msg.pose.pose.position.x = self.current_subgoal[0]
+        goal_msg.pose.pose.position.y = self.current_subgoal[1]
+        goal_msg.pose.pose.position.z = 0.0
+        goal_msg.pose.pose.orientation.w = 1.0  # No rotation
+
+        self.get_logger().info(f"Sending navigation goal to ({self.current_subgoal[0]}, {self.current_subgoal[1]})")
+
+        future = self.nav_client.send_goal_async(goal_msg)
+        future.add_done_callback(self.navigation_goal_callback)
+
+    def navigation_goal_callback(self, future):
+        """Handle navigation goal completion"""
+        goal_handle = future.result()
+        if not goal_handle.accepted:
+            self.get_logger().error("Navigation goal was rejected")
+            return
+
+        self.get_logger().info("Navigation goal accepted, waiting for result")
+
+        result_future = goal_handle.get_result_async()
+        result_future.add_done_callback(self.navigation_result_callback)
+
+    def navigation_result_callback(self, future):
+        """Handle navigation result"""
+        result = future.result().result
+        self.get_logger().info(f"Navigation completed with result: {result}")
+
+        # Process next subgoal or mission completion
+        if self.current_mission == "EXPLORE_ROOM":
+            # In a real implementation, continue to next exploration point
+            self.get_logger().info("Exploration subgoal completed")
+        elif self.current_mission == "FOLLOW_ROUTE":
+            self.get_logger().info("Route following completed")
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    hierarchical_agent = HierarchicalAgentNode()
+
+    try:
+        rclpy.spin(hierarchical_agent)
+    except KeyboardInterrupt:
+        hierarchical_agent.get_logger().info("Interrupted by user")
+    finally:
+        hierarchical_agent.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+Reinforcement learning integration patterns involve training agents that can learn from interaction with the environment. These systems often use custom message types to exchange reward signals, state observations, and action selections between the learning algorithm and the robot's control system. The integration must handle the asynchronous nature of learning, where the agent's policy may be updated periodically based on new experience.
+
+## Launch Files and System Configuration
+
+The deployment of AI agent systems in ROS 2 requires sophisticated launch file configurations that coordinate multiple nodes, parameter servers, and external services. Launch files in ROS 2 (using Python launch files) provide powerful mechanisms for configuring complex systems with conditional startup, parameter passing, and node composition.
+
+Launch files for AI agent systems typically include the AI agent bridge nodes, sensor processing nodes, control nodes, and visualization tools. The launch system can also start external services like model servers, database connections, or cloud services that the AI agent may depend on.
+
+```python
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler
+from launch.conditions import IfCondition
+from launch.event_handlers import OnProcessExit
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.actions import Node, ComposableNodeContainer
+from launch_ros.descriptions import ComposableNode
+from launch_ros.substitutions import FindPackageShare
+
+def generate_launch_description():
+    # Launch configuration variables
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    agent_enabled = LaunchConfiguration('agent_enabled', default='true')
+    robot_model = LaunchConfiguration('robot_model', default='simple_humanoid')
+
+    # Declare launch arguments
+    declare_use_sim_time = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use simulation clock if true'
+    )
+
+    declare_agent_enabled = DeclareLaunchArgument(
+        'agent_enabled',
+        default_value='true',
+        description='Enable AI agent if true'
+    )
+
+    # AI Agent Bridge Node
+    ai_agent_bridge = Node(
+        package='robot_ai',
+        executable='ai_agent_bridge',
+        name='ai_agent_bridge',
+        parameters=[
+            {'use_sim_time': use_sim_time},
+            {'agent_enabled': agent_enabled}
+        ],
+        remappings=[
+            ('/camera/image_raw', '/head_camera/image_raw'),
+            ('/scan', '/laser_scan'),
+            ('/cmd_vel', '/cmd_vel_out')
+        ],
+        output='screen'
+    )
+
+    # Perception processing node
+    perception_node = Node(
+        package='perception_pkg',
+        executable='object_detector',
+        name='object_detector',
+        parameters=[
+            {'use_sim_time': use_sim_time},
+            {'model_path': 'yolov8n.pt'}
+        ],
+        output='screen'
+    )
+
+    # Behavior tree node for high-level decision making
+    behavior_tree_node = Node(
+        package='nav2_bt_navigator',
+        executable='bt_navigator',
+        name='bt_navigator',
+        parameters=[
+            PathJoinSubstitution([
+                FindPackageShare('robot_navigation'),
+                'config',
+                'behavior_tree.xml'
+            ]),
+            {'use_sim_time': use_sim_time}
+        ],
+        output='screen'
+    )
+
+    # RViz2 for visualization
+    rviz_config = PathJoinSubstitution([
+        FindPackageShare('robot_viz'),
+        'rviz',
+        'robot_ai.rviz'
+    ])
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config],
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen',
+        condition=IfCondition(LaunchConfiguration('rviz', default='true'))
+    )
+
+    # Composable nodes for better performance
+    perception_container = ComposableNodeContainer(
+        name='perception_container',
+        namespace='',
+        package='rclcpp_components',
+        executable='component_container',
+        composable_node_descriptions=[
+            ComposableNode(
+                package='image_proc',
+                plugin='image_proc::RectifyNode',
+                name='image_rectifier',
+                remappings=[('image', '/camera/image_raw'),
+                           ('camera_info', '/camera/camera_info'),
+                           ('image_rect', '/camera/image_rect')]
+            ),
+            ComposableNode(
+                package='depth_image_proc',
+                plugin='depth_image_proc::PointCloudXyzrgbNode',
+                name='pointcloud_xyzrgb',
+                remappings=[('rgb/image_rect_color', '/camera/image_rect'),
+                           ('depth/image_rect', '/camera/depth/image_rect'),
+                           ('points', '/camera/points')]
+            )
+        ],
+        output='screen'
+    )
+
+    # Return launch description
+    ld = LaunchDescription()
+
+    # Add launch arguments
+    ld.add_action(declare_use_sim_time)
+    ld.add_action(declare_agent_enabled)
+
+    # Add nodes
+    ld.add_action(ai_agent_bridge)
+    ld.add_action(perception_node)
+    ld.add_action(behavior_tree_node)
+    ld.add_action(rviz_node)
+    ld.add_action(perception_container)
+
+    return ld
+```
+
+The launch system also supports dynamic reconfiguration of parameters, allowing AI agents to adjust their behavior based on changing conditions or operator commands. Parameter files can specify different configurations for different operating modes, such as indoor vs. outdoor operation, or different mission types. The launch system can also include health monitoring and automatic restart capabilities for critical agent components, ensuring system reliability in long-duration operations.

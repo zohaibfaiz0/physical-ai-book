@@ -1,0 +1,27 @@
+{
+  "id": "intro",
+  "title": "Introduction",
+  "description": "Getting started with Physical AI and Humanoid Robotics",
+  "source": "@site/docs/intro.mdx",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/intro.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Introduction",
+    "description": "Getting started with Physical AI and Humanoid Robotics"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Hardware Requirements",
+    "permalink": "/docs/hardware-requirements"
+  },
+  "next": {
+    "title": "preface",
+    "permalink": "/docs/preface"
+  }
+}

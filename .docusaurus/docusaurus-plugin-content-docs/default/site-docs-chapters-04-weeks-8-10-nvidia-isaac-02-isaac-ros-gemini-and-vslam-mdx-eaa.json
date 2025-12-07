@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
+  "title": "Isaac ROS, Gemini, and Visual SLAM: Hardware-Accelerated Perception",
+  "description": "Advanced perception systems with Isaac ROS, Gemini 1.5 integration, and Nav2 navigation",
+  "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/02-isaac-ros-gemini-and-vslam.mdx",
+  "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
+  "slug": "/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
+  "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/04-weeks-8-10-nvidia-isaac/02-isaac-ros-gemini-and-vslam.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Isaac ROS, Gemini, and Visual SLAM: Hardware-Accelerated Perception",
+    "description": "Advanced perception systems with Isaac ROS, Gemini 1.5 integration, and Nav2 navigation",
+    "week": "Weeks 8–10"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Isaac Sim 2025 Mastery: Omniverse USD and Advanced Extensions",
+    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"
+  },
+  "next": {
+    "title": "Synthetic Data at Scale: Domain Randomization and Active Learning",
+    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale"
+  }
+}

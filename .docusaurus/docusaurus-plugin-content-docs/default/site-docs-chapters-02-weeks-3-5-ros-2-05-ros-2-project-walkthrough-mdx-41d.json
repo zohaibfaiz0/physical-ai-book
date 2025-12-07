@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-3-5-ros2/ros2-project-walkthrough",
+  "title": "ROS 2 Project Walkthrough: Building a Complete Humanoid Robot System",
+  "description": "Step-by-step guide to creating a complete ROS 2 project for humanoid robot control",
+  "source": "@site/docs/chapters/02-weeks-3-5-ros2/05-ros2-project-walkthrough.mdx",
+  "sourceDirName": "chapters/02-weeks-3-5-ros2",
+  "slug": "/chapters/weeks-3-5-ros2/ros2-project-walkthrough",
+  "permalink": "/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/02-weeks-3-5-ros2/05-ros2-project-walkthrough.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "ROS 2 Project Walkthrough: Building a Complete Humanoid Robot System",
+    "description": "Step-by-step guide to creating a complete ROS 2 project for humanoid robot control",
+    "week": "Weeks 3–5"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "RCLPY and Agent Integration: Python Robotics with AI Agents",
+    "permalink": "/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge"
+  },
+  "next": {
+    "title": "index",
+    "permalink": "/docs/chapters/weeks-6-7-simulation/"
+  }
+}

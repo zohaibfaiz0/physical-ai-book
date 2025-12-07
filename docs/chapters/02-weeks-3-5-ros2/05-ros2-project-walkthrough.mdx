@@ -1,0 +1,515 @@
+---
+title: "ROS 2 Project Walkthrough: Building a Complete Humanoid Robot System"
+description: "Step-by-step guide to creating a complete ROS 2 project for humanoid robot control"
+week: "Weeks 3–5"
+---
+
+# ROS 2 Project Walkthrough: Building a Complete Humanoid Robot System
+
+## Project Structure and Setup
+
+Creating a complete ROS 2 project for humanoid robot control begins with establishing the proper project structure and development environment. The recommended structure follows ROS 2 conventions while accommodating the complexity of humanoid systems. The project begins with creating a workspace directory and organizing packages according to their functionality: perception, control, simulation, and utility packages.
+
+```bash
+# Create workspace
+mkdir -p ~/ros2_humanoid_ws/src
+cd ~/ros2_humanoid_ws
+
+# Create package structure
+mkdir -p src/humanoid_bringup
+mkdir -p src/humanoid_control
+mkdir -p src/humanoid_perception
+mkdir -p src/humanoid_simulation
+mkdir -p src/humanoid_msgs
+```
+
+The project requires ROS 2 Humble Hawksbill (or Iron/Iron/Jazzy for 2025), which provides the necessary stability and features for humanoid robot development. Install ROS 2 and essential dependencies:
+
+```bash
+# Install ROS 2 Humble (Ubuntu 22.04)
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+sudo apt update
+sudo apt install ros-humble-desktop
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+
+# Initialize rosdep
+sudo rosdep init
+rosdep update
+
+# Source ROS 2 environment
+source /opt/ros/humble/setup.bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+```
+
+The humanoid_msgs package contains custom message and service definitions that facilitate communication between different system components. Create the package with appropriate dependencies:
+
+```bash
+cd ~/ros2_humanoid_ws/src
+ros2 pkg create --dependencies std_msgs builtin_interfaces --maintainer-email "developer@panaversity.com" --maintainer-name "Panaversity Developer" --license "Apache-2.0" humanoid_msgs
+```
+
+Within humanoid_msgs, create the necessary message definitions for humanoid-specific data types:
+
+```bash
+# Create message directories
+mkdir -p humanoid_msgs/msg
+mkdir -p humanoid_msgs/srv
+
+# Create humanoid joint state message
+cat > humanoid_msgs/msg/HumanoidJointState.msg << EOF
+# Custom message for humanoid joint states
+string[] name
+float64[] position
+float64[] velocity
+float64[] effort
+string[] limb_names  # e.g., "left_arm", "right_leg", etc.
+uint8[] limb_types   # 0=arm, 1=leg, 2=head
+EOF
+
+# Create humanoid pose message
+cat > humanoid_msgs/msg/HumanoidPose.msg << EOF
+# Custom message for humanoid pose
+builtin_interfaces/Time timestamp
+geometry_msgs/Pose torso_pose
+geometry_msgs/Pose[] limb_poses
+float64 center_of_mass_x
+float64 center_of_mass_y
+float64 center_of_mass_z
+uint8[] support_polygon  # indices of feet in support
+EOF
+```
+
+Update the package.xml to include the message generation dependencies:
+
+```xml
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>humanoid_msgs</name>
+  <version>0.0.0</version>
+  <description>Custom messages for humanoid robot control</description>
+  <maintainer email="developer@panaversity.com">Panaversity Developer</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>rosidl_default_generators</build_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>builtin_interfaces</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+```
+
+And update the CMakeLists.txt to include message generation:
+
+```cmake
+cmake_minimum_required(VERSION 3.8)
+project(humanoid_msgs)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# Find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+
+# Generate messages
+set(msg_files
+  "msg/HumanoidJointState.msg"
+  "msg/HumanoidPose.msg"
+)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${msg_files}
+  DEPENDENCIES std_msgs geometry_msgs builtin_interfaces
+  ADD_LINTER_TESTS
+)
+
+ament_package()
+```
+
+## Core Control System Implementation
+
+The humanoid_control package implements the core control algorithms for the humanoid robot, including joint control, balance control, and trajectory generation. This package serves as the central hub for all control-related functionality.
+
+```bash
+cd ~/ros2_humanoid_ws/src
+ros2 pkg create --dependencies rclcpp rclpy std_msgs sensor_msgs geometry_msgs humanoid_msgs --maintainer-email "developer@panaversity.com" --maintainer-name "Panaversity Developer" --license "Apache-2.0" humanoid_control
+```
+
+Create the main controller node in C++:
+
+```cpp
+// humanoid_control/src/humanoid_controller.cpp
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
+#include <humanoid_msgs/msg/humanoid_joint_state.hpp>
+#include <std_msgs/msg/float64_multi_array.hpp>
+#include <vector>
+#include <map>
+#include <memory>
+
+class HumanoidController : public rclcpp::Node
+{
+public:
+    HumanoidController() : Node("humanoid_controller")
+    {
+        // Create publishers
+        joint_command_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+            "/joint_group_position_controller/commands", 10);
+
+        // Create subscribers
+        joint_state_subscriber_ = this->create_subscription<sensor_msgs::msg::JointState>(
+            "/joint_states", 10,
+            std::bind(&HumanoidController::joint_state_callback, this, std::placeholders::_1));
+
+        humanoid_state_subscriber_ = this->create_subscription<humanoid_msgs::msg::HumanoidJointState>(
+            "/humanoid_joint_states", 10,
+            std::bind(&HumanoidController::humanoid_state_callback, this, std::placeholders::_1));
+
+        // Create timer for control loop
+        control_timer_ = this->create_wall_timer(
+            std::chrono::milliseconds(10), // 100 Hz control loop
+            std::bind(&HumanoidController::control_loop, this));
+
+        RCLCPP_INFO(this->get_logger(), "Humanoid Controller initialized");
+    }
+
+private:
+    void joint_state_callback(const sensor_msgs::msg::JointState::SharedPtr msg)
+    {
+        // Store current joint states
+        current_joint_positions_ = msg->position;
+        current_joint_velocities_ = msg->velocity;
+        current_joint_names_ = msg->name;
+    }
+
+    void humanoid_state_callback(const humanoid_msgs::msg::HumanoidJointState::SharedPtr msg)
+    {
+        // Process humanoid-specific joint state
+        humanoid_joint_names_ = msg->name;
+        humanoid_joint_positions_ = msg->position;
+        humanoid_limb_names_ = msg->limb_names;
+    }
+
+    void control_loop()
+    {
+        // Main control algorithm
+        std_msgs::msg::Float64MultiArray command_msg;
+
+        // Generate control commands based on current state
+        std::vector<double> commands = generate_control_commands();
+
+        command_msg.data = commands;
+
+        // Publish control commands
+        joint_command_publisher_->publish(command_msg);
+    }
+
+    std::vector<double> generate_control_commands()
+    {
+        // Implement control algorithm
+        // This is a simplified example - real implementation would include
+        // inverse kinematics, balance control, trajectory planning, etc.
+
+        std::vector<double> commands;
+
+        // Example: simple position control
+        for (size_t i = 0; i < current_joint_positions_.size(); ++i) {
+            // Implement PD control or more sophisticated control
+            double target_pos = current_joint_positions_[i] + 0.01; // Simple increment
+            commands.push_back(target_pos);
+        }
+
+        return commands;
+    }
+
+    // Publishers
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr joint_command_publisher_;
+
+    // Subscribers
+    rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_subscriber_;
+    rclcpp::Subscription<humanoid_msgs::msg::HumanoidJointState>::SharedPtr humanoid_state_subscriber_;
+
+    // Timer
+    rclcpp::TimerBase::SharedPtr control_timer_;
+
+    // Internal state
+    std::vector<double> current_joint_positions_;
+    std::vector<double> current_joint_velocities_;
+    std::vector<std::string> current_joint_names_;
+
+    std::vector<double> humanoid_joint_positions_;
+    std::vector<std::string> humanoid_joint_names_;
+    std::vector<std::string> humanoid_limb_names_;
+};
+
+int main(int argc, char * argv[])
+{
+    rclcpp::init(argc, argv);
+    rclcpp::spin(std::make_shared<HumanoidController>());
+    rclcpp::shutdown();
+    return 0;
+}
+```
+
+Update the CMakeLists.txt for the controller package:
+
+```cmake
+cmake_minimum_required(VERSION 3.8)
+project(humanoid_control)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# Find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(humanoid_msgs REQUIRED)
+
+# Add executable
+add_executable(humanoid_controller src/humanoid_controller.cpp)
+ament_target_dependencies(humanoid_controller
+  rclcpp std_msgs sensor_msgs geometry_msgs humanoid_msgs)
+
+# Install targets
+install(TARGETS
+  humanoid_controller
+  DESTINATION lib/${PROJECT_NAME})
+
+ament_package()
+```
+
+## Simulation and Testing Environment
+
+The simulation environment provides a safe and controlled space for testing humanoid robot algorithms before deployment on physical hardware. Using Gazebo with ROS 2, we can create realistic simulation scenarios that closely match real-world conditions.
+
+Create the simulation package:
+
+```bash
+cd ~/ros2_humanoid_ws/src
+ros2 pkg create --dependencies rclcpp rclpy gazebo_ros_pkgs robot_state_publisher joint_state_publisher --maintainer-email "developer@panaversity.com" --maintainer-name "Panaversity Developer" --license "Apache-2.0" humanoid_simulation
+```
+
+Create a launch file to start the simulation:
+
+```python
+# humanoid_simulation/launch/humanoid_sim.launch.py
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.conditions import IfCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+
+def generate_launch_description():
+    # Launch configuration variables
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    robot_model = LaunchConfiguration('robot_model', default='simple_humanoid')
+
+    # Declare launch arguments
+    declare_use_sim_time = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='true',
+        description='Use simulation clock if true'
+    )
+
+    declare_robot_model = DeclareLaunchArgument(
+        'robot_model',
+        default_value='simple_humanoid',
+        description='Robot model to load'
+    )
+
+    # Robot State Publisher
+    robot_description_path = PathJoinSubstitution([
+        FindPackageShare('humanoid_simulation'),
+        'urdf',
+        LaunchConfiguration('robot_model')
+    ])
+
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'robot_description': robot_description_path
+        }],
+        output='screen'
+    )
+
+    # Gazebo launch
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('gazebo_ros'),
+                'launch',
+                'gazebo.launch.py'
+            ])
+        ]),
+    )
+
+    # Joint State Publisher (for GUI control)
+    joint_state_publisher = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen'
+    )
+
+    # Joint State Publisher GUI
+    joint_state_publisher_gui = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen'
+    )
+
+    # RViz for visualization
+    rviz_config = PathJoinSubstitution([
+        FindPackageShare('humanoid_simulation'),
+        'rviz',
+        'humanoid_sim.rviz'
+    ])
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config],
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen'
+    )
+
+    # Return launch description
+    ld = LaunchDescription()
+
+    # Add launch arguments
+    ld.add_action(declare_use_sim_time)
+    ld.add_action(declare_robot_model)
+
+    # Add nodes
+    ld.add_action(robot_state_publisher)
+    ld.add_action(gazebo)
+    ld.add_action(joint_state_publisher)
+    ld.add_action(joint_state_publisher_gui)
+    ld.add_action(rviz_node)
+
+    return ld
+```
+
+## System Integration and Deployment
+
+The final step involves integrating all components and creating launch files for complete system deployment. The humanoid_bringup package coordinates the startup of all necessary nodes for the complete humanoid system.
+
+Create the bringup package:
+
+```bash
+cd ~/ros2_humanoid_ws/src
+ros2 pkg create --dependencies rclpy launch ros2launch --maintainer-email "developer@panaversity.com" --maintainer-name "Panaversity Developer" --license "Apache-2.0" humanoid_bringup
+```
+
+Create the main system launch file:
+
+```python
+# humanoid_bringup/launch/humanoid_system.launch.py
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
+
+def generate_launch_description():
+    # Launch configuration variables
+    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    robot_model = LaunchConfiguration('robot_model', default='simple_humanoid')
+
+    # Include all system components
+    perception_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('humanoid_perception'),
+                'launch',
+                'perception.launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'use_sim_time': use_sim_time
+        }.items()
+    )
+
+    control_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('humanoid_control'),
+                'launch',
+                'control.launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'use_sim_time': use_sim_time
+        }.items()
+    )
+
+    # Create launch description
+    ld = LaunchDescription()
+
+    # Add launch arguments
+    ld.add_action(DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use simulation clock if true'
+    ))
+
+    # Add system components
+    ld.add_action(perception_launch)
+    ld.add_action(control_launch)
+
+    return ld
+```
+
+Build the workspace:
+
+```bash
+cd ~/ros2_humanoid_ws
+source /opt/ros/humble/setup.bash
+colcon build --packages-select humanoid_msgs humanoid_control humanoid_simulation humanoid_bringup
+source install/setup.bash
+```
+
+The complete system is now ready for testing. Launch the simulation:
+
+```bash
+ros2 launch humanoid_simulation humanoid_sim.launch.py
+```
+
+Then in another terminal, launch the control system:
+
+```bash
+ros2 launch humanoid_control humanoid_control.launch.py
+```
+
+This walkthrough demonstrates the complete process of creating a ROS 2 project for humanoid robot control, from initial setup through system integration and deployment. The modular architecture allows for easy extension and modification of individual components while maintaining system integrity.

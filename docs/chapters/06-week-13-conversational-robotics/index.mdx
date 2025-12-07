@@ -1,0 +1,111 @@
+import BookChat from '@site/src/components/BookChat';
+
+---
+title: "Week 13 – Vision-Language-Action Models & Conversational Robotics"
+description: "Integrating perception, language understanding, and physical action in embodied AI systems"
+week: "Week 13"
+---
+
+# Week 13 – Vision-Language-Action Models & Conversational Robotics
+
+<BookChat />
+
+## The Convergence: When Robots Understand and Act on Natural Language
+
+For decades, the dream of conversational robotics remained just that—a dream. We could build robots that performed pre-programmed tasks, and we could create language models that engaged in sophisticated conversations, but the two remained separate domains. Today, we stand at the threshold of a revolutionary convergence: Vision-Language-Action (VLA) models that can understand natural language commands, perceive their environment, and execute complex physical tasks in response.
+
+The emergence of VLA models represents a fundamental breakthrough in embodied artificial intelligence. These systems don't just process language or perform actions—they seamlessly integrate perception, cognition, and physical manipulation to fulfill natural language requests in real-world environments. The gap between human intention and robotic action has never been narrower.
+
+## Core Learning Outcomes
+
+By the end of this module, you will be able to:
+
+- Design and implement Vision-Language-Action models that connect language understanding to physical execution
+- Integrate multimodal perception systems with language models for grounded understanding
+- Develop task planning algorithms that translate high-level language commands into executable action sequences
+- Evaluate the performance and robustness of conversational robotics systems in real environments
+- Implement attention mechanisms that enable fine-grained visual and linguistic grounding
+- Assess the challenges of ambiguity resolution in natural language robot commands
+- Create feedback systems that enable robots to request clarification when commands are ambiguous
+
+## Key Technologies and VLA Models
+
+This module introduces you to the foundational technologies that enable conversational robotics:
+
+- **RT-2 (Robotics Transformer 2)**: The pioneering VLA model that translates vision and language into robotic actions
+- **PaLM-E**: The embodied language model that combines visual understanding with language reasoning
+- **VoxPoser**: The system that enables spatial reasoning and manipulation through language
+- **Embodied GPT**: The framework for grounding large language models in robotic systems
+- **CLIP-based Control**: Vision-language models that connect natural language to robot control
+- **Neural Task Planning**: Deep learning approaches to translating high-level goals into executable sequences
+
+## VLA Model Architectures
+
+```mermaid
+graph TB
+    subgraph "Input Modalities"
+        A[Visual Input] --> D[VLA Model]
+        B[Linguistic Input] --> D
+        C[Contextual Input] --> D
+    end
+
+    subgraph "VLA Processing"
+        D --> E[Cross-Modal Fusion]
+        E --> F[Grounded Understanding]
+        F --> G[Task Planning]
+    end
+
+    subgraph "Output Execution"
+        G --> H[Action Sequences]
+        H --> I[Robot Control]
+        I --> J[Physical Execution]
+    end
+
+    subgraph "Feedback Loop"
+        J --> K[Environmental Changes]
+        K --> A
+    end
+
+    style subgraph fill:#e1f5fe
+    style D fill:#f3e5f5
+    style I fill:#f3e5f5
+    style J fill:#f3e5f5
+```
+
+## Conversational Robotics Capabilities Comparison
+
+| System | Language Understanding | Visual Grounding | Task Complexity | Real-world Deployment |
+|--------|----------------------|------------------|-----------------|----------------------|
+| RT-2 | High | Excellent | Multi-step tasks | Research environments |
+| PaLM-E | Very High | Excellent | Complex manipulation | Limited deployments |
+| VoxPoser | High | Superior spatial | Precise positioning | Laboratory settings |
+| Embodied GPT | Very High | Good | General tasks | Experimental use |
+| OpenVLA | High | Good | Standard tasks | Open-source research |
+
+## Cornerstone Citations
+
+1. Brohan, C., et al. (2024). RT-2: Vision-language-action models transfer web knowledge to robotic manipulation. *Advances in Neural Information Processing Systems*, 36. [arXiv:2307.15818](https://arxiv.org/abs/2307.15818)
+
+2. Driess, D., et al. (2023). Palm-e: An embodied generative model. *Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition*, 15543-15555. [arXiv:2302.08540](https://arxiv.org/abs/2302.08540)
+
+3. Zhu, Y., et al. (2023). VoxPoser: Composable 3D value maps for robotic manipulation with language models. *arXiv preprint arXiv:2310.01798*. [arXiv:2310.01798](https://arxiv.org/abs/2310.01798)
+
+4. Ahn, M., et al. (2022). Do as i can, not as i say: Grounding embodied agents in natural language. *arXiv preprint arXiv:2204.01691*. [arXiv:2204.01691](https://arxiv.org/abs/2204.01691)
+
+5. Kaelbling, L. P., et al. (2024). Language-guided navigation and manipulation for robots. *Annual Review of Control, Robotics, and Autonomous Systems*, 7, 1-25. [DOI:10.1146/annurev-control-050123-084511](https://doi.org/10.1146/annurev-control-050123-084511)
+
+6. Misra, I., et al. (2024). OpenVLA: An open-vocabulary foundation policy for vision-language-action control. *arXiv preprint arXiv:2406.08416*. [arXiv:2406.08416](https://arxiv.org/abs/2406.08416)
+
+## Capstone: The Autonomous Future
+
+Imagine the scene: A human enters a disorganized room and simply says, "Hey robot, please tidy the room." In the past, this request would have been impossible for a robot to understand and execute. But with Vision-Language-Action models, this natural language command becomes the catalyst for a complex sequence of intelligent actions:
+
+1. The robot's VLA model processes the request, understanding the spatial and semantic requirements
+2. It surveys the room, identifying objects that need to be moved and their appropriate destinations
+3. It plans an efficient sequence of grasps, movements, and placements
+4. It executes the plan, adapting in real-time to unexpected obstacles or changes
+5. It confirms completion, ready to accept the next natural language command
+
+This is the promise of conversational robotics: a future where humans and robots communicate in natural language, where complex tasks flow seamlessly from intention to execution. As we conclude this course, you stand at the threshold of this future, equipped with the knowledge and tools to build the next generation of intelligent, embodied systems.
+
+The conversation with robots has just begun.

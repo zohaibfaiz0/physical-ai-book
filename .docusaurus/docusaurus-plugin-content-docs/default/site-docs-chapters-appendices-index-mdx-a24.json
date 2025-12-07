@@ -1,0 +1,24 @@
+{
+  "id": "chapters/appendices/index",
+  "title": "index",
+  "description": "---",
+  "source": "@site/docs/chapters/appendices/index.mdx",
+  "sourceDirName": "chapters/appendices",
+  "slug": "/chapters/appendices/",
+  "permalink": "/docs/chapters/appendices/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/appendices/index.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Capstone: Full Autonomous Humanoid Robot System",
+    "permalink": "/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid"
+  },
+  "next": {
+    "title": "Hardware Requirements",
+    "permalink": "/docs/hardware-requirements"
+  }
+}

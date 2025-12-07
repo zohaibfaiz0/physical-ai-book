@@ -1,0 +1,24 @@
+{
+  "id": "preface",
+  "title": "preface",
+  "description": "---",
+  "source": "@site/docs/preface.mdx",
+  "sourceDirName": ".",
+  "slug": "/preface",
+  "permalink": "/book/docs/preface",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/preface.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Introduction",
+    "permalink": "/book/docs/intro"
+  },
+  "next": {
+    "title": "Test Document",
+    "permalink": "/book/docs/test"
+  }
+}

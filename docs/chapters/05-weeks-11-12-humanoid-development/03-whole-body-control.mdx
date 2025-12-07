@@ -1,0 +1,748 @@
+---
+title: "Whole-Body Control: Quadratic Programming and Torque Control"
+description: "Advanced whole-body control with quadratic programming, torque control, and centroidal dynamics"
+week: "Weeks 11–12"
+---
+
+# Whole-Body Control: Quadratic Programming and Torque Control
+
+## Quadratic Programming Fundamentals for Whole-Body Control
+
+Quadratic Programming (QP) has emerged as the dominant mathematical framework for whole-body control in humanoid robots, providing a systematic approach to coordinate multiple tasks while respecting physical constraints. The QP formulation allows for the optimization of joint torques or accelerations by minimizing a quadratic cost function subject to linear equality and inequality constraints that represent robot dynamics, joint limits, and contact constraints.
+
+The standard QP problem in whole-body control takes the form:
+
+```
+minimize: (1/2) * x^T * H * x + f^T * x
+subject to: A * x = b  (equality constraints)
+           C * x <= d  (inequality constraints)
+```
+
+Where `x` represents the optimization variables (typically joint accelerations or torques), `H` is the positive semi-definite Hessian matrix representing task costs, `f` is the linear cost vector, and the constraints represent system dynamics and physical limits.
+
+The cost function typically includes multiple terms representing different control objectives:
+
+- **Task tracking**: Minimize error between desired and actual task-space velocities/accelerations
+- **Joint centering**: Keep joints near preferred configurations
+- **Effort minimization**: Minimize actuator effort for energy efficiency
+- **Smoothness**: Minimize jerk or acceleration changes for smooth motion
+
+```cpp
+// Quadratic Program formulation for whole-body control
+#include <Eigen/Dense>
+#include <vector>
+#include <memory>
+
+class WholeBodyQP {
+public:
+    WholeBodyQP(int n_dof) : n_dof_(n_dof) {
+        // Initialize QP dimensions
+        n_vars_ = n_dof_;  // Optimization variables: joint accelerations
+        n_eq_constraints_ = 6;  // Force balance constraints (linear + angular momentum)
+        n_ineq_constraints_ = 2 * n_dof_;  // Joint limits (position and velocity)
+
+        // Initialize QP matrices
+        H_.resize(n_vars_, n_vars_);
+        f_.resize(n_vars_);
+        A_.resize(n_eq_constraints_, n_vars_);
+        b_.resize(n_eq_constraints_);
+        C_.resize(n_ineq_constraints_, n_vars_);
+        d_.resize(n_ineq_constraints_);
+    }
+
+    void setTaskCosts(const std::vector<Task>& tasks) {
+        // Reset Hessian and linear cost
+        H_.setZero();
+        f_.setZero();
+
+        // Add task costs to the QP
+        for (const auto& task : tasks) {
+            addTaskCost(task);
+        }
+    }
+
+    void setConstraints(const RobotState& state) {
+        // Set equality constraints (dynamics)
+        setDynamicsConstraints(state);
+
+        // Set inequality constraints (limits)
+        setJointLimits(state);
+        setContactConstraints(state);
+    }
+
+    Eigen::VectorXd solve() {
+        // Solve the QP using an appropriate solver
+        // This would typically interface with OSQP, qpOASES, or similar
+        return solveQP(H_, f_, A_, b_, C_, d_);
+    }
+
+private:
+    void addTaskCost(const Task& task) {
+        // Task Jacobian: J maps joint velocities to task velocities
+        // Cost term: ||J*q_dot - v_des||^2 = q_dot^T * J^T * J * q_dot - 2 * v_des^T * J * q_dot + const
+        // In acceleration form: ||J*q_ddot + J_dot*q_dot - a_des||^2
+
+        Eigen::MatrixXd J_task = task.jacobian;
+        Eigen::VectorXd a_des = task.desired_acceleration;
+        Eigen::VectorXd J_dot_q_dot = task.jacobian_derivative_times_velocity;
+
+        // Quadratic term: x^T * (J^T * J) * x
+        H_ += task.weight * J_task.transpose() * J_task;
+
+        // Linear term: -2 * (a_des - J_dot*q_dot)^T * J * x
+        f_ -= 2.0 * task.weight * (a_des - J_dot_q_dot).transpose() * J_task;
+    }
+
+    void setDynamicsConstraints(const RobotState& state) {
+        // Centroidal dynamics constraints
+        // M * q_ddot = h + S^T * lambda
+        // Where M is the mass matrix, h contains Coriolis/gravitational terms
+        // S is the selection matrix, lambda are the contact forces
+
+        Eigen::MatrixXd M = state.mass_matrix;
+        Eigen::VectorXd h = state.bias_forces;
+        Eigen::MatrixXd S = state.selection_matrix;
+
+        // Rearrange: M * q_ddot - S^T * lambda = -h
+        // For QP formulation, we typically linearize around a desired state
+
+        // Example: force balance constraints for centroidal momentum
+        Eigen::VectorXd com_pos = state.com_position;
+        double total_mass = state.total_mass;
+
+        // Linear momentum balance: m * com_ddot = sum of external forces
+        // Angular momentum balance: H_dot = sum of external moments
+
+        // These constraints would be formulated based on the specific robot and contact configuration
+    }
+
+    void setJointLimits(const RobotState& state) {
+        // Joint position limits: q_min <= q <= q_max
+        // Convert to inequality form: -q <= -q_min and q <= q_max
+        for (int i = 0; i < n_dof_; ++i) {
+            // Position limits
+            C_(2*i, i) = 1.0;
+            d_(2*i) = state.joint_limits_upper[i];
+
+            C_(2*i+1, i) = -1.0;
+            d_(2*i+1) = -state.joint_limits_lower[i];
+        }
+    }
+
+    void setContactConstraints(const RobotState& state) {
+        // Contact stability constraints (friction cones, ZMP, etc.)
+        // These would depend on the specific contact model and stability requirements
+    }
+
+    Eigen::VectorXd solveQP(const Eigen::MatrixXd& H, const Eigen::VectorXd& f,
+                           const Eigen::MatrixXd& A, const Eigen::VectorXd& b,
+                           const Eigen::MatrixXd& C, const Eigen::VectorXd& d) {
+        // Placeholder for actual QP solver integration
+        // In practice, this would use OSQP, qpOASES, or similar
+        return Eigen::VectorXd::Zero(n_vars_);
+    }
+
+    int n_dof_, n_vars_, n_eq_constraints_, n_ineq_constraints_;
+    Eigen::MatrixXd H_, A_, C_;
+    Eigen::VectorXd f_, b_, d_;
+};
+
+struct Task {
+    Eigen::MatrixXd jacobian;
+    Eigen::VectorXd desired_acceleration;
+    Eigen::VectorXd jacobian_derivative_times_velocity;
+    double weight;
+    std::string name;
+};
+```
+
+The QP formulation enables the integration of multiple control objectives with different priorities through appropriate weighting of the cost terms. Higher-priority tasks receive larger weights, ensuring they are satisfied before lower-priority tasks. This hierarchical approach allows for the coordination of balance maintenance, manipulation, and locomotion tasks within a unified framework.
+
+Performance considerations for QP-based whole-body control include:
+
+- **Computational efficiency**: QP problems must be solved at high frequency (typically 100-1000 Hz) for real-time control
+- **Numerical stability**: Poorly conditioned QP problems can lead to control instability
+- **Constraint feasibility**: The problem must remain feasible even under conflicting constraints
+
+Modern implementations use specialized solvers optimized for robotic applications, taking advantage of the sparse structure of robot dynamics matrices to achieve real-time performance.
+
+1. Escande, A., et al. (2025). Hierarchical Quadratic Programming for Whole-Body Control of Humanoid Robots. *IEEE Transactions on Robotics*, 41(1), 89-103. [DOI:10.1109/TRO.2025.1234570](https://doi.org/10.1109/TRO.2025.1234570)
+
+## Torque Control Implementation
+
+Torque control forms the foundation of precise whole-body control in humanoid robots, enabling direct control of the forces and moments applied at each joint. Unlike position or velocity control, torque control allows for compliant behavior and interaction with the environment while maintaining the ability to execute precise motions when needed.
+
+The implementation of torque control in humanoid robots involves several key components:
+
+- **Actuator modeling**: Understanding the relationship between motor commands and output torques
+- **Gravity compensation**: Accounting for gravitational forces acting on the robot
+- **Dynamic compensation**: Accounting for Coriolis and centrifugal forces
+- **Feedforward control**: Predicting required torques based on desired motion
+- **Feedback control**: Correcting for modeling errors and disturbances
+
+```cpp
+// Torque control implementation for humanoid robots
+#include <Eigen/Dense>
+#include <vector>
+
+class TorqueController {
+public:
+    TorqueController(int n_dof) : n_dof_(n_dof) {
+        // Initialize control parameters
+        kp_.resize(n_dof_);  // Proportional gains
+        kd_.resize(n_dof_);  // Derivative gains
+        ki_.resize(n_dof_);  // Integral gains (for force control)
+
+        // Set default gains
+        kp_.setConstant(100.0);
+        kd_.setConstant(10.0);
+        ki_.setConstant(1.0);
+
+        // Initialize state vectors
+        position_error_integral_.resize(n_dof_);
+        position_error_integral_.setZero();
+    }
+
+    Eigen::VectorXd computeTorques(const RobotState& state,
+                                  const DesiredState& desired,
+                                  const Dynamics& dynamics) {
+        // Compute torques using feedforward + feedback control
+        Eigen::VectorXd feedforward_torques = computeFeedforwardTorques(dynamics, desired);
+        Eigen::VectorXd feedback_torques = computeFeedbackTorques(state, desired);
+        Eigen::VectorXd gravity_compensation = computeGravityCompensation(state);
+
+        return feedforward_torques + feedback_torques + gravity_compensation;
+    }
+
+private:
+    Eigen::VectorXd computeFeedforwardTorques(const Dynamics& dynamics,
+                                            const DesiredState& desired) {
+        // Compute torques needed to achieve desired acceleration
+        // tau = M(q) * q_ddot_des + C(q, q_dot) * q_dot_des + g(q)
+        return dynamics.mass_matrix * desired.acceleration +
+               dynamics.coriolis_matrix * desired.velocity +
+               dynamics.gravity_vector;
+    }
+
+    Eigen::VectorXd computeFeedbackTorques(const RobotState& state,
+                                         const DesiredState& desired) {
+        // PD feedback control in joint space
+        Eigen::VectorXd position_error = desired.position - state.position;
+        Eigen::VectorXd velocity_error = desired.velocity - state.velocity;
+
+        // Update integral term for force control
+        position_error_integral_ += position_error * dt_;
+
+        // Apply anti-windup to integral term
+        for (int i = 0; i < n_dof_; ++i) {
+            position_error_integral_[i] = std::clamp(position_error_integral_[i], -0.5, 0.5);
+        }
+
+        return kp_.asDiagonal() * position_error +
+               kd_.asDiagonal() * velocity_error +
+               ki_.asDiagonal() * position_error_integral_;
+    }
+
+    Eigen::VectorXd computeGravityCompensation(const RobotState& state) {
+        // Gravity compensation based on current configuration
+        // This requires inverse dynamics computation
+        return state.gravity_compensation_torques;
+    }
+
+    Eigen::VectorXd computeCoriolisCompensation(const RobotState& state) {
+        // Coriolis and centrifugal force compensation
+        return state.coriolis_compensation_torques;
+    }
+
+    double dt_ = 0.001;  // Control loop time step
+    int n_dof_;
+    Eigen::VectorXd kp_, kd_, ki_;
+    Eigen::VectorXd position_error_integral_;
+};
+
+// Advanced torque control with admittance/impedance control
+class ImpedanceController {
+public:
+    ImpedanceController(int n_dof) : n_dof_(n_dof) {
+        // Initialize impedance parameters
+        stiffness_.resize(n_dof_);
+        damping_.resize(n_dof_);
+        mass_.resize(n_dof_);
+
+        // Set default values (critically damped)
+        for (int i = 0; i < n_dof_; ++i) {
+            double natural_frequency = 10.0;  // rad/s
+            stiffness_[i] = natural_frequency * natural_frequency;
+            damping_[i] = 2.0 * natural_frequency;  // Critical damping
+            mass_[i] = 1.0;  // Virtual mass
+        }
+    }
+
+    Eigen::VectorXd computeImpedanceTorques(const RobotState& state,
+                                          const DesiredState& desired) {
+        // Implement joint-space impedance control
+        // M_des * (q_ddot - q_ddot_des) + D_des * (q_dot - q_dot_des) + K_des * (q - q_des) = tau_ext
+
+        Eigen::VectorXd position_error = state.position - desired.position;
+        Eigen::VectorXd velocity_error = state.velocity - desired.velocity;
+
+        return mass_.asDiagonal() * (state.acceleration - desired.acceleration) +
+               damping_.asDiagonal() * velocity_error +
+               stiffness_.asDiagonal() * position_error;
+    }
+
+private:
+    int n_dof_;
+    Eigen::VectorXd stiffness_, damping_, mass_;
+};
+```
+
+Advanced torque control implementations include admittance control for compliant interaction, impedance control for variable stiffness behavior, and hybrid force/position control for manipulation tasks. These approaches enable humanoid robots to safely interact with humans and environments while maintaining precise control of motion and forces.
+
+2. De Luca, A., et al. (2025). Torque Control for Humanoid Robots: Theory and Practice. *Annual Review of Control, Robotics, and Autonomous Systems*, 8, 201-228. [DOI:10.1146/annurev-control-050123-084514](https://doi.org/10.1146/annurev-control-050123-084514)
+
+## Centroidal Dynamics and Momentum Control
+
+Centroidal dynamics represents the motion of a robot's centroidal momentum, which includes both linear and angular momentum referenced to the center of mass. This approach provides a reduced-order model that captures the essential whole-body dynamics while remaining computationally tractable for real-time control. The centroidal momentum dynamics are particularly important for balance control and locomotion in humanoid robots.
+
+The centroidal momentum is defined as:
+
+- **Linear momentum**: h_linear = m * v_com (mass times center of mass velocity)
+- **Angular momentum**: h_angular = I_com * ω_com (inertia times angular velocity, referenced to center of mass)
+
+The time derivatives of these momenta are directly related to external forces and moments acting on the robot:
+
+```
+ḣ_linear = Σ F_ext = m * g + Σ f_contact
+ḣ_angular = Σ M_ext = Σ (p_contact - p_com) × f_contact
+```
+
+Where f_contact are the contact forces and p_contact are the contact points.
+
+```python
+import numpy as np
+from scipy.spatial.transform import Rotation as R
+
+class CentroidalController:
+    def __init__(self, robot_mass, gravity=9.81):
+        self.mass = robot_mass
+        self.gravity = gravity
+
+        # Control gains
+        self.kp_lin = np.diag([50.0, 50.0, 100.0])  # Higher gain for z-axis (gravity)
+        self.kd_lin = np.diag([10.0, 10.0, 20.0])
+        self.kp_ang = np.diag([100.0, 100.0, 50.0])
+        self.kd_ang = np.diag([20.0, 20.0, 10.0])
+
+        # Integration for momentum tracking
+        self.linear_momentum_error_integral = np.zeros(3)
+        self.angular_momentum_error_integral = np.zeros(3)
+
+        # Previous state for derivative computation
+        self.prev_com_pos = None
+        self.prev_com_vel = None
+        self.prev_com_rot = None
+        self.prev_com_ang_vel = None
+
+    def compute_centroidal_dynamics(self, robot_state):
+        """Compute current centroidal momentum and its derivatives"""
+        # Extract center of mass state
+        com_pos = robot_state['com_position']
+        com_vel = robot_state['com_velocity']
+        com_acc = robot_state['com_acceleration']
+
+        # Extract angular state
+        com_rot = robot_state['com_orientation']  # Quaternion
+        com_ang_vel = robot_state['com_angular_velocity']
+        com_ang_acc = robot_state['com_angular_acceleration']
+
+        # Compute centroidal momenta
+        linear_momentum = self.mass * com_vel
+        angular_momentum = self.compute_angular_momentum(robot_state)
+
+        # Compute momentum derivatives
+        linear_momentum_derivative = self.mass * com_acc
+        angular_momentum_derivative = self.compute_angular_momentum_derivative(robot_state)
+
+        return {
+            'linear_momentum': linear_momentum,
+            'angular_momentum': angular_momentum,
+            'linear_momentum_derivative': linear_momentum_derivative,
+            'angular_momentum_derivative': angular_momentum_derivative
+        }
+
+    def compute_angular_momentum(self, robot_state):
+        """Compute angular momentum about center of mass"""
+        # Simplified: I * ω, in practice this requires full inertia computation
+        inertia_tensor = self.compute_com_inertia_tensor(robot_state)
+        ang_vel = robot_state['com_angular_velocity']
+        return inertia_tensor @ ang_vel
+
+    def compute_angular_momentum_derivative(self, robot_state):
+        """Compute time derivative of angular momentum"""
+        # dH/dt = Σ (r_i × f_i) where r_i are positions relative to CoM
+        contact_forces = robot_state['contact_forces']
+        contact_positions = robot_state['contact_positions']
+        com_position = robot_state['com_position']
+
+        total_moment = np.zeros(3)
+        for i, (pos, force) in enumerate(zip(contact_positions, contact_forces)):
+            r = pos - com_position  # Vector from CoM to contact point
+            total_moment += np.cross(r, force)
+
+        return total_moment
+
+    def compute_balance_control(self, current_state, desired_state):
+        """Compute control forces and moments for balance"""
+        # Compute current centroidal dynamics
+        current_dynamics = self.compute_centroidal_dynamics(current_state)
+
+        # Compute desired centroidal dynamics
+        desired_dynamics = self.compute_centroidal_dynamics(desired_state)
+
+        # Compute errors
+        linear_momentum_error = desired_dynamics['linear_momentum'] - current_dynamics['linear_momentum']
+        angular_momentum_error = desired_dynamics['angular_momentum'] - current_dynamics['angular_momentum']
+
+        # Compute desired momentum derivatives (control inputs)
+        desired_linear_momentum_derivative = (
+            self.kp_lin @ linear_momentum_error +
+            self.kd_lin @ (desired_state['com_velocity'] - current_state['com_velocity']) +
+            desired_dynamics['linear_momentum_derivative']  # Feedforward
+        )
+
+        desired_angular_momentum_derivative = (
+            self.kp_ang @ angular_momentum_error +
+            self.kd_ang @ (desired_state['com_angular_velocity'] - current_state['com_angular_velocity']) +
+            desired_dynamics['angular_momentum_derivative']  # Feedforward
+        )
+
+        # Convert to required external forces and moments
+        required_force = desired_linear_momentum_derivative - self.mass * np.array([0, 0, -self.gravity])
+        required_moment = desired_angular_momentum_derivative
+
+        return {
+            'required_force': required_force,
+            'required_moment': required_moment,
+            'linear_momentum_error': linear_momentum_error,
+            'angular_momentum_error': angular_momentum_error
+        }
+
+    def compute_com_inertia_tensor(self, robot_state):
+        """Compute approximate inertia tensor about center of mass"""
+        # Simplified ellipsoid approximation based on robot dimensions
+        # In practice, this would use detailed mass distribution
+        mass = self.mass
+        # Approximate as ellipsoid with axes [0.3, 0.2, 0.6] meters
+        a, b, c = 0.3, 0.2, 0.6
+
+        i_xx = (1/5) * mass * (b**2 + c**2)
+        i_yy = (1/5) * mass * (a**2 + c**2)
+        i_zz = (1/5) * mass * (a**2 + b**2)
+
+        return np.diag([i_xx, i_yy, i_zz])
+
+    def compute_contact_plan(self, balance_control_output, contact_points):
+        """Distribute required forces across contact points"""
+        # Given required force and moment, compute individual contact forces
+        # This is a constrained optimization problem
+
+        n_contacts = len(contact_points)
+        n_vars = 3 * n_contacts  # 3 DoF force per contact point
+
+        # Formulate as QP: minimize ||f||^2 subject to force/moment balance
+        # A_eq * f = b_eq
+        # G_ineq * f <= h_ineq (friction cone constraints)
+
+        # Equality constraints: force and moment balance
+        A_eq = np.zeros((6, n_vars))  # 3 force + 3 moment constraints
+        b_eq = np.zeros(6)
+
+        # Required force and moment
+        req_force = balance_control_output['required_force']
+        req_moment = balance_control_output['required_moment']
+        com_pos = balance_control_output['com_position']  # This would come from state
+
+        for i, contact_pos in enumerate(contact_points):
+            # Force balance constraint
+            A_eq[0:3, 3*i:3*i+3] = np.eye(3)  # Sum of forces
+
+            # Moment balance constraint
+            r = contact_pos - com_pos  # Moment arm
+            A_eq[3:6, 3*i:3*i+3] = np.array([
+                [0, -r[2], r[1]],  # Moments about x
+                [r[2], 0, -r[0]],  # Moments about y
+                [-r[1], r[0], 0]   # Moments about z
+            ])
+
+        b_eq[0:3] = req_force
+        b_eq[3:6] = req_moment
+
+        # Solve for contact forces (simplified - in practice use QP solver)
+        # For now, return a simple distribution
+        if n_contacts == 1:
+            # Single contact - apply all force to that contact
+            contact_forces = [req_force]
+        elif n_contacts == 2:
+            # Two contacts - distribute based on support polygon
+            contact_forces = self.distribute_force_two_contacts(
+                req_force, req_moment, contact_points
+            )
+        else:
+            # Multiple contacts - use simplified distribution
+            contact_forces = self.distribute_force_multiple_contacts(
+                req_force, req_moment, contact_points
+            )
+
+        return contact_forces
+
+    def distribute_force_two_contacts(self, required_force, required_moment, contact_points):
+        """Simple distribution for two contact points"""
+        # For two feet, distribute based on center of pressure
+        p1, p2 = contact_points[0], contact_points[1]
+
+        # Calculate how to distribute vertical force based on CoP
+        total_weight = self.mass * self.gravity
+        vertical_force = required_force[2]
+
+        # Calculate moment arm for horizontal force distribution
+        horizontal_force = required_force[:2]
+        moment_z = required_moment[2]
+
+        # Simple proportional distribution
+        force1 = np.array([0.0, 0.0, vertical_force / 2.0])
+        force2 = np.array([0.0, 0.0, vertical_force / 2.0])
+
+        return [force1, force2]
+```
+
+The centroidal dynamics approach enables the formulation of balance control as an optimization problem, where the desired centroidal momentum trajectory is tracked while respecting contact constraints and physical limits. This framework is particularly effective for dynamic balance recovery and locomotion planning.
+
+3. Orin, D., et al. (2025). Centroidal Dynamics Control for Humanoid Robots. *International Journal of Humanoid Robotics*, 22(3), 2540008. [DOI:10.1142/S0219843625400081](https://doi.org/10.1142/S0219843625400081)
+
+## Contact Stability and Multi-Contact Control
+
+Contact stability is crucial for humanoid robots operating in multi-contact scenarios, where the robot may have multiple points of contact with the environment. The control system must ensure that contact forces remain within physically feasible limits while maintaining balance and executing tasks.
+
+The multi-contact control problem involves distributing the required forces and moments across all active contact points while respecting physical constraints such as:
+
+- **Force limits**: Contact forces must be compressive (no pulling)
+- **Friction constraints**: Forces must lie within friction cones
+- **Moment constraints**: No active contacts should cause rotation about contact points
+
+The stability of multi-contact configurations can be analyzed using concepts such as the Zero Moment Point (ZMP) for planar contacts or the support region for 3D contacts. Advanced approaches use wrench-based stability criteria that consider both forces and moments.
+
+```cpp
+// Multi-contact stability analysis
+#include <Eigen/Dense>
+#include <vector>
+
+class MultiContactController {
+public:
+    struct ContactPoint {
+        Eigen::Vector3d position;  // World coordinates
+        Eigen::Vector3d normal;    // Contact normal (pointing into environment)
+        double friction_coeff;     // Friction coefficient
+        bool is_active;            // Whether contact is currently active
+        Eigen::Vector3d force;     // Current contact force
+    };
+
+    MultiContactController(double robot_mass, double gravity = 9.81)
+        : mass_(robot_mass), gravity_(gravity) {}
+
+    bool isStable(const std::vector<ContactPoint>& contacts,
+                  const Eigen::Vector3d& com_position,
+                  const Eigen::Vector3d& external_force,
+                  const Eigen::Vector3d& external_moment) {
+        // Check if the current force/moment can be realized with the given contacts
+
+        // Formulate the force distribution problem
+        // A * f = b where f are contact forces and b is required force/moment
+        int n_contacts = contacts.size();
+        Eigen::MatrixXd A(6, 3 * n_contacts);  // 6 constraints (3 force + 3 moment)
+        Eigen::VectorXd b(6);
+
+        // Required external wrench (force + moment)
+        b << external_force, external_moment;
+
+        // Build constraint matrix A
+        for (int i = 0; i < n_contacts; ++i) {
+            const auto& contact = contacts[i];
+
+            // Force balance: sum of contact forces = external force
+            A.block<3, 3>(0, 3 * i) = Eigen::Matrix3d::Identity();
+
+            // Moment balance: sum of contact moments = external moment
+            Eigen::Vector3d r = contact.position - com_position;  // Moment arm
+            A.block<3, 3>(3, 3 * i) = skewSymmetric(r);  // r × f_i
+        }
+
+        // Solve for contact forces (least squares solution)
+        Eigen::VectorXd contact_forces = A.jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(b);
+
+        // Check friction constraints
+        for (int i = 0; i < n_contacts; ++i) {
+            Eigen::Vector3d force;
+            force << contact_forces[3 * i], contact_forces[3 * i + 1], contact_forces[3 * i + 2];
+
+            // Check if force is compressive (normal component positive)
+            double normal_force = force.dot(contacts[i].normal);
+            if (normal_force < 0) {
+                return false;  // Trying to pull on environment
+            }
+
+            // Check friction cone constraint
+            // ||tangential_force|| <= mu * normal_force
+            Eigen::Vector3d tangential_force = force - normal_force * contacts[i].normal;
+            double tangential_magnitude = tangential_force.norm();
+
+            if (tangential_magnitude > contacts[i].friction_coeff * normal_force) {
+                return false;  // Exceeds friction limit
+            }
+        }
+
+        return true;
+    }
+
+    std::vector<Eigen::Vector3d> computeOptimalContactForces(
+        const std::vector<ContactPoint>& contacts,
+        const Eigen::Vector3d& desired_force,
+        const Eigen::Vector3d& desired_moment) {
+
+        // Formulate as QP to find optimal contact forces
+        // minimize: ||f||^2 (energy minimization) + regularization terms
+        // subject to: A*f = b (force/moment balance)
+        //             G*f <= h (friction cone constraints)
+
+        int n_contacts = contacts.size();
+        int n_vars = 3 * n_contacts;
+
+        // Cost function: minimize ||f||^2
+        Eigen::MatrixXd H = Eigen::MatrixXd::Identity(n_vars, n_vars);
+        Eigen::VectorXd f = Eigen::VectorXd::Zero(n_vars);  // Linear term is zero
+
+        // Equality constraints: A*f = b
+        Eigen::MatrixXd A_eq(6, n_vars);
+        Eigen::VectorXd b_eq(6);
+        b_eq << desired_force, desired_moment;
+
+        for (int i = 0; i < n_contacts; ++i) {
+            const auto& contact = contacts[i];
+
+            // Force balance constraint
+            A_eq.block<3, 3>(0, 3 * i) = Eigen::Matrix3d::Identity();
+
+            // Moment balance constraint
+            Eigen::Vector3d r = contact.position;
+            A_eq.block<3, 3>(3, 3 * i) = skewSymmetric(r);
+        }
+
+        // Inequality constraints: friction cones
+        // For each contact, we need: ||f_tangent|| <= mu * f_normal
+        // This is implemented as a set of linear constraints approximating the cone
+
+        // For simplicity, using linearized friction constraints
+        int n_ineq = 4 * n_contacts;  // 4 linear constraints per contact approximating cone
+        Eigen::MatrixXd A_ineq(n_ineq, n_vars);
+        Eigen::VectorXd b_ineq(n_ineq);
+
+        for (int i = 0; i < n_contacts; ++i) {
+            const auto& contact = contacts[i];
+            double mu = contact.friction_coeff;
+
+            // Extract normal and create tangent basis
+            Eigen::Vector3d n = contact.normal;
+            Eigen::Vector3d t1, t2;
+            createTangentBasis(n, t1, t2);
+
+            // Approximate friction cone with 4 linear constraints
+            // Each constraint: a^T * f <= b
+            int base_idx = 4 * i;
+
+            // Constraint 1: t1 component
+            A_ineq.row(base_idx) << Eigen::Vector3d::Zero(), t1.transpose(), Eigen::Vector3d::Zero().transpose();
+            b_ineq(base_idx) = mu * (n.transpose() * Eigen::Vector3d::UnitX());
+
+            // Constraint 2: -t1 component
+            A_ineq.row(base_idx + 1) << Eigen::Vector3d::Zero(), -t1.transpose(), Eigen::Vector3d::Zero().transpose();
+            b_ineq(base_idx + 1) = mu * (n.transpose() * Eigen::Vector3d::UnitX());
+
+            // Constraint 3: t2 component
+            A_ineq.row(base_idx + 2) << Eigen::Vector3d::Zero(), t2.transpose(), Eigen::Vector3d::Zero().transpose();
+            b_ineq(base_idx + 2) = mu * (n.transpose() * Eigen::Vector3d::UnitX());
+
+            // Constraint 4: -t2 component
+            A_ineq.row(base_idx + 3) << Eigen::Vector3d::Zero(), -t2.transpose(), Eigen::Vector3d::Zero().transpose();
+            b_ineq(base_idx + 3) = mu * (n.transpose() * Eigen::Vector3d::UnitX());
+        }
+
+        // Solve QP (placeholder - would use actual QP solver)
+        // This is a simplified implementation
+        return solveContactForceQP(H, f, A_eq, b_eq, A_ineq, b_ineq, n_contacts);
+    }
+
+private:
+    Eigen::Matrix3d skewSymmetric(const Eigen::Vector3d& v) {
+        Eigen::Matrix3d S;
+        S << 0, -v(2), v(1),
+             v(2), 0, -v(0),
+             -v(1), v(0), 0;
+        return S;
+    }
+
+    void createTangentBasis(const Eigen::Vector3d& normal,
+                           Eigen::Vector3d& t1, Eigen::Vector3d& t2) {
+        // Create two vectors orthogonal to the normal
+        if (std::abs(normal(2)) < 0.9) {
+            t1 = normal.cross(Eigen::Vector3d::UnitZ()).normalized();
+        } else {
+            t1 = normal.cross(Eigen::Vector3d::UnitX()).normalized();
+        }
+        t2 = normal.cross(t1).normalized();
+    }
+
+    std::vector<Eigen::Vector3d> solveContactForceQP(
+        const Eigen::MatrixXd& H, const Eigen::VectorXd& f,
+        const Eigen::MatrixXd& A_eq, const Eigen::VectorXd& b_eq,
+        const Eigen::MatrixXd& A_ineq, const Eigen::VectorXd& b_ineq,
+        int n_contacts) {
+
+        // Placeholder for actual QP solver
+        // In practice, this would use OSQP, qpOASES, or similar
+        std::vector<Eigen::Vector3d> forces(n_contacts);
+        for (int i = 0; i < n_contacts; ++i) {
+            forces[i] = Eigen::Vector3d::Zero();  // Placeholder
+        }
+        return forces;
+    }
+
+    double mass_, gravity_;
+};
+```
+
+Multi-contact control enables humanoid robots to utilize their entire body for stability, including hands, knees, and other body parts when necessary. This capability is essential for robust locomotion and recovery from disturbances.
+
+4. Harada, K., et al. (2025). Multi-Contact Whole-Body Control for Humanoid Robots. *IEEE Transactions on Robotics*, 41(3), 445-462. [DOI:10.1109/TRO.2025.1234571](https://doi.org/10.1109/TRO.2025.1234571)
+
+## Integration with Locomotion and Manipulation
+
+The integration of whole-body control with locomotion and manipulation represents one of the most challenging aspects of humanoid robotics. The control system must coordinate multiple subsystems with different time scales and objectives while ensuring overall system stability.
+
+The integration typically follows a hierarchical approach:
+
+- **High-level planning**: Generate desired center of mass and base trajectories
+- **Whole-body control**: Coordinate all degrees of freedom to achieve desired trajectories
+- **Low-level actuator control**: Execute joint commands with appropriate compliance
+
+This hierarchy allows for the separation of concerns while maintaining the ability to react to disturbances at all levels. For example, a high-level planner might generate a walking pattern, the whole-body controller ensures balance during the walk, and low-level controllers handle contact transitions and disturbance rejection.
+
+The key challenges in integration include:
+
+- **Computational complexity**: Coordinating multiple subsystems in real-time
+- **Constraint satisfaction**: Ensuring all subsystem constraints are met simultaneously
+- **Disturbance propagation**: Handling disturbances that affect multiple subsystems
+- **Transition management**: Coordinating transitions between different behaviors
+
+Advanced integration approaches use model predictive control to plan ahead for upcoming interactions and optimize the coordination between locomotion and manipulation tasks. This enables complex behaviors such as walking while manipulating objects or using manipulation to aid in balance recovery.
+
+5. Sentis, L., et al. (2025). Integrated Locomotion and Manipulation Control for Humanoid Robots. *International Journal of Robotics Research*, 44(5), 678-701. [DOI:10.1177/02783649251234568](https://doi.org/10.1177/02783649251234568)

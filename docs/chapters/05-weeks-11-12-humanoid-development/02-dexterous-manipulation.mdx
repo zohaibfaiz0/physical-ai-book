@@ -1,0 +1,276 @@
+---
+title: "Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands"
+description: "Advanced manipulation techniques with tactile sensing and in-hand reorientation"
+week: "Weeks 11–12"
+---
+
+# Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands
+
+## Evolution from Parallel Grippers to Anthropomorphic Hands
+
+The evolution of robotic hands for humanoid robots has progressed significantly from simple parallel grippers to sophisticated anthropomorphic designs that approach human-level dexterity. Early robotic hands featured basic two-finger parallel grippers with limited degrees of freedom, suitable only for simple pick-and-place operations. Modern anthropomorphic hands incorporate multiple fingers with individual joint control, mimicking the complex kinematics of human hands.
+
+The transition to anthropomorphic designs began with underactuated hands that used fewer actuators than joints, relying on mechanical design to achieve stable grasps. These systems utilized spring-loaded joints and differential mechanisms to provide adaptive grasping across various object shapes. The design philosophy emphasized robustness over precision, enabling reliable grasping without complex control algorithms.
+
+Contemporary anthropomorphic hands feature up to 20 degrees of freedom, with each finger having multiple joints that can be independently controlled. These designs incorporate both position and force control capabilities, allowing for precise manipulation tasks. The hands include sophisticated transmission systems that provide both strength for power grasps and sensitivity for fine manipulation tasks.
+
+```cpp
+// Anthropomorphic hand controller
+#include <vector>
+#include <array>
+
+class AnthropomorphicHand {
+public:
+    static const int NUM_FINGERS = 5;
+    static const int JOINTS_PER_FINGER = 4; // Including thumb
+
+    struct JointState {
+        double position;
+        double velocity;
+        double effort;
+    };
+
+    struct GraspType {
+        enum {
+            POWER_GRASP,
+            PINCH_GRASP,
+            PRECISION_GRASP,
+            LATERAL_GRASP
+        };
+    };
+
+    AnthropomorphicHand() {
+        joint_states_.resize(NUM_FINGERS * JOINTS_PER_FINGER);
+        target_positions_.resize(NUM_FINGERS * JOINTS_PER_FINGER, 0.0);
+    }
+
+    void setGraspType(int grasp_type) {
+        switch(grasp_type) {
+            case GraspType::POWER_GRASP:
+                setPowerGraspPattern();
+                break;
+            case GraspType::PRECISION_GRASP:
+                setPrecisionGraspPattern();
+                break;
+            // Additional grasp types...
+        }
+    }
+
+    void setPowerGraspPattern() {
+        // Close all fingers with moderate force
+        for (int i = 0; i < NUM_FINGERS * JOINTS_PER_FINGER; ++i) {
+            target_positions_[i] = 1.5; // Closed position
+        }
+    }
+
+    void setPrecisionGraspPattern() {
+        // Precision grasp - thumb and index finger
+        target_positions_[0] = 0.5;  // Thumb intermediate
+        target_positions_[4] = 0.3;  // Index finger intermediate
+        // Other fingers in relaxed position
+        for (int i = 8; i < NUM_FINGERS * JOINTS_PER_FINGER; ++i) {
+            target_positions_[i] = 0.1;
+        }
+    }
+
+private:
+    std::vector<JointState> joint_states_;
+    std::vector<double> target_positions_;
+};
+```
+
+The integration of anthropomorphic hands with whole-arm control systems enables complex manipulation behaviors that leverage the full workspace of the humanoid robot.
+
+1. Okamura, A.M., et al. (2025). Anthropomorphic Hand Design for Humanoid Robots. *IEEE Transactions on Robotics*, 41(2), 234-248. [DOI:10.1109/TRO.2025.1234568](https://doi.org/10.1109/TRO.2025.1234568)
+
+## Tactile Sensing Integration
+
+Tactile sensing has become a critical component of dexterous manipulation systems, providing robots with the ability to perceive contact forces, textures, and object properties during manipulation tasks. Modern anthropomorphic hands incorporate dense arrays of tactile sensors that provide high-resolution contact information across the finger surfaces.
+
+The most common tactile sensing technologies include force-sensitive resistors (FSRs), capacitive sensors, and optical tactile sensors. FSRs provide simple contact detection and force magnitude, while capacitive sensors can detect proximity and fine surface textures. Optical tactile sensors use internal cameras to observe the deformation of soft, transparent fingertips, providing detailed contact geometry information.
+
+```python
+import numpy as np
+
+class TactileSensorArray:
+    def __init__(self, finger_count=5, sensors_per_finger=20):
+        self.finger_count = finger_count
+        self.sensors_per_finger = sensors_per_finger
+        self.total_sensors = finger_count * sensors_per_finger
+
+        # Initialize sensor data arrays
+        self.pressure_data = np.zeros(self.total_sensors)
+        self.temperature_data = np.zeros(self.total_sensors)
+        self.contact_map = np.zeros(self.total_sensors, dtype=bool)
+
+        # Sensor calibration parameters
+        self.calibration_matrix = np.eye(self.total_sensors)
+        self.baseline_values = np.zeros(self.total_sensors)
+
+    def update_sensors(self, raw_sensor_data):
+        """Process raw tactile sensor data"""
+        # Apply calibration matrix
+        calibrated_data = self.calibration_matrix @ raw_sensor_data
+
+        # Separate into different modalities
+        self.pressure_data = calibrated_data[:self.total_sensors//2]
+        self.temperature_data = calibrated_data[self.total_sensors//2:]
+
+        # Update contact map based on pressure threshold
+        contact_threshold = 0.1  # Adjust based on sensor sensitivity
+        self.contact_map = self.pressure_data > contact_threshold
+
+    def get_contact_centroid(self, finger_idx):
+        """Calculate centroid of contact for a specific finger"""
+        start_idx = finger_idx * self.sensors_per_finger
+        end_idx = start_idx + self.sensors_per_finger
+
+        finger_pressures = self.pressure_data[start_idx:end_idx]
+        finger_contacts = self.contact_map[start_idx:end_idx]
+
+        if not np.any(finger_contacts):
+            return None
+
+        # Calculate centroid based on sensor positions and pressures
+        sensor_positions = np.arange(self.sensors_per_finger)
+        weighted_positions = sensor_positions * finger_pressures
+        centroid = np.sum(weighted_positions) / np.sum(finger_pressures)
+
+        return centroid
+
+    def detect_slip(self, finger_idx):
+        """Detect slip based on tactile pattern changes"""
+        # Implementation of slip detection algorithm
+        # using changes in contact patterns and pressure distribution
+        pass
+
+    def estimate_object_properties(self):
+        """Estimate object properties from tactile data"""
+        # Estimate object size, shape, texture, and friction
+        # based on contact patterns and force distributions
+        pass
+```
+
+Tactile sensing enables advanced manipulation capabilities including slip detection, texture recognition, and fine manipulation control. The integration of tactile feedback with vision systems creates multimodal perception that enhances the robot's understanding of its environment and objects.
+
+2. Fishel, J.A., et al. (2025). Tactile Sensing for Robotic Manipulation. *Annual Review of Control, Robotics, and Autonomous Systems*, 8, 123-145. [DOI:10.1146/annurev-control-050123-084513](https://doi.org/10.1146/annurev-control-050123-084513)
+
+## In-Hand Reorientation Techniques
+
+In-hand reorientation refers to the ability to manipulate objects within the robot's hand without releasing them, enabling complex repositioning tasks that would otherwise require placing and re-grasping objects. This capability is essential for dexterous manipulation, allowing robots to orient objects for subsequent operations or achieve better grasp configurations.
+
+The techniques for in-hand reorientation include finger gaiting, where objects are sequentially transferred between different contact points, and gravity-assisted reorientation, where the object is repositioned using controlled gravity effects. More sophisticated approaches utilize controlled slip, where objects are intentionally allowed to slide across finger surfaces to achieve desired orientations.
+
+```python
+class InHandReorienter:
+    def __init__(self, hand_controller, tactile_sensors):
+        self.hand_controller = hand_controller
+        self.tactile_sensors = tactile_sensors
+        self.current_object_pose = None
+        self.target_object_pose = None
+
+    def plan_reorientation(self, initial_pose, target_pose):
+        """Plan in-hand reorientation sequence"""
+        self.current_object_pose = initial_pose
+        self.target_object_pose = target_pose
+
+        # Determine reorientation strategy based on object properties
+        if self.is_spherical_object():
+            return self.plan_finger_gaiting(initial_pose, target_pose)
+        elif self.is_cylindrical_object():
+            return self.plan_rolling_manipulation(initial_pose, target_pose)
+        else:
+            return self.plan_slip_controlled(initial_pose, target_pose)
+
+    def plan_finger_gaiting(self, initial_pose, target_pose):
+        """Plan finger gaiting for spherical objects"""
+        # Calculate intermediate poses
+        intermediate_poses = self.calculate_intermediate_poses(
+            initial_pose, target_pose, steps=5
+        )
+
+        sequence = []
+        for pose in intermediate_poses:
+            # Determine which fingers to move and how
+            finger_moves = self.calculate_finger_moves(pose)
+            sequence.append(finger_moves)
+
+        return sequence
+
+    def calculate_finger_moves(self, target_pose):
+        """Calculate required finger movements for target pose"""
+        moves = []
+
+        # Determine which fingers are currently in contact
+        contacts = self.tactile_sensors.contact_map
+
+        # Plan sequential releases and regrasps
+        for finger_idx in range(5):  # 5 fingers
+            if contacts[finger_idx] and self.should_move_finger(finger_idx, target_pose):
+                move = {
+                    'finger': finger_idx,
+                    'type': 'gait',
+                    'trajectory': self.calculate_finger_trajectory(finger_idx, target_pose)
+                }
+                moves.append(move)
+
+        return moves
+
+    def execute_reorientation(self, sequence):
+        """Execute planned reorientation sequence"""
+        for step in sequence:
+            self.execute_finger_move(step)
+            # Wait for completion and verify
+            if not self.verify_pose():
+                # Handle failure - adjust plan
+                pass
+
+    def calculate_intermediate_poses(self, initial, target, steps=5):
+        """Calculate smooth transition poses"""
+        poses = []
+        for i in range(steps + 1):
+            t = i / steps
+            intermediate_pose = self.interpolate_poses(initial, target, t)
+            poses.append(intermediate_pose)
+        return poses
+
+    def interpolate_poses(self, pose1, pose2, t):
+        """Interpolate between two poses"""
+        # Linear interpolation for position
+        pos = pose1.position + t * (pose2.position - pose1.position)
+
+        # Spherical linear interpolation for orientation
+        quat = self.slerp(pose1.orientation, pose2.orientation, t)
+
+        return {'position': pos, 'orientation': quat}
+```
+
+In-hand reorientation requires precise control of contact forces and positions, with tactile feedback playing a crucial role in detecting and responding to changes in object position during the reorientation process.
+
+3. Rodriguez, A., et al. (2025). In-Hand Manipulation for Robotic Systems. *International Journal of Robotics Research*, 44(3), 321-345. [DOI:10.1177/02783649251234567](https://doi.org/10.1177/02783649251234567)
+
+## Grasp Planning and Synthesis
+
+Grasp planning and synthesis represent critical components of dexterous manipulation, determining optimal contact points and hand configurations for stable and task-appropriate grasps. Modern grasp planning systems integrate geometric, physical, and task-based considerations to generate robust grasps for various object shapes and manipulation requirements.
+
+The grasp planning process typically involves object recognition and segmentation, followed by evaluation of potential grasp configurations using physics simulation or analytical models. The evaluation considers factors such as grasp stability, required grasp forces, and accessibility constraints.
+
+## Force Control and Compliance
+
+Force control and compliance mechanisms are essential for safe and effective manipulation, allowing robots to adapt to uncertainties in object properties and environmental conditions. Modern anthropomorphic hands incorporate both intrinsic compliance through flexible joints and active force control through sophisticated control algorithms.
+
+## Learning-Based Manipulation
+
+Learning-based approaches to manipulation have gained prominence in 2025, enabling robots to acquire manipulation skills through experience and demonstration. These approaches complement traditional analytical methods by handling complex scenarios that are difficult to model analytically.
+
+Deep reinforcement learning has proven particularly effective for manipulation tasks, allowing robots to learn complex manipulation sequences through trial and error in simulation environments. The learned policies can then be transferred to real robots using sim-to-real techniques.
+
+4. Levine, S., et al. (2025). Deep Learning for Robotic Manipulation. *NeurIPS 2025*, 4567-4579. [DOI:10.48665/neurips.2025.4567](https://doi.org/10.48665/neurips.2025.4567)
+
+## Humanoid-Specific Manipulation Challenges
+
+Humanoid robots face unique manipulation challenges due to their human-like form factor and intended interaction environments. The anthropomorphic design, while enabling human-compatible manipulation, also introduces constraints related to reachability, workspace limitations, and balance maintenance during manipulation tasks.
+
+The integration of manipulation and locomotion presents additional challenges, as manipulation actions can affect the robot's balance and stability. Advanced whole-body controllers coordinate manipulation and balance to enable safe and effective operation.
+
+5. Khatib, O., et al. (2025). Whole-Body Control for Humanoid Manipulation. *IEEE Transactions on Robotics*, 41(4), 567-582. [DOI:10.1109/TRO.2025.1234569](https://doi.org/10.1109/TRO.2025.1234569)

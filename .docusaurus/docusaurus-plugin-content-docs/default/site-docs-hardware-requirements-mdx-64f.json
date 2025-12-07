@@ -1,0 +1,27 @@
+{
+  "id": "hardware-requirements",
+  "title": "Hardware Requirements",
+  "description": "Essential hardware components and system requirements for Physical AI and Humanoid Robotics projects",
+  "source": "@site/docs/hardware-requirements.mdx",
+  "sourceDirName": ".",
+  "slug": "/hardware-requirements",
+  "permalink": "/docs/hardware-requirements",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/hardware-requirements.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Hardware Requirements",
+    "description": "Essential hardware components and system requirements for Physical AI and Humanoid Robotics projects"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "index",
+    "permalink": "/docs/chapters/appendices/"
+  },
+  "next": {
+    "title": "Introduction",
+    "permalink": "/docs/intro"
+  }
+}

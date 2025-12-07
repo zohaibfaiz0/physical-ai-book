@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale",
+  "title": "Synthetic Data at Scale: Domain Randomization and Active Learning",
+  "description": "Large-scale synthetic data generation with domain randomization and active learning loops",
+  "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/03-synthetic-data-at-scale.mdx",
+  "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
+  "slug": "/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale",
+  "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/04-weeks-8-10-nvidia-isaac/03-synthetic-data-at-scale.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Synthetic Data at Scale: Domain Randomization and Active Learning",
+    "description": "Large-scale synthetic data generation with domain randomization and active learning loops",
+    "week": "Weeks 8–10"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Isaac ROS, Gemini, and Visual SLAM: Hardware-Accelerated Perception",
+    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam"
+  },
+  "next": {
+    "title": "Sim-to-Real Transfer 2025: Advanced Techniques and Zero-Shot Learning",
+    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025"
+  }
+}

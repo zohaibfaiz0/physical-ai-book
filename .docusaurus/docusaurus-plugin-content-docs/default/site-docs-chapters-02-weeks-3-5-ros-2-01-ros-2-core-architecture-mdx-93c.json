@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-3-5-ros2/ros2-core-architecture",
+  "title": "ROS 2 Core Architecture: Distributed Systems and Middleware in 2025",
+  "description": "Deep dive into ROS 2's architecture, DDS middleware, and distributed computing patterns",
+  "source": "@site/docs/chapters/02-weeks-3-5-ros2/01-ros2-core-architecture.mdx",
+  "sourceDirName": "chapters/02-weeks-3-5-ros2",
+  "slug": "/chapters/weeks-3-5-ros2/ros2-core-architecture",
+  "permalink": "/docs/chapters/weeks-3-5-ros2/ros2-core-architecture",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/02-weeks-3-5-ros2/01-ros2-core-architecture.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "ROS 2 Core Architecture: Distributed Systems and Middleware in 2025",
+    "description": "Deep dive into ROS 2's architecture, DDS middleware, and distributed computing patterns",
+    "week": "Weeks 3–5"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "index",
+    "permalink": "/docs/chapters/weeks-3-5-ros2/"
+  },
+  "next": {
+    "title": "Nodes, Topics, Services, and Actions: Communication Primitives in ROS 2",
+    "permalink": "/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions"
+  }
+}

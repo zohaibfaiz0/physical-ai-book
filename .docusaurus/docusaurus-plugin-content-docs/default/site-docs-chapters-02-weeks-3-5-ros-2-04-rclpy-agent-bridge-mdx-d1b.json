@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-3-5-ros2/rclpy-agent-bridge",
+  "title": "RCLPY and Agent Integration: Python Robotics with AI Agents",
+  "description": "Connecting Python-based ROS 2 nodes with AI agents and decision-making systems",
+  "source": "@site/docs/chapters/02-weeks-3-5-ros2/04-rclpy-agent-bridge.mdx",
+  "sourceDirName": "chapters/02-weeks-3-5-ros2",
+  "slug": "/chapters/weeks-3-5-ros2/rclpy-agent-bridge",
+  "permalink": "/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/02-weeks-3-5-ros2/04-rclpy-agent-bridge.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "RCLPY and Agent Integration: Python Robotics with AI Agents",
+    "description": "Connecting Python-based ROS 2 nodes with AI agents and decision-making systems",
+    "week": "Weeks 3–5"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "URDF, Xacro, and SDF: Robot Description for Humanoid Systems",
+    "permalink": "/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids"
+  },
+  "next": {
+    "title": "ROS 2 Project Walkthrough: Building a Complete Humanoid Robot System",
+    "permalink": "/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
+  "title": "Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands",
+  "description": "Advanced manipulation techniques with tactile sensing and in-hand reorientation",
+  "source": "@site/docs/chapters/05-weeks-11-12-humanoid-development/02-dexterous-manipulation.mdx",
+  "sourceDirName": "chapters/05-weeks-11-12-humanoid-development",
+  "slug": "/chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
+  "permalink": "/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/05-weeks-11-12-humanoid-development/02-dexterous-manipulation.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands",
+    "description": "Advanced manipulation techniques with tactile sensing and in-hand reorientation",
+    "week": "Weeks 11–12"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Bipedal Locomotion 2025: ZMP, MPC, and Reinforcement Learning Walking",
+    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025"
+  },
+  "next": {
+    "title": "Whole-Body Control: Quadratic Programming and Torque Control",
+    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/whole-body-control"
+  }
+}

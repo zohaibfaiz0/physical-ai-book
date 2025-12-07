@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
+  "title": "Reinforcement Learning for Humanoids in Isaac: Isaac Lab Migration",
+  "description": "Advanced RL techniques for humanoid robots using Isaac Lab, PPO/APPO, and curriculum learning",
+  "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/05-rl-for-humanoids-in-isaac.mdx",
+  "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
+  "slug": "/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
+  "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/04-weeks-8-10-nvidia-isaac/05-rl-for-humanoids-in-isaac.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "Reinforcement Learning for Humanoids in Isaac: Isaac Lab Migration",
+    "description": "Advanced RL techniques for humanoid robots using Isaac Lab, PPO/APPO, and curriculum learning",
+    "week": "Weeks 8–10"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Sim-to-Real Transfer 2025: Advanced Techniques and Zero-Shot Learning",
+    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025"
+  },
+  "next": {
+    "title": "index",
+    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/"
+  }
+}

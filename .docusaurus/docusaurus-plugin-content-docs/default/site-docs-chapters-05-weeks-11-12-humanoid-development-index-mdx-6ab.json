@@ -1,0 +1,24 @@
+{
+  "id": "chapters/weeks-11-12-humanoid-development/index",
+  "title": "index",
+  "description": "---",
+  "source": "@site/docs/chapters/05-weeks-11-12-humanoid-development/index.mdx",
+  "sourceDirName": "chapters/05-weeks-11-12-humanoid-development",
+  "slug": "/chapters/weeks-11-12-humanoid-development/",
+  "permalink": "/docs/chapters/weeks-11-12-humanoid-development/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/05-weeks-11-12-humanoid-development/index.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Reinforcement Learning for Humanoids in Isaac: Isaac Lab Migration",
+    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac"
+  },
+  "next": {
+    "title": "Bipedal Locomotion 2025: ZMP, MPC, and Reinforcement Learning Walking",
+    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025"
+  }
+}

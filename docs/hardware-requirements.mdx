@@ -1,0 +1,90 @@
+---
+title: "Hardware Requirements"
+description: "Essential hardware components and system requirements for Physical AI and Humanoid Robotics projects"
+---
+
+# Hardware Requirements
+
+This section outlines the essential hardware components and system requirements needed to successfully complete the Physical AI and Humanoid Robotics course. We provide multiple options to accommodate different budgets and use cases, from high-performance workstations for advanced development to economical kits for initial learning.
+
+## Workstation Requirements
+
+For development, simulation, and training of embodied AI systems, we recommend the following workstation specifications:
+
+| Component | Minimum | Recommended | High-Performance | Notes |
+|-----------|---------|-------------|------------------|-------|
+| GPU | RTX 4060 (8GB) | RTX 4070 Ti (12GB) | RTX 4090 (24GB) | CUDA compute capability 6.0+ required |
+| CPU | 8 cores, 3.0 GHz | 16 cores, 3.5 GHz | 32+ cores, 3.5+ GHz | Multi-threading important for simulation |
+| RAM | 32 GB | 64 GB | 128 GB+ | Large models and simulation environments |
+| Storage | 1 TB SSD | 2 TB NVMe SSD | 4 TB+ NVMe SSD | Fast storage essential for data processing |
+| OS | Ubuntu 20.04 | Ubuntu 22.04 | Ubuntu 22.04 | ROS 2 compatibility |
+| Network | Gigabit Ethernet | Gigabit Ethernet | 10GbE preferred | For robot communication |
+
+### Cloud Alternative Specifications
+
+| Service | Instance Type | GPU | CPU/RAM | Storage | Monthly Cost* |
+|---------|---------------|-----|---------|---------|---------------|
+| AWS | g5.2xlarge | 1x A10G (24GB) | 8 vCPU, 32GB | 125GB NVMe | ~$1,200 |
+| AWS | g5.4xlarge | 1x A10G (24GB) | 16 vCPU, 64GB | 250GB NVMe | ~$1,600 |
+| AWS | g5.8xlarge | 1x A10G (24GB) | 32 vCPU, 128GB | 500GB NVMe | ~$2,400 |
+| Azure | NC A10 v3 | 1x A10 (24GB) | 12 vCPU, 112GB | 384GB NVMe | ~$1,400 |
+| GCP | g2-standard-8 | 1x L4 (24GB) | 8 vCPU, 32GB | 1x 375GB SSD | ~$1,100 |
+
+*Costs are approximate and may vary based on region and usage patterns.
+
+## Edge Computing Kits
+
+For robot deployment and real-world testing, we recommend the following edge computing solutions:
+
+| Kit | Model | GPU | CPU/RAM | Sensors | Price Range |
+|-----|-------|-----|---------|---------|-------------|
+| Basic Edge | NVIDIA Jetson Orin Nano | 40-core Ada GPU | 4-core ARM, 4GB | - | $400-500 |
+| Standard Edge | Jetson Orin NX | 1024-core Ampere GPU | 6-core ARM, 8GB | - | $400-500 |
+| Advanced Edge | Jetson Orin AGX | 2048-core Ampere GPU | 8-core ARM, 32GB | - | $1,500-2,000 |
+| Complete Kit | Orin Nano + RealSense D435i | 40-core Ada GPU | 4-core ARM, 4GB | Depth camera, IMU | $650-750 |
+
+## Robot Platforms
+
+Various robot platforms are suitable for different aspects of the course:
+
+| Platform | Type | Degrees of Freedom | Payload | Price Range | Use Case |
+|----------|------|-------------------|---------|-------------|----------|
+| Unitree Go2 | Quadruped | 12 (3 per leg) | 10 kg | $23,000-25,000 | Mobile manipulation, research |
+| Unitree G1 | Humanoid | 32+ | 5 kg | $16,000-18,000 | Humanoid locomotion, manipulation |
+| TurtleBot 4 | Mobile Base | 2 (wheels) | 5 kg | $3,500-4,000 | Navigation, perception basics |
+| Clearpath Jackal | UGV | 2 (wheels) | 25 kg | $25,000-30,000 | Outdoor navigation, research |
+| DIY Humanoid | Custom | Variable | Variable | $5,000-15,000 | Custom research, learning |
+
+## Budget Comparison
+
+| Configuration | Initial Cost | Performance Level | Best For |
+|---------------|--------------|-------------------|----------|
+| **Economy Kit** | $1,500-2,500 | Basic Development | Students, initial learning |
+| - Jetson Orin Nano | $400 | Limited | Simple perception tasks |
+| - Used workstation | $800-1,200 | Basic | Simulation, development |
+| - TurtleBot 4 | $3,500 | - | Alternative to Jetson approach |
+| **Standard Kit** | $4,000-8,000 | Moderate | Serious projects |
+| - RTX 4070 Ti workstation | $3,500 | High | Simulation, training |
+| - Jetson Orin NX kit | $800 | High | Robot deployment |
+| **Professional Kit** | $15,000+ | High | Advanced research |
+| - RTX 4090 workstation | $6,000+ | Very High | Large models, complex sim |
+| - Unitree robot | $16,000+ | Very High | Full humanoid development |
+
+## Economy Kit Option
+
+For students on a tight budget, we offer an alternative "Economy Kit" that allows participation in most course activities:
+
+- **Cloud-based development**: Use AWS g5.2xlarge instances ($1,200/month) for heavy computation
+- **Simulation-focused**: Emphasize Isaac Sim and Gazebo rather than physical hardware
+- **Shared hardware**: Access to university/college robotics labs
+- **Component-by-component**: Purchase hardware modules as needed for specific projects
+- **Open-source alternatives**: Use free simulation environments and community hardware
+
+This approach allows students to learn the core concepts of Physical AI without the full hardware investment, with the option to add physical hardware later as resources allow.
+
+## Additional Requirements
+
+- **Network infrastructure**: Reliable WiFi 6 or Ethernet for robot communication
+- **Power systems**: UPS for critical development hardware
+- **Workshop space**: Adequate space for robot testing and development
+- **Safety equipment**: Emergency stop mechanisms, safety barriers for testing

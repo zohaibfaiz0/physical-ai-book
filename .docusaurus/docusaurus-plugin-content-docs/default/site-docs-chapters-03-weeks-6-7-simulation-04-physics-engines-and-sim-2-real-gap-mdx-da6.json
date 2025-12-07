@@ -1,0 +1,29 @@
+{
+  "id": "chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap",
+  "title": "Physics Engines and the Sim-to-Real Gap: 2025 Analysis",
+  "description": "Comprehensive analysis of physics engines and strategies to minimize sim-to-real transfer gap",
+  "source": "@site/docs/chapters/03-weeks-6-7-simulation/04-physics-engines-and-sim2real-gap.mdx",
+  "sourceDirName": "chapters/03-weeks-6-7-simulation",
+  "slug": "/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap",
+  "permalink": "/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-username/book/tree/master/docs/chapters/03-weeks-6-7-simulation/04-physics-engines-and-sim2real-gap.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Physics Engines and the Sim-to-Real Gap: 2025 Analysis",
+    "description": "Comprehensive analysis of physics engines and strategies to minimize sim-to-real transfer gap",
+    "week": "Weeks 6–7"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Sensor Simulation: LIDAR, IMU, and Depth Camera Modeling",
+    "permalink": "/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth"
+  },
+  "next": {
+    "title": "index",
+    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python test_imports.py)",
+      "Bash(python -c \"from qdrant_client import QdrantClient; print(''search'' in dir(QdrantClient)); print(''query_points'' in dir(QdrantClient))\")",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
+      "Bash(powershell \"Get-ChildItem backend\\app\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
