@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/02-weeks-3-5-ros2/05-ros2-project-walkthrough.mdx",
   "sourceDirName": "chapters/02-weeks-3-5-ros2",
   "slug": "/chapters/weeks-3-5-ros2/ros2-project-walkthrough",
-  "permalink": "/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/02-weeks-3-5-ros2/05-ros2-project-walkthrough.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "RCLPY and Agent Integration: Python Robotics with AI Agents",
-    "permalink": "/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge"
   },
   "next": {
     "title": "index",
-    "permalink": "/docs/chapters/weeks-6-7-simulation/"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/"
   }
 }

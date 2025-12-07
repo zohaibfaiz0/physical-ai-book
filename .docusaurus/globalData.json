@@ -1,193 +1,193 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/docs",
+      "path": "/physical-ai-book/docs",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/docs",
+          "path": "/physical-ai-book/docs",
           "mainDocId": "chapters/weeks-1-2-foundations/index",
           "docs": [
             {
               "id": "chapters/appendices/index",
-              "path": "/docs/chapters/appendices/",
+              "path": "/physical-ai-book/docs/chapters/appendices/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid",
-              "path": "/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid",
+              "path": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/week-13-conversational-robotics/index",
-              "path": "/docs/chapters/week-13-conversational-robotics/",
+              "path": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/week-13-conversational-robotics/vision-language-action-2025",
-              "path": "/docs/chapters/week-13-conversational-robotics/vision-language-action-2025",
+              "path": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/week-13-conversational-robotics/voice-to-action-pipeline",
-              "path": "/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline",
+              "path": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-1-2-foundations/embodied-intelligence-2025",
-              "path": "/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025",
+              "path": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-1-2-foundations/humanoid-landscape-2025",
-              "path": "/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025",
+              "path": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-1-2-foundations/index",
-              "path": "/docs/chapters/weeks-1-2-foundations/",
+              "path": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-1-2-foundations/physical-laws-and-robotics",
-              "path": "/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics",
+              "path": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-1-2-foundations/sensor-systems-deep-dive",
-              "path": "/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive",
+              "path": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
-              "path": "/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
+              "path": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
-              "path": "/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
+              "path": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025",
-              "path": "/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025",
+              "path": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-11-12-humanoid-development/index",
-              "path": "/docs/chapters/weeks-11-12-humanoid-development/",
+              "path": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-11-12-humanoid-development/whole-body-control",
-              "path": "/docs/chapters/weeks-11-12-humanoid-development/whole-body-control",
+              "path": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/whole-body-control",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-3-5-ros2/index",
-              "path": "/docs/chapters/weeks-3-5-ros2/",
+              "path": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-3-5-ros2/nodes-topics-services-actions",
-              "path": "/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions",
+              "path": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-3-5-ros2/rclpy-agent-bridge",
-              "path": "/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge",
+              "path": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-3-5-ros2/ros2-core-architecture",
-              "path": "/docs/chapters/weeks-3-5-ros2/ros2-core-architecture",
+              "path": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-core-architecture",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-3-5-ros2/ros2-project-walkthrough",
-              "path": "/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough",
+              "path": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids",
-              "path": "/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids",
+              "path": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-6-7-simulation/gazebo-mastery-2025",
-              "path": "/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025",
+              "path": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-6-7-simulation/index",
-              "path": "/docs/chapters/weeks-6-7-simulation/",
+              "path": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap",
-              "path": "/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap",
+              "path": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth",
-              "path": "/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth",
+              "path": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-6-7-simulation/unity-digital-twin",
-              "path": "/docs/chapters/weeks-6-7-simulation/unity-digital-twin",
+              "path": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/unity-digital-twin",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-8-10-nvidia-isaac/index",
-              "path": "/docs/chapters/weeks-8-10-nvidia-isaac/",
+              "path": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
-              "path": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
+              "path": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
-              "path": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
+              "path": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
-              "path": "/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
+              "path": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025",
-              "path": "/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025",
+              "path": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale",
-              "path": "/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale",
+              "path": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "hardware-requirements",
-              "path": "/docs/hardware-requirements",
+              "path": "/physical-ai-book/docs/hardware-requirements",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "intro",
-              "path": "/docs/intro",
+              "path": "/physical-ai-book/docs/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "preface",
-              "path": "/docs/preface",
+              "path": "/physical-ai-book/docs/preface",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "test",
-              "path": "/docs/test",
+              "path": "/physical-ai-book/docs/test",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -195,7 +195,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/docs/chapters/weeks-1-2-foundations/",
+                "path": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/",
                 "label": "index"
               }
             }

@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/06-week-13-conversational-robotics/02-voice-to-action-pipeline.mdx",
   "sourceDirName": "chapters/06-week-13-conversational-robotics",
   "slug": "/chapters/week-13-conversational-robotics/voice-to-action-pipeline",
-  "permalink": "/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline",
+  "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/06-week-13-conversational-robotics/02-voice-to-action-pipeline.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Vision-Language-Action Models 2025: RT-2, Octo, OpenVLA and Successors",
-    "permalink": "/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"
+    "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"
   },
   "next": {
     "title": "Capstone: Full Autonomous Humanoid Robot System",
-    "permalink": "/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid"
+    "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid"
   }
 }

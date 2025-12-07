@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/03-weeks-6-7-simulation/03-sensor-simulation-lidar-imu-depth.mdx",
   "sourceDirName": "chapters/03-weeks-6-7-simulation",
   "slug": "/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth",
-  "permalink": "/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/03-weeks-6-7-simulation/03-sensor-simulation-lidar-imu-depth.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Unity Digital Twin: Photorealistic Simulation for Robotics",
-    "permalink": "/docs/chapters/weeks-6-7-simulation/unity-digital-twin"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/unity-digital-twin"
   },
   "next": {
     "title": "Physics Engines and the Sim-to-Real Gap: 2025 Analysis",
-    "permalink": "/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap"
   }
 }

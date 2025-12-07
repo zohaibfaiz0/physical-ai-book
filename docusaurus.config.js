@@ -5,8 +5,8 @@
 const config = {
   title: 'Physical AI and Humanoid Robotics',
   tagline: 'From Embodiment to Real-World Intelligence',
-  url: 'https://your-book-domain.com',
-  baseUrl: '/',
+  url: 'https://zohaibfaiz0.github.io',
+  baseUrl: '/physical-ai-book/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',

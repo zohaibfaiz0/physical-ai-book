@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/01-isaac-sim-2025-mastery.mdx",
   "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
   "slug": "/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
-  "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/04-weeks-8-10-nvidia-isaac/01-isaac-sim-2025-mastery.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
-    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/"
   },
   "next": {
     "title": "Isaac ROS, Gemini, and Visual SLAM: Hardware-Accelerated Perception",
-    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam"
   }
 }

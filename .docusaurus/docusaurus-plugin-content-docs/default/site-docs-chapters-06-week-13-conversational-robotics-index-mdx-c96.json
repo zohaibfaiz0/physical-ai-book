@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/06-week-13-conversational-robotics/index.mdx",
   "sourceDirName": "chapters/06-week-13-conversational-robotics",
   "slug": "/chapters/week-13-conversational-robotics/",
-  "permalink": "/docs/chapters/week-13-conversational-robotics/",
+  "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/06-week-13-conversational-robotics/index.mdx",
@@ -15,10 +15,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Humanoid Benchmarks 2025: Performance Metrics and Real-World Tasks",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"
   },
   "next": {
     "title": "Vision-Language-Action Models 2025: RT-2, Octo, OpenVLA and Successors",
-    "permalink": "/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"
+    "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"
   }
 }

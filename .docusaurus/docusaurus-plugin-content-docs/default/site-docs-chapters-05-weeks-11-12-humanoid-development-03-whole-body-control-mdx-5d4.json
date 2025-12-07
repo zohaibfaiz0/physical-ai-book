@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/05-weeks-11-12-humanoid-development/03-whole-body-control.mdx",
   "sourceDirName": "chapters/05-weeks-11-12-humanoid-development",
   "slug": "/chapters/weeks-11-12-humanoid-development/whole-body-control",
-  "permalink": "/docs/chapters/weeks-11-12-humanoid-development/whole-body-control",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/whole-body-control",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/05-weeks-11-12-humanoid-development/03-whole-body-control.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"
   },
   "next": {
     "title": "Humanoid Benchmarks 2025: Performance Metrics and Real-World Tasks",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"
   }
 }

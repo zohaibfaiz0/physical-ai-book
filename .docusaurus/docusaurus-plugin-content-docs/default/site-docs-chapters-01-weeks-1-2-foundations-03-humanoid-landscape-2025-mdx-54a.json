@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/01-weeks-1-2-foundations/03-humanoid-landscape-2025.mdx",
   "sourceDirName": "chapters/01-weeks-1-2-foundations",
   "slug": "/chapters/weeks-1-2-foundations/humanoid-landscape-2025",
-  "permalink": "/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/01-weeks-1-2-foundations/03-humanoid-landscape-2025.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Physical Laws and Robotics: From Newtonian Mechanics to Quantum-Inspired Control",
-    "permalink": "/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics"
   },
   "next": {
     "title": "Sensor Systems Deep Dive: Multi-Modal Perception for Embodied Intelligence",
-    "permalink": "/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive"
   }
 }

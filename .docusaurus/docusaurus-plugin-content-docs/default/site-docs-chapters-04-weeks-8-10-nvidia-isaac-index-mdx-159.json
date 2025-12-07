@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/index.mdx",
   "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
   "slug": "/chapters/weeks-8-10-nvidia-isaac/",
-  "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/04-weeks-8-10-nvidia-isaac/index.mdx",
@@ -15,10 +15,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Physics Engines and the Sim-to-Real Gap: 2025 Analysis",
-    "permalink": "/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap"
   },
   "next": {
     "title": "Isaac Sim 2025 Mastery: Omniverse USD and Advanced Extensions",
-    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"
   }
 }

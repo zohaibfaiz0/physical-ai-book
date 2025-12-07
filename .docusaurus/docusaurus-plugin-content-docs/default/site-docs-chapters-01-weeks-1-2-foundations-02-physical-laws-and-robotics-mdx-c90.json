@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/01-weeks-1-2-foundations/02-physical-laws-and-robotics.mdx",
   "sourceDirName": "chapters/01-weeks-1-2-foundations",
   "slug": "/chapters/weeks-1-2-foundations/physical-laws-and-robotics",
-  "permalink": "/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/01-weeks-1-2-foundations/02-physical-laws-and-robotics.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Embodied Intelligence 2025: The Paradigm Shift from Digital to Physical Cognition",
-    "permalink": "/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"
   },
   "next": {
     "title": "Humanoid Landscape 2025: Platforms, Capabilities, and Market Dynamics",
-    "permalink": "/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025"
   }
 }

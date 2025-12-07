@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/05-weeks-11-12-humanoid-development/02-dexterous-manipulation.mdx",
   "sourceDirName": "chapters/05-weeks-11-12-humanoid-development",
   "slug": "/chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
-  "permalink": "/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/05-weeks-11-12-humanoid-development/02-dexterous-manipulation.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Bipedal Locomotion 2025: ZMP, MPC, and Reinforcement Learning Walking",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025"
   },
   "next": {
     "title": "Whole-Body Control: Quadratic Programming and Torque Control",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/whole-body-control"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/whole-body-control"
   }
 }

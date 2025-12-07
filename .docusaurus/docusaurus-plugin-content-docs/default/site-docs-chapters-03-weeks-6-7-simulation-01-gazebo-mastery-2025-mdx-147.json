@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/03-weeks-6-7-simulation/01-gazebo-mastery-2025.mdx",
   "sourceDirName": "chapters/03-weeks-6-7-simulation",
   "slug": "/chapters/weeks-6-7-simulation/gazebo-mastery-2025",
-  "permalink": "/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/03-weeks-6-7-simulation/01-gazebo-mastery-2025.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
-    "permalink": "/docs/chapters/weeks-6-7-simulation/"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/"
   },
   "next": {
     "title": "Unity Digital Twin: Photorealistic Simulation for Robotics",
-    "permalink": "/docs/chapters/weeks-6-7-simulation/unity-digital-twin"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/unity-digital-twin"
   }
 }

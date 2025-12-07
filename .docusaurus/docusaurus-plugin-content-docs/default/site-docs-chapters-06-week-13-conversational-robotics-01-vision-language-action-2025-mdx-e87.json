@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/06-week-13-conversational-robotics/01-vision-language-action-2025.mdx",
   "sourceDirName": "chapters/06-week-13-conversational-robotics",
   "slug": "/chapters/week-13-conversational-robotics/vision-language-action-2025",
-  "permalink": "/docs/chapters/week-13-conversational-robotics/vision-language-action-2025",
+  "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/06-week-13-conversational-robotics/01-vision-language-action-2025.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
-    "permalink": "/docs/chapters/week-13-conversational-robotics/"
+    "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/"
   },
   "next": {
     "title": "Voice-to-Action Pipeline: From Speech Recognition to ROS2 Actions",
-    "permalink": "/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline"
+    "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline"
   }
 }

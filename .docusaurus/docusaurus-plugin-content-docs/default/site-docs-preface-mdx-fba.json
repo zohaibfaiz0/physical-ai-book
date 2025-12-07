@@ -5,7 +5,7 @@
   "source": "@site/docs/preface.mdx",
   "sourceDirName": ".",
   "slug": "/preface",
-  "permalink": "/docs/preface",
+  "permalink": "/physical-ai-book/docs/preface",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/preface.mdx",
@@ -15,10 +15,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Introduction",
-    "permalink": "/docs/intro"
+    "permalink": "/physical-ai-book/docs/intro"
   },
   "next": {
     "title": "Test Document",
-    "permalink": "/docs/test"
+    "permalink": "/physical-ai-book/docs/test"
   }
 }

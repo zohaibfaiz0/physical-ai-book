@@ -1,168 +1,168 @@
 {
-  "/search-822": {
+  "/physical-ai-book/search-28f": {
     "__comp": "1a4e3797",
     "__context": {
       "plugin": "138e0e15"
     }
   },
-  "/docs-06f": {
+  "/physical-ai-book/docs-08b": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/docs-41d": {
+  "/physical-ai-book/docs-4af": {
     "__comp": "a7bd4aaa",
-    "__props": "0058b4c6"
+    "__props": "e932793b"
   },
-  "/docs-020": {
+  "/physical-ai-book/docs-edc": {
     "__comp": "a94703ab"
   },
-  "/docs/chapters/appendices/-cb2": {
+  "/physical-ai-book/docs/chapters/appendices/-4b8": {
     "__comp": "17896441",
     "content": "a24be8a1"
   },
-  "/docs/chapters/week-13-conversational-robotics/-cdb": {
+  "/physical-ai-book/docs/chapters/week-13-conversational-robotics/-e4d": {
     "__comp": "17896441",
     "content": "c9634b4b"
   },
-  "/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid-3da": {
+  "/physical-ai-book/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid-23a": {
     "__comp": "17896441",
     "content": "84c02fb1"
   },
-  "/docs/chapters/week-13-conversational-robotics/vision-language-action-2025-476": {
+  "/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025-654": {
     "__comp": "17896441",
     "content": "e87f20c2"
   },
-  "/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline-b43": {
+  "/physical-ai-book/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline-a3b": {
     "__comp": "17896441",
     "content": "09fd8002"
   },
-  "/docs/chapters/weeks-1-2-foundations/-743": {
+  "/physical-ai-book/docs/chapters/weeks-1-2-foundations/-eed": {
     "__comp": "17896441",
     "content": "78616771"
   },
-  "/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025-567": {
+  "/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025-e85": {
     "__comp": "17896441",
     "content": "1e2dcaeb"
   },
-  "/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025-4d9": {
+  "/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025-7fa": {
     "__comp": "17896441",
     "content": "54a6db87"
   },
-  "/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics-24d": {
+  "/physical-ai-book/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics-a33": {
     "__comp": "17896441",
     "content": "c90df786"
   },
-  "/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive-dba": {
+  "/physical-ai-book/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive-a7b": {
     "__comp": "17896441",
     "content": "2d00b9c9"
   },
-  "/docs/chapters/weeks-11-12-humanoid-development/-71a": {
+  "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/-97e": {
     "__comp": "17896441",
     "content": "6ab69c6d"
   },
-  "/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025-94b": {
+  "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025-b0b": {
     "__comp": "17896441",
     "content": "b84bc6bd"
   },
-  "/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation-1f2": {
+  "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation-b14": {
     "__comp": "17896441",
     "content": "062fee6b"
   },
-  "/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025-200": {
+  "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025-541": {
     "__comp": "17896441",
     "content": "8962f8e8"
   },
-  "/docs/chapters/weeks-11-12-humanoid-development/whole-body-control-063": {
+  "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/whole-body-control-655": {
     "__comp": "17896441",
     "content": "5d4c3f07"
   },
-  "/docs/chapters/weeks-3-5-ros2/-b3f": {
+  "/physical-ai-book/docs/chapters/weeks-3-5-ros2/-dbb": {
     "__comp": "17896441",
     "content": "533846e6"
   },
-  "/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions-3a0": {
+  "/physical-ai-book/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions-227": {
     "__comp": "17896441",
     "content": "ddb5c9af"
   },
-  "/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge-613": {
+  "/physical-ai-book/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge-4e3": {
     "__comp": "17896441",
     "content": "d1b04574"
   },
-  "/docs/chapters/weeks-3-5-ros2/ros2-core-architecture-d95": {
+  "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-core-architecture-874": {
     "__comp": "17896441",
     "content": "93c80463"
   },
-  "/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough-acd": {
+  "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough-2bb": {
     "__comp": "17896441",
     "content": "41d48677"
   },
-  "/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids-175": {
+  "/physical-ai-book/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids-549": {
     "__comp": "17896441",
     "content": "06d37265"
   },
-  "/docs/chapters/weeks-6-7-simulation/-ef4": {
+  "/physical-ai-book/docs/chapters/weeks-6-7-simulation/-4a5": {
     "__comp": "17896441",
     "content": "2cfde9df"
   },
-  "/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025-8b1": {
+  "/physical-ai-book/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025-a87": {
     "__comp": "17896441",
     "content": "14779eaa"
   },
-  "/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap-739": {
+  "/physical-ai-book/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap-ca4": {
     "__comp": "17896441",
     "content": "da6671d1"
   },
-  "/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth-82b": {
+  "/physical-ai-book/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth-a80": {
     "__comp": "17896441",
     "content": "07cd7be7"
   },
-  "/docs/chapters/weeks-6-7-simulation/unity-digital-twin-646": {
+  "/physical-ai-book/docs/chapters/weeks-6-7-simulation/unity-digital-twin-381": {
     "__comp": "17896441",
     "content": "55050534"
   },
-  "/docs/chapters/weeks-8-10-nvidia-isaac/-8d6": {
+  "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/-06a": {
     "__comp": "17896441",
     "content": "1598e55e"
   },
-  "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam-65f": {
+  "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam-fed": {
     "__comp": "17896441",
     "content": "eaa24a12"
   },
-  "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery-831": {
+  "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery-507": {
     "__comp": "17896441",
     "content": "667089eb"
   },
-  "/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac-a22": {
+  "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac-f9e": {
     "__comp": "17896441",
     "content": "66e2119f"
   },
-  "/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025-fa7": {
+  "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025-3a3": {
     "__comp": "17896441",
     "content": "0b7e5342"
   },
-  "/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale-570": {
+  "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale-bab": {
     "__comp": "17896441",
     "content": "5e16478b"
   },
-  "/docs/hardware-requirements-2c6": {
+  "/physical-ai-book/docs/hardware-requirements-6c1": {
     "__comp": "17896441",
     "content": "64f9e223"
   },
-  "/docs/intro-89a": {
+  "/physical-ai-book/docs/intro-bdb": {
     "__comp": "17896441",
     "content": "f8409a7e"
   },
-  "/docs/preface-4d0": {
+  "/physical-ai-book/docs/preface-349": {
     "__comp": "17896441",
     "content": "fbaa1ae4"
   },
-  "/docs/test-0fd": {
+  "/physical-ai-book/docs/test-760": {
     "__comp": "17896441",
     "content": "435bcd1f"
   },
-  "/-2e1": {
+  "/physical-ai-book/-003": {
     "__comp": "c4f5d8e4",
     "__context": {
       "plugin": "a7456010"

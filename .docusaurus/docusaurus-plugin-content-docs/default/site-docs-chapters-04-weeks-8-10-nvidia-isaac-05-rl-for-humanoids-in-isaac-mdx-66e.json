@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/05-rl-for-humanoids-in-isaac.mdx",
   "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
   "slug": "/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
-  "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/04-weeks-8-10-nvidia-isaac/05-rl-for-humanoids-in-isaac.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Sim-to-Real Transfer 2025: Advanced Techniques and Zero-Shot Learning",
-    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025"
   },
   "next": {
     "title": "index",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/"
   }
 }

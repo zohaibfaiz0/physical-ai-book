@@ -5,8 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build && xcopy build\\* docs\\ /E /H /Y && rmdir /s /q build",
-    "build-docs": "docusaurus build && xcopy build\\* docs\\ /E /H /Y",
+    "build": "docusaurus build && xcopy build\\* . /E /H /Y && rmdir /s /q build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

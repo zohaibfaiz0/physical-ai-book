@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/05-weeks-11-12-humanoid-development/01-bipedal-locomotion-2025.mdx",
   "sourceDirName": "chapters/05-weeks-11-12-humanoid-development",
   "slug": "/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
-  "permalink": "/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/05-weeks-11-12-humanoid-development/01-bipedal-locomotion-2025.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/"
   },
   "next": {
     "title": "Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands",
-    "permalink": "/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"
   }
 }

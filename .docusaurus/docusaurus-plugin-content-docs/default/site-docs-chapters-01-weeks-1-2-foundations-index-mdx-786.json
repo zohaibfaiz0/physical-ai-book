@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/01-weeks-1-2-foundations/index.mdx",
   "sourceDirName": "chapters/01-weeks-1-2-foundations",
   "slug": "/chapters/weeks-1-2-foundations/",
-  "permalink": "/docs/chapters/weeks-1-2-foundations/",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/01-weeks-1-2-foundations/index.mdx",
@@ -15,6 +15,6 @@
   "sidebar": "tutorialSidebar",
   "next": {
     "title": "Embodied Intelligence 2025: The Paradigm Shift from Digital to Physical Cognition",
-    "permalink": "/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/intro.mdx",
   "sourceDirName": ".",
   "slug": "/intro",
-  "permalink": "/docs/intro",
+  "permalink": "/physical-ai-book/docs/intro",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/intro.mdx",
@@ -18,10 +18,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Hardware Requirements",
-    "permalink": "/docs/hardware-requirements"
+    "permalink": "/physical-ai-book/docs/hardware-requirements"
   },
   "next": {
     "title": "preface",
-    "permalink": "/docs/preface"
+    "permalink": "/physical-ai-book/docs/preface"
   }
 }

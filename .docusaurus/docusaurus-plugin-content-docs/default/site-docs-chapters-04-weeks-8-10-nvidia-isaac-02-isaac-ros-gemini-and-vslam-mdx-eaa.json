@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/02-isaac-ros-gemini-and-vslam.mdx",
   "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
   "slug": "/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
-  "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/04-weeks-8-10-nvidia-isaac/02-isaac-ros-gemini-and-vslam.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Isaac Sim 2025 Mastery: Omniverse USD and Advanced Extensions",
-    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"
   },
   "next": {
     "title": "Synthetic Data at Scale: Domain Randomization and Active Learning",
-    "permalink": "/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale"
   }
 }

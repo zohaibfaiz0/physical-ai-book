@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/02-weeks-3-5-ros2/index.mdx",
   "sourceDirName": "chapters/02-weeks-3-5-ros2",
   "slug": "/chapters/weeks-3-5-ros2/",
-  "permalink": "/docs/chapters/weeks-3-5-ros2/",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/02-weeks-3-5-ros2/index.mdx",
@@ -15,10 +15,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Sensor Systems Deep Dive: Multi-Modal Perception for Embodied Intelligence",
-    "permalink": "/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive"
   },
   "next": {
     "title": "ROS 2 Core Architecture: Distributed Systems and Middleware in 2025",
-    "permalink": "/docs/chapters/weeks-3-5-ros2/ros2-core-architecture"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-core-architecture"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/chapters/02-weeks-3-5-ros2/03-urdf-xacro-sdf-humanoids.mdx",
   "sourceDirName": "chapters/02-weeks-3-5-ros2",
   "slug": "/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids",
-  "permalink": "/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids",
+  "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/chapters/02-weeks-3-5-ros2/03-urdf-xacro-sdf-humanoids.mdx",
@@ -20,10 +20,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Nodes, Topics, Services, and Actions: Communication Primitives in ROS 2",
-    "permalink": "/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions"
   },
   "next": {
     "title": "RCLPY and Agent Integration: Python Robotics with AI Agents",
-    "permalink": "/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge"
+    "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge"
   }
 }
