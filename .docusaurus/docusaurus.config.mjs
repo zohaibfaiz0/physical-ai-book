@@ -24,7 +24,7 @@ export default {
       {
         "docs": {
           "sidebarPath": "C:\\Users\\AA\\Desktop\\sp+\\book\\sidebars.js",
-          "editUrl": "https://github.com/your-username/book/tree/master/"
+          "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book"
         },
         "blog": false,
         "theme": {
@@ -49,7 +49,7 @@ export default {
           "label": "Documentation"
         },
         {
-          "href": "https://github.com/your-username/book",
+          "href": "https://github.com/zohaibfaiz0/physical-ai-book",
           "label": "GitHub",
           "position": "right"
         }
@@ -86,7 +86,7 @@ export default {
           "items": [
             {
               "label": "GitHub",
-              "href": "https://github.com/your-username/book"
+              "href": "https://github.com/zohaibfaiz0/physical-ai-book"
             }
           ]
         }

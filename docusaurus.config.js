@@ -29,7 +29,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/your-username/book/tree/master/',
+            'https://github.com/zohaibfaiz0/physical-ai-book',
         },
         blog: false, // Disable blog if not needed
         theme: {
@@ -58,7 +58,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/your-username/book',
+            href: 'https://github.com/zohaibfaiz0/physical-ai-book',
             label: 'GitHub',
             position: 'right',
           },
@@ -94,7 +94,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/your-username/book',
+                href: 'https://github.com/zohaibfaiz0/physical-ai-book',
               },
             ],
           },

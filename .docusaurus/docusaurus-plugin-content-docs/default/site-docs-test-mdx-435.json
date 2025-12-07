@@ -5,10 +5,10 @@
   "source": "@site/docs/test.mdx",
   "sourceDirName": ".",
   "slug": "/test",
-  "permalink": "/book/docs/test",
+  "permalink": "/docs/test",
   "draft": false,
   "unlisted": false,
-  "editUrl": "https://github.com/your-username/book/tree/master/docs/test.mdx",
+  "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/test.mdx",
   "tags": [],
   "version": "current",
   "frontMatter": {
@@ -18,6 +18,6 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "preface",
-    "permalink": "/book/docs/preface"
+    "permalink": "/docs/preface"
   }
 }
