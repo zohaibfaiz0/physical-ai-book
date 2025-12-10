@@ -7,7 +7,7 @@ const config = {
   tagline: 'From Embodiment to Real-World Intelligence',
   url: 'https://zohaibfaiz0.github.io',
   baseUrl: '/physical-ai-book/',
-  onBrokenLinks: 'warn', // Changed to 'warn' for GitHub Pages deployment
+  onBrokenLinks: 'warn', // Changed to 'warn' for GitHub Pages deployment - Updated for latest fixes
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
 
