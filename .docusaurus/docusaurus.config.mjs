@@ -83,11 +83,11 @@ export default {
             },
             {
               "label": "Week 1-2: Foundations",
-              "to": "/docs/chapters/01-weeks-1-2-foundations/"
+              "to": "/docs/chapters/01-weeks-1-2-foundations"
             },
             {
               "label": "Week 3-5: ROS2",
-              "to": "/docs/chapters/02-weeks-3-5-ros2/"
+              "to": "/docs/chapters/02-weeks-3-5-ros2"
             }
           ]
         },
