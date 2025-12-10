@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-1-2-foundations/embodied-intelligence-2025",
-  "title": "Embodied Intelligence 2025: The Paradigm Shift from Digital to Physical Cognition",
-  "description": "Understanding the fundamental shift from traditional AI to embodied intelligence in 2025",
+  "title": "embodied-intelligence-2025",
+  "description": "---",
   "source": "@site/docs/chapters/01-weeks-1-2-foundations/01-embodied-intelligence-2025.mdx",
   "sourceDirName": "chapters/01-weeks-1-2-foundations",
   "slug": "/chapters/weeks-1-2-foundations/embodied-intelligence-2025",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 1,
-  "frontMatter": {
-    "title": "Embodied Intelligence 2025: The Paradigm Shift from Digital to Physical Cognition",
-    "description": "Understanding the fundamental shift from traditional AI to embodied intelligence in 2025",
-    "week": "Weeks 1–2"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
     "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/"
   },
   "next": {
-    "title": "Physical Laws and Robotics: From Newtonian Mechanics to Quantum-Inspired Control",
+    "title": "physical-laws-and-robotics",
     "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics"
   }
 }

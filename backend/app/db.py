@@ -35,7 +35,7 @@ class DatabaseManager:
             # Create conversations table
             await conn.execute("""
                 CREATE TABLE IF NOT EXISTS conversations (
-                    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                    id TEXT PRIMARY KEY,
                     user_id UUID,
                     created_at TIMESTAMP DEFAULT NOW(),
                     updated_at TIMESTAMP DEFAULT NOW(),
@@ -47,7 +47,7 @@ class DatabaseManager:
             await conn.execute("""
                 CREATE TABLE IF NOT EXISTS messages (
                     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-                    conversation_id UUID REFERENCES conversations(id) ON DELETE CASCADE,
+                    conversation_id TEXT REFERENCES conversations(id) ON DELETE CASCADE,
                     role VARCHAR(20) NOT NULL, -- 'user' or 'assistant'
                     content TEXT NOT NULL,
                     sources JSONB, -- Array of source references
@@ -74,10 +74,9 @@ class DatabaseManager:
 
             logger.info("Tables initialized successfully")
 
-    async def create_conversation(self, user_id: Optional[str] = None, title: Optional[str] = None) -> str:
-        """Create a new conversation and return its ID"""
+    async def create_conversation(self, conversation_id: str, user_id: Optional[str] = None, title: Optional[str] = None) -> str:
+        """Create a new conversation with the provided ID"""
         async with self.pool.acquire() as conn:
-            conversation_id = str(uuid.uuid4())
             await conn.execute(
                 """
                 INSERT INTO conversations (id, user_id, title)
@@ -181,7 +180,7 @@ class DatabaseManager:
                 return None
 
             return {
-                'id': str(row['id']),
+                'id': row['id'],
                 'user_id': str(row['user_id']) if row['user_id'] else None,
                 'created_at': row['created_at'],
                 'updated_at': row['updated_at'],

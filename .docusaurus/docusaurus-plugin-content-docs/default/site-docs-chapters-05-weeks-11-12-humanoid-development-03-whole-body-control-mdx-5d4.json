@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-11-12-humanoid-development/whole-body-control",
-  "title": "Whole-Body Control: Quadratic Programming and Torque Control",
-  "description": "Advanced whole-body control with quadratic programming, torque control, and centroidal dynamics",
+  "title": "whole-body-control",
+  "description": "---",
   "source": "@site/docs/chapters/05-weeks-11-12-humanoid-development/03-whole-body-control.mdx",
   "sourceDirName": "chapters/05-weeks-11-12-humanoid-development",
   "slug": "/chapters/weeks-11-12-humanoid-development/whole-body-control",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 3,
-  "frontMatter": {
-    "title": "Whole-Body Control: Quadratic Programming and Torque Control",
-    "description": "Advanced whole-body control with quadratic programming, torque control, and centroidal dynamics",
-    "week": "Weeks 11–12"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands",
+    "title": "dexterous-manipulation",
     "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"
   },
   "next": {
-    "title": "Humanoid Benchmarks 2025: Performance Metrics and Real-World Tasks",
+    "title": "humanoid-benchmarks-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"
   }
 }

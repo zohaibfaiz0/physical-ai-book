@@ -7,13 +7,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Settings(BaseSettings):
-    # Groq API
-    GROQ_API_KEY: str
     # Gemini API
     GEMINI_API_KEY: str
-    # Model selection (groq or gemini)
-    LLM_PROVIDER: str = "groq"  # Default to groq, can be "gemini"
-    MODEL_NAME: str = "llama-3.3-70b-versatile"  # Default Groq model
+    # Model selection (now only gemini)
+    LLM_PROVIDER: str = "gemini"  # Default to gemini
     GEMINI_MODEL: str = "gemini-2.5-flash"  # Default Gemini model
 
     # Embeddings

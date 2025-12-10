@@ -14,11 +14,11 @@
   "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Sensor Systems Deep Dive: Multi-Modal Perception for Embodied Intelligence",
+    "title": "sensor-systems-deep-dive",
     "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive"
   },
   "next": {
-    "title": "ROS 2 Core Architecture: Distributed Systems and Middleware in 2025",
+    "title": "ros2-core-architecture",
     "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-core-architecture"
   }
 }

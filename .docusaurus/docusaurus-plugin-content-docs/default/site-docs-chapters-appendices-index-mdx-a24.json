@@ -14,11 +14,7 @@
   "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Capstone: Full Autonomous Humanoid Robot System",
+    "title": "capstone-full-autonomous-humanoid",
     "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid"
-  },
-  "next": {
-    "title": "Hardware Requirements",
-    "permalink": "/physical-ai-book/docs/hardware-requirements"
   }
 }

@@ -13,15 +13,13 @@
   "version": "current",
   "frontMatter": {
     "title": "Introduction",
-    "description": "Getting started with Physical AI and Humanoid Robotics"
+    "description": "Getting started with Physical AI and Humanoid Robotics",
+    "hide_title": true,
+    "hide_table_of_contents": true
   },
   "sidebar": "tutorialSidebar",
-  "previous": {
+  "next": {
     "title": "Hardware Requirements",
     "permalink": "/physical-ai-book/docs/hardware-requirements"
-  },
-  "next": {
-    "title": "preface",
-    "permalink": "/physical-ai-book/docs/preface"
   }
 }

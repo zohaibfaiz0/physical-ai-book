@@ -1,7 +1,7 @@
 {
   "id": "preface",
-  "title": "preface",
-  "description": "---",
+  "title": "Preface",
+  "description": "Introduction to Physical AI and Humanoid Robotics: From Embodiment to Real-World Intelligence",
   "source": "@site/docs/preface.mdx",
   "sourceDirName": ".",
   "slug": "/preface",
@@ -11,14 +11,17 @@
   "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book/docs/preface.mdx",
   "tags": [],
   "version": "current",
-  "frontMatter": {},
+  "frontMatter": {
+    "title": "Preface",
+    "description": "Introduction to Physical AI and Humanoid Robotics: From Embodiment to Real-World Intelligence"
+  },
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Introduction",
-    "permalink": "/physical-ai-book/docs/intro"
+    "title": "Hardware Requirements",
+    "permalink": "/physical-ai-book/docs/hardware-requirements"
   },
   "next": {
-    "title": "Test Document",
-    "permalink": "/physical-ai-book/docs/test"
+    "title": "index",
+    "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/"
   }
 }

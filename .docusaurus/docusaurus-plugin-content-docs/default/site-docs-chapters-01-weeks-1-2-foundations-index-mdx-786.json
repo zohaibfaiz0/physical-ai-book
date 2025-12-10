@@ -13,8 +13,12 @@
   "version": "current",
   "frontMatter": {},
   "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Preface",
+    "permalink": "/physical-ai-book/docs/preface"
+  },
   "next": {
-    "title": "Embodied Intelligence 2025: The Paradigm Shift from Digital to Physical Cognition",
+    "title": "embodied-intelligence-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"
   }
 }

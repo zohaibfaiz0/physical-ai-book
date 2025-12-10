@@ -1,7 +1,7 @@
 {
   "id": "chapters/week-13-conversational-robotics/voice-to-action-pipeline",
-  "title": "Voice-to-Action Pipeline: From Speech Recognition to ROS2 Actions",
-  "description": "Complete implementation of voice command pipeline from Whisper to LLM reasoning to ROS2 action execution",
+  "title": "voice-to-action-pipeline",
+  "description": "---",
   "source": "@site/docs/chapters/06-week-13-conversational-robotics/02-voice-to-action-pipeline.mdx",
   "sourceDirName": "chapters/06-week-13-conversational-robotics",
   "slug": "/chapters/week-13-conversational-robotics/voice-to-action-pipeline",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 2,
-  "frontMatter": {
-    "title": "Voice-to-Action Pipeline: From Speech Recognition to ROS2 Actions",
-    "description": "Complete implementation of voice command pipeline from Whisper to LLM reasoning to ROS2 action execution",
-    "week": "Week 13"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Vision-Language-Action Models 2025: RT-2, Octo, OpenVLA and Successors",
+    "title": "vision-language-action-2025",
     "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"
   },
   "next": {
-    "title": "Capstone: Full Autonomous Humanoid Robot System",
+    "title": "capstone-full-autonomous-humanoid",
     "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid"
   }
 }

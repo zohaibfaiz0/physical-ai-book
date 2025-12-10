@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
-  "title": "Isaac Sim 2025 Mastery: Omniverse USD and Advanced Extensions",
-  "description": "Comprehensive guide to Isaac Sim 2025 with Omniverse USD, extensions, and advanced features",
+  "title": "isaac-sim-2025-mastery",
+  "description": "---",
   "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/01-isaac-sim-2025-mastery.mdx",
   "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
   "slug": "/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 1,
-  "frontMatter": {
-    "title": "Isaac Sim 2025 Mastery: Omniverse USD and Advanced Extensions",
-    "description": "Comprehensive guide to Isaac Sim 2025 with Omniverse USD, extensions, and advanced features",
-    "week": "Weeks 8–10"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
     "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/"
   },
   "next": {
-    "title": "Isaac ROS, Gemini, and Visual SLAM: Hardware-Accelerated Perception",
+    "title": "isaac-ros-gemini-and-vslam",
     "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam"
   }
 }

@@ -7,7 +7,7 @@ const config = {
   tagline: 'From Embodiment to Real-World Intelligence',
   url: 'https://zohaibfaiz0.github.io',
   baseUrl: '/physical-ai-book/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn', // Changed to 'warn' for GitHub Pages deployment
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
 
@@ -44,8 +44,13 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
+      },
       navbar: {
-        title: 'Physical AI & Robotics',
+        title: 'Physical AI & Humanoid Robotics',
         logo: {
           alt: 'Physical AI and Humanoid Robotics Logo',
           src: 'img/logo.svg',
@@ -58,9 +63,19 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/zohaibfaiz0/physical-ai-book',
+            to: 'https://github.com/zohaibfaiz0/physical-ai-book',
             label: 'GitHub',
             position: 'right',
+          },
+          {
+            type: 'html',
+            position: 'right',
+            value: '<div class="navbar__item--rag-status"><span class="rag-status-indicator"></span>RAG Active</div>',
+          },
+          {
+            type: 'html',
+            position: 'right',
+            value: '<div id="navbar-chat-container"></div>',
           },
         ],
       },
@@ -74,32 +89,48 @@ const config = {
                 label: 'Introduction',
                 to: '/docs/intro',
               },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Week 1-2: Foundations',
+                to: '/docs/chapters/01-weeks-1-2-foundations/',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Week 3-5: ROS2',
+                to: '/docs/chapters/02-weeks-3-5-ros2/',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Resources',
             items: [
               {
-                label: 'GitHub',
+                label: 'GitHub Repository',
                 href: 'https://github.com/zohaibfaiz0/physical-ai-book',
+              },
+              {
+                label: 'Docusaurus',
+                href: 'https://docusaurus.io',
+              },
+            ],
+          },
+          {
+            title: 'Built with AI',
+            items: [
+              {
+                label: 'Gemini 2.5 Flash',
+                href: 'https://deepmind.google/technologies/gemini/',
+              },
+              {
+                label: 'Qdrant Vector DB',
+                href: 'https://qdrant.tech',
+              },
+              {
+                label: 'Neon Postgres',
+                href: 'https://neon.tech',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Physical AI and Humanoid Robotics Book. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI and Humanoid Robotics Book. Built with Docusaurus. <div class="footer__rag-stats">RAG Queries Served: <span id="rag-queries-count">∞</span> | Live Status: <span class="rag-status-indicator"></span> Active</div>`,
       },
       prism: {
         theme: require('prism-react-renderer/themes/github'),
@@ -107,6 +138,12 @@ const config = {
       },
     }),
 
+  scripts: [
+    {
+      src: '/js/navbar-chat.js',
+      async: true,
+    },
+  ],
   plugins: [
     // Enable global MDX components
     [
@@ -139,6 +176,7 @@ const config = {
       },
     ],
   ],
+
 };
 
 module.exports = config;

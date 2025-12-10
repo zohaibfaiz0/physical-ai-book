@@ -14,11 +14,11 @@
   "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Reinforcement Learning for Humanoids in Isaac: Isaac Lab Migration",
+    "title": "rl-for-humanoids-in-isaac",
     "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac"
   },
   "next": {
-    "title": "Bipedal Locomotion 2025: ZMP, MPC, and Reinforcement Learning Walking",
+    "title": "bipedal-locomotion-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025"
   }
 }

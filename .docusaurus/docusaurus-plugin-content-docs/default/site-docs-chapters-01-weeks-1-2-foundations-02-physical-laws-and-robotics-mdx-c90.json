@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-1-2-foundations/physical-laws-and-robotics",
-  "title": "Physical Laws and Robotics: From Newtonian Mechanics to Quantum-Inspired Control",
-  "description": "Understanding how fundamental physical laws govern robotic systems and their control",
+  "title": "physical-laws-and-robotics",
+  "description": "---",
   "source": "@site/docs/chapters/01-weeks-1-2-foundations/02-physical-laws-and-robotics.mdx",
   "sourceDirName": "chapters/01-weeks-1-2-foundations",
   "slug": "/chapters/weeks-1-2-foundations/physical-laws-and-robotics",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 2,
-  "frontMatter": {
-    "title": "Physical Laws and Robotics: From Newtonian Mechanics to Quantum-Inspired Control",
-    "description": "Understanding how fundamental physical laws govern robotic systems and their control",
-    "week": "Weeks 1–2"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Embodied Intelligence 2025: The Paradigm Shift from Digital to Physical Cognition",
+    "title": "embodied-intelligence-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"
   },
   "next": {
-    "title": "Humanoid Landscape 2025: Platforms, Capabilities, and Market Dynamics",
+    "title": "humanoid-landscape-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025"
   }
 }

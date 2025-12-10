@@ -14,11 +14,11 @@
   "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Humanoid Benchmarks 2025: Performance Metrics and Real-World Tasks",
+    "title": "humanoid-benchmarks-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"
   },
   "next": {
-    "title": "Vision-Language-Action Models 2025: RT-2, Octo, OpenVLA and Successors",
+    "title": "vision-language-action-2025",
     "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"
   }
 }

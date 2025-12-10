@@ -7,14 +7,10 @@ logger = logging.getLogger(__name__)
 
 class Agent:
     def __init__(self):
-        # Initialize clients based on provider
-        if settings.LLM_PROVIDER.lower() == "gemini":
-            import google.generativeai as genai
-            genai.configure(api_key=settings.GEMINI_API_KEY)
-            self.model = genai.GenerativeModel(settings.GEMINI_MODEL)
-        else:  # Default to Groq
-            from groq import AsyncGroq
-            self.groq_client = AsyncGroq(api_key=settings.GROQ_API_KEY)
+        # Initialize Gemini client
+        import google.generativeai as genai
+        genai.configure(api_key=settings.GEMINI_API_KEY)
+        self.model = genai.GenerativeModel(settings.GEMINI_MODEL)
 
     async def analyze_query(self, question: str) -> Dict[str, Any]:
         """Analyze query to determine intent, type, and keywords"""
@@ -31,101 +27,33 @@ class Agent:
             Respond in JSON format with keys: intent, type, keywords, complexity
             """
 
-            if settings.LLM_PROVIDER.lower() == "gemini":
-                # Use Gemini API for query analysis
-                try:
-                    response = await self.model.generate_content_async(
-                        prompt,
-                        generation_config={
-                            "temperature": 0.1,
-                            "max_output_tokens": 500,
-                            "response_mime_type": "application/json",
-                        }
-                    )
-
-                    if response.text:
-                        import json
-                        analysis = json.loads(response.text)
-                        return analysis
-                    else:
-                        logger.warning("Gemini returned empty response for query analysis, using default")
-                except Exception as e:
-                    logger.error(f"Gemini query analysis failed: {e}")
-
-                # If Gemini fails, return default analysis
-                return {
-                    "intent": "information_request",
-                    "type": "factual",
-                    "keywords": question.split()[:5],  # Use first 5 words as keywords
-                    "complexity": "moderate"
-                }
-            else:
-                # Use Groq API (original implementation)
-                try:
-                    response = await self.groq_client.chat.completions.create(
-                        model=settings.MODEL_NAME,
-                        messages=[
-                            {
-                                "role": "system",
-                                "content": "You are an expert at analyzing user queries. Respond only with valid JSON."
-                            },
-                            {
-                                "role": "user",
-                                "content": prompt
-                            }
-                        ],
-                        response_format={"type": "json_object"}
-                    )
-
-                    import json
-                    analysis = json.loads(response.choices[0].message.content)
-                    return analysis
-                except Exception as e:
-                    logger.error(f"Groq query analysis failed: {e}")
-                    # Check if it's a model-specific error
-                    error_str = str(e).lower()
-                    if "model" in error_str and ("decommissioned" in error_str or "not found" in error_str or "404" in str(e)):
-                        logger.info("Trying fallback model for query analysis...")
-                        # Try a fallback model for query analysis
-                        fallback_models = [
-                            "llama-3.3-70b-versatile",  # Updated model
-                            "llama3-70b-8192",  # Alternative Groq model
-                            "mixtral-8x7b-32768"  # Another alternative
-                        ]
-
-                        for fallback_model in fallback_models:
-                            try:
-                                logger.info(f"Trying fallback model for query analysis: {fallback_model}")
-                                response = await self.groq_client.chat.completions.create(
-                                    model=fallback_model,
-                                    messages=[
-                                        {
-                                            "role": "system",
-                                            "content": "You are an expert at analyzing user queries. Respond only with valid JSON."
-                                        },
-                                        {
-                                            "role": "user",
-                                            "content": prompt
-                                        }
-                                    ],
-                                    response_format={"type": "json_object"}
-                                )
-
-                                import json
-                                analysis = json.loads(response.choices[0].message.content)
-                                return analysis
-                            except Exception as fallback_error:
-                                logger.error(f"Fallback model {fallback_model} failed for query analysis: {fallback_error}")
-                                continue
-
-                    # If all models fail, return default analysis
-                    logger.warning("All models failed for query analysis, using default")
-                    return {
-                        "intent": "information_request",
-                        "type": "factual",
-                        "keywords": question.split()[:5],  # Use first 5 words as keywords
-                        "complexity": "moderate"
+            # Use Gemini API for query analysis
+            try:
+                response = await self.model.generate_content_async(
+                    prompt,
+                    generation_config={
+                        "temperature": 0.1,
+                        "max_output_tokens": 500,
+                        "response_mime_type": "application/json",
                     }
+                )
+
+                if response.text:
+                    import json
+                    analysis = json.loads(response.text)
+                    return analysis
+                else:
+                    logger.warning("Gemini returned empty response for query analysis, using default")
+            except Exception as e:
+                logger.error(f"Gemini query analysis failed: {e}")
+
+            # If Gemini fails, return default analysis
+            return {
+                "intent": "information_request",
+                "type": "factual",
+                "keywords": question.split()[:5],  # Use first 5 words as keywords
+                "complexity": "moderate"
+            }
 
         except Exception as e:
             logger.error(f"Query analysis failed: {e}")
@@ -176,8 +104,9 @@ class Agent:
             # Check if conversation exists, create if it doesn't
             conversation = await db_manager.get_conversation(conversation_id)
             if not conversation:
-                # Create the conversation if it doesn't exist - this will generate a new UUID
+                # Create the conversation if it doesn't exist - use the provided conversation_id
                 created_conversation_id = await db_manager.create_conversation(
+                    conversation_id=conversation_id,
                     user_id=None,
                     title=question[:50] + "..." if len(question) > 50 else question
                 )

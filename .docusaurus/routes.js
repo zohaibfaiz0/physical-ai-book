@@ -9,15 +9,15 @@ export default [
   },
   {
     path: '/physical-ai-book/docs',
-    component: ComponentCreator('/physical-ai-book/docs', '08b'),
+    component: ComponentCreator('/physical-ai-book/docs', '008'),
     routes: [
       {
         path: '/physical-ai-book/docs',
-        component: ComponentCreator('/physical-ai-book/docs', '4af'),
+        component: ComponentCreator('/physical-ai-book/docs', 'd9e'),
         routes: [
           {
             path: '/physical-ai-book/docs',
-            component: ComponentCreator('/physical-ai-book/docs', 'edc'),
+            component: ComponentCreator('/physical-ai-book/docs', '18f'),
             routes: [
               {
                 path: '/physical-ai-book/docs/chapters/appendices/',
@@ -231,9 +231,8 @@ export default [
               },
               {
                 path: '/physical-ai-book/docs/test',
-                component: ComponentCreator('/physical-ai-book/docs/test', '760'),
-                exact: true,
-                sidebar: "tutorialSidebar"
+                component: ComponentCreator('/physical-ai-book/docs/test', '43f'),
+                exact: true
               }
             ]
           }

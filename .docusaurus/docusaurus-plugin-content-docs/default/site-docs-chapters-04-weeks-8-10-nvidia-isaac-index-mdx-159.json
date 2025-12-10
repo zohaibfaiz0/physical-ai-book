@@ -14,11 +14,11 @@
   "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Physics Engines and the Sim-to-Real Gap: 2025 Analysis",
+    "title": "physics-engines-and-sim2real-gap",
     "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap"
   },
   "next": {
-    "title": "Isaac Sim 2025 Mastery: Omniverse USD and Advanced Extensions",
+    "title": "isaac-sim-2025-mastery",
     "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"
   }
 }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useColorMode } from '@docusaurus/theme-common';
+import { v4 as uuidv4 } from 'uuid';
+import confetti from 'canvas-confetti';
 
 // Define TypeScript interfaces
 interface Message {
@@ -14,13 +16,18 @@ interface ChatHistory {
   messages: Message[];
 }
 
-const BookChat: React.FC = () => {
+interface BookChatProps {
+  navbarMode?: boolean;
+}
+
+const BookChat: React.FC<BookChatProps> = ({ navbarMode = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedText, setSelectedText] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [isFirstQuestion, setIsFirstQuestion] = useState(true);
   const { colorMode } = useColorMode();
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
@@ -63,6 +70,19 @@ const BookChat: React.FC = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Handle opening chat from navbar
+  useEffect(() => {
+    const handleOpenMainChat = () => {
+      setIsOpen(true);
+    };
+
+    document.addEventListener('openMainChat', handleOpenMainChat);
+
+    return () => {
+      document.removeEventListener('openMainChat', handleOpenMainChat);
+    };
+  }, []);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -115,32 +135,11 @@ const BookChat: React.FC = () => {
       // Add empty assistant message to display as streaming begins
       setMessages(prev => [...prev, initialAssistantMessage]);
 
-      // Handle streaming response
-      const reader = response.body?.getReader();
-      if (reader) {
-        let assistantContent = '';
+      // Handle response based on content type
+      const contentType = response.headers.get('content-type');
 
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          // Decode the response chunk
-          const chunk = new TextDecoder().decode(value);
-          assistantContent += chunk;
-
-          // Update the assistant message with the streamed content
-          setMessages(prev =>
-            prev.map(msg =>
-              msg.id === assistantMessageId
-                ? { ...msg, content: assistantContent }
-                : msg
-            )
-          );
-        }
-
-        reader.releaseLock();
-      } else {
-        // Fallback if streaming isn't supported - just get the full response
+      if (contentType && contentType.includes('application/json')) {
+        // Handle JSON response (non-streaming)
         const data = await response.json();
         setMessages(prev =>
           prev.map(msg =>
@@ -149,6 +148,67 @@ const BookChat: React.FC = () => {
               : msg
           )
         );
+      } else {
+        // Handle streaming response
+        const reader = response.body?.getReader();
+        if (reader) {
+          let fullResponse = '';
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            // Decode the response chunk
+            const chunk = new TextDecoder().decode(value);
+            fullResponse += chunk;
+          }
+
+          reader.releaseLock();
+
+          // Try to parse as JSON to extract just the answer
+          try {
+            const parsedData = JSON.parse(fullResponse);
+            const answerText = parsedData.answer || parsedData.response || fullResponse;
+            setMessages(prev =>
+              prev.map(msg =>
+                msg.id === assistantMessageId
+                  ? { ...msg, content: answerText }
+                  : msg
+              )
+            );
+          } catch (e) {
+            // If it's not valid JSON, use the full response as the answer
+            setMessages(prev =>
+              prev.map(msg =>
+                msg.id === assistantMessageId
+                  ? { ...msg, content: fullResponse }
+                  : msg
+              )
+            );
+          }
+        } else {
+          // Fallback if no reader available
+          const text = await response.text();
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === assistantMessageId
+                ? { ...msg, content: text }
+                : msg
+            )
+          );
+        }
+      }
+
+      // Trigger confetti for the first question
+      if (isFirstQuestion) {
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#10B981', '#F97316', '#FBBF24', '#8B5CF6'],
+          shapes: ['circle', 'square']
+        });
+        setIsFirstQuestion(false);
       }
     } catch (error: any) {
       console.error('Error sending message:', error);
@@ -188,7 +248,7 @@ const BookChat: React.FC = () => {
     // Get or create conversation ID in localStorage
     let conversationId = localStorage.getItem('bookChatConversationId');
     if (!conversationId) {
-      conversationId = `conv_${Date.now()}`;
+      conversationId = uuidv4();
       localStorage.setItem('bookChatConversationId', conversationId);
     }
     return conversationId;
@@ -204,273 +264,266 @@ const BookChat: React.FC = () => {
   const clearChat = () => {
     setMessages([]);
     setError(null);
+    setIsFirstQuestion(true); // Reset first question flag for new conversation
   };
 
   return (
     <>
-      {/* Floating chat button */}
-      <button
-        onClick={toggleChat}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
-          colorMode === 'dark'
-            ? 'bg-blue-600 hover:bg-blue-700 text-white'
-            : 'bg-blue-500 hover:bg-blue-600 text-white'
-        }`}
-        aria-label="Open chat"
-        title="Book Assistant"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-          />
-        </svg>
-      </button>
-
-      {/* Chat modal */}
-      {isOpen && (
-        <div className="fixed bottom-20 right-4 z-50 w-full max-w-[90%] sm:max-w-md h-[60vh] sm:h-[70vh] max-h-[600px] flex flex-col rounded-lg shadow-xl overflow-hidden border border-gray-300 dark:border-gray-600">
-          <div
-            className={`flex-1 overflow-y-auto p-4 ${
-              colorMode === 'dark'
-                ? 'bg-gray-800 text-white'
-                : 'bg-white text-gray-900'
-            }`}
+      {navbarMode ? (
+        // Navbar mode: Button that opens modal in navbar area
+        <div className="relative">
+          <button
+            onClick={toggleChat}
+            className="chat-button"
+            aria-label="Open chat"
+            title="Physical AI Assistant"
           >
-            {/* Chat header */}
-            <div className={`flex justify-between items-center mb-4 p-2 rounded-t-lg ${
-              colorMode === 'dark' ? 'bg-gradient-to-r from-blue-700 to-blue-800' : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
-            }`}>
-              <div className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                  />
-                </svg>
-                <h3 className="font-semibold">Book Assistant</h3>
-              </div>
-              <button
-                onClick={clearChat}
-                className={`text-sm px-2 py-1 rounded text-xs ${
-                  colorMode === 'dark'
-                    ? 'bg-blue-800 hover:bg-blue-700'
-                    : 'bg-blue-600 hover:bg-blue-700 text-white'
-                }`}
-              >
-                New Chat
-              </button>
-            </div>
+            🤖
+          </button>
 
-            {/* Messages container */}
-            <div className="space-y-4 mb-4">
-              {error && (
-                <div className={`p-3 rounded-lg mb-4 ${
-                  colorMode === 'dark' ? 'bg-red-900/30 border border-red-700 text-red-200' : 'bg-red-100 border border-red-200 text-red-800'
-                }`}>
-                  <div className="flex items-start">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      />
-                    </svg>
-                    <div className="text-sm">{error}</div>
-                  </div>
+          {/* Chat modal positioned in navbar area */}
+          {isOpen && (
+            <div className="chat-modal">
+              <div className="chat-header">
+                <div className="chat-header-left">
+                  <div className="chat-header-icon">🤖</div>
+                  <div className="chat-header-title">Physical AI Assistant</div>
                 </div>
-              )}
-              {messages.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  <div className="flex justify-center mb-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-12 w-12 mx-auto text-blue-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                      />
-                    </svg>
-                  </div>
-                  <p className="font-medium">Ask me anything about the book!</p>
-                  {selectedText && (
-                    <div className={`text-xs mt-3 p-3 rounded-lg ${
-                      colorMode === 'dark' ? 'bg-blue-900/30 border border-blue-700' : 'bg-blue-100 border border-blue-200'
-                    }`}>
-                      <p className={`font-medium mb-1 ${
-                        colorMode === 'dark' ? 'text-blue-300' : 'text-blue-800'
-                      }`}>Selected text:</p>
-                      <p className="italic">{selectedText.substring(0, 150)}{selectedText.length > 150 ? '...' : ''}</p>
+                <div className="chat-header-right">
+                  <button
+                    onClick={clearChat}
+                    className="chat-header-button"
+                    title="New Chat"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Messages container */}
+              <div className="chat-messages">
+                {error && (
+                  <div className="p-3 rounded-lg mb-4 bg-red-100 border border-red-200 text-red-800">
+                    <div className="flex items-start">
+                      <div className="mr-2">⚠️</div>
+                      <div className="text-sm">{error}</div>
                     </div>
-                  )}
-                  <p className="text-xs mt-4 max-w-xs mx-auto">I can help explain concepts, provide examples, and answer questions from the Physical AI and Humanoid Robotics book.</p>
-                </div>
-              ) : (
-                <>
-                  {messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`p-3 rounded-lg max-w-[85%] ${
-                        message.role === 'user'
-                          ? colorMode === 'dark'
-                            ? 'bg-blue-700 text-white ml-auto rounded-br-none'
-                            : 'bg-blue-500 text-white ml-auto rounded-br-none'
-                          : colorMode === 'dark'
-                            ? 'bg-gray-700 text-white rounded-bl-none'
-                            : 'bg-gray-100 text-gray-800 rounded-bl-none'
-                      }`}
-                    >
-                      <div className="whitespace-pre-wrap break-words">{message.content}</div>
-                      <div className={`text-xs mt-1 ${
-                        message.role === 'user'
-                          ? colorMode === 'dark' ? 'text-blue-200' : 'text-blue-100'
-                          : colorMode === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                      }`}>
-                        {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </div>
+                )}
+                {messages.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    <div className="flex justify-center mb-4">
+                      <div className="text-4xl">🤖</div>
+                    </div>
+                    <p className="font-medium">Ask me anything about the book!</p>
+                    {selectedText && (
+                      <div className="text-xs mt-3 p-3 rounded-lg bg-blue-100 border border-blue-200">
+                        <p className="font-medium mb-1 text-blue-800">Selected text:</p>
+                        <p className="italic">{selectedText.substring(0, 150)}{selectedText.length > 150 ? '...' : ''}</p>
                       </div>
-                    </div>
-                  ))}
-                  {isLoading && (
-                    <div className={`p-3 rounded-lg max-w-[85%] ${
-                      colorMode === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      <div className="flex items-center">
-                        <div className="mr-2">Thinking...</div>
-                        <div className="flex space-x-1">
-                          <div className={`w-2 h-2 rounded-full animate-bounce ${
-                            colorMode === 'dark' ? 'bg-gray-300' : 'bg-gray-600'
-                          }`}></div>
-                          <div className={`w-2 h-2 rounded-full animate-bounce delay-75 ${
-                            colorMode === 'dark' ? 'bg-gray-300' : 'bg-gray-600'
-                          }`}></div>
-                          <div className={`w-2 h-2 rounded-full animate-bounce delay-150 ${
-                            colorMode === 'dark' ? 'bg-gray-300' : 'bg-gray-600'
-                          }`}></div>
+                    )}
+                    <p className="text-xs mt-4 max-w-xs mx-auto">I can help explain concepts, provide examples, and answer questions from the Physical AI and Humanoid Robotics book.</p>
+                  </div>
+                ) : (
+                  <>
+                    {messages.map((message) => (
+                      <div
+                        key={message.id}
+                        className={`${
+                          message.role === 'user'
+                            ? 'message-user'
+                            : 'message-ai'
+                        }`}
+                      >
+                        <div className="whitespace-pre-wrap break-words">{message.content}</div>
+                        <div className={`text-xs mt-1 opacity-70`}>
+                          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>
                       </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </>
-              )}
-            </div>
-          </div>
+                    ))}
+                    {isLoading && (
+                      <div className="typing-indicator">
+                        <span>Thinking</span>
+                        <div className="typing-dot"></div>
+                        <div className="typing-dot"></div>
+                        <div className="typing-dot"></div>
+                      </div>
+                    )}
+                    <div ref={messagesEndRef} />
+                  </>
+                )}
+              </div>
 
-          {/* Input area */}
-          <div
-            className={`p-3 border-t ${
-              colorMode === 'dark'
-                ? 'bg-gray-800 border-gray-700'
-                : 'bg-white border-gray-200'
-            }`}
-          >
-            {selectedText && (
-              <div className={`text-xs mb-2 p-2 rounded ${
-                colorMode === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
-              }`}>
-                Using selected text: "{selectedText.substring(0, 50)}{selectedText.length > 50 ? '...' : ''}"
-              </div>
-            )}
-            <div className="flex flex-col space-y-2">
-              <div className="flex">
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={selectedText ? "Ask about selected text..." : "Message the book assistant..."}
-                  className={`flex-1 p-2 rounded-l-lg border ${
-                    colorMode === 'dark'
-                      ? 'bg-gray-700 border-gray-600 text-white'
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
-                  disabled={isLoading}
-                  autoFocus
-                />
-                <button
-                  onClick={handleSendMessage}
-                  disabled={isLoading || !inputValue.trim()}
-                  className={`px-4 rounded-r-lg flex items-center ${
-                    isLoading || !inputValue.trim()
-                      ? colorMode === 'dark'
-                        ? 'bg-gray-600 text-gray-400'
-                        : 'bg-gray-300 text-gray-500'
-                      : colorMode === 'dark'
-                        ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                        : 'bg-blue-500 hover:bg-blue-600 text-white'
-                  }`}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 5l7 7-7 7M5 5l7 7-7 7"
+              {/* Input area */}
+              <div className="chat-input-area">
+                {selectedText && (
+                  <div className="selected-text-chip">
+                    <div className="selected-text-chip-content">
+                      Using: "{selectedText.substring(0, 50)}{selectedText.length > 50 ? '...' : ''}"
+                    </div>
+                    <button
+                      onClick={() => setSelectedText('')}
+                      className="selected-text-chip-close"
+                      title="Remove selection"
+                    >
+                      ×
+                    </button>
+                  </div>
+                )}
+                <div className="flex flex-col space-y-2">
+                  <div className="flex">
+                    <textarea
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder={selectedText ? "Ask about selected text..." : "Ask about Physical AI or select text..."}
+                      className="chat-textarea"
+                      disabled={isLoading}
+                      autoFocus
+                      rows={1}
                     />
-                  </svg>
-                </button>
+                    <button
+                      onClick={handleSendMessage}
+                      disabled={isLoading || !inputValue.trim()}
+                      className="send-button"
+                      title="Send message"
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
               </div>
-              <button
-                onClick={async () => {
-                  try {
-                    const BACKEND_URL = 'http://localhost:8000';
-                    const response = await fetch(`${BACKEND_URL}/health`);
-                    const data = await response.json();
-                    if (response.ok) {
-                      alert(`Connection successful! Status: ${data.status}`);
-                    } else {
-                      alert(`Connection failed! Status: ${data.status}`);
-                    }
-                  } catch (error) {
-                    alert(`Connection test failed: ${error}`);
-                  }
-                }}
-                className={`px-4 py-2 rounded-lg flex items-center justify-center ${
-                  colorMode === 'dark'
-                    ? 'bg-green-700 hover:bg-green-600 text-white'
-                    : 'bg-green-500 hover:bg-green-600 text-white'
-                }`}
-              >
-                Test Connection
-              </button>
             </div>
-          </div>
+          )}
         </div>
+      ) : (
+        // Normal mode: Floating chat button and modal
+        <>
+          {/* Floating chat button */}
+          <button
+            onClick={toggleChat}
+            className="chat-button"
+            aria-label="Open chat"
+            title="Physical AI Assistant"
+          >
+            🤖
+          </button>
+
+          {/* Chat modal */}
+          {isOpen && (
+            <div className="chat-modal">
+              <div className="chat-header">
+                <div className="chat-header-left">
+                  <div className="chat-header-icon">🤖</div>
+                  <div className="chat-header-title">Physical AI Assistant</div>
+                </div>
+                <div className="chat-header-right">
+                  <button
+                    onClick={clearChat}
+                    className="chat-header-button"
+                    title="New Chat"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Messages container */}
+              <div className="chat-messages">
+                {error && (
+                  <div className="p-3 rounded-lg mb-4 bg-red-100 border border-red-200 text-red-800">
+                    <div className="flex items-start">
+                      <div className="mr-2">⚠️</div>
+                      <div className="text-sm">{error}</div>
+                    </div>
+                  </div>
+                )}
+                {messages.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    <div className="flex justify-center mb-4">
+                      <div className="text-4xl">🤖</div>
+                    </div>
+                    <p className="font-medium">Ask me anything about the book!</p>
+                    {selectedText && (
+                      <div className="text-xs mt-3 p-3 rounded-lg bg-blue-100 border border-blue-200">
+                        <p className="font-medium mb-1 text-blue-800">Selected text:</p>
+                        <p className="italic">{selectedText.substring(0, 150)}{selectedText.length > 150 ? '...' : ''}</p>
+                      </div>
+                    )}
+                    <p className="text-xs mt-4 max-w-xs mx-auto">I can help explain concepts, provide examples, and answer questions from the Physical AI and Humanoid Robotics book.</p>
+                  </div>
+                ) : (
+                  <>
+                    {messages.map((message) => (
+                      <div
+                        key={message.id}
+                        className={`${
+                          message.role === 'user'
+                            ? 'message-user'
+                            : 'message-ai'
+                        }`}
+                      >
+                        <div className="whitespace-pre-wrap break-words">{message.content}</div>
+                        <div className={`text-xs mt-1 opacity-70`}>
+                          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                      </div>
+                    ))}
+                    {isLoading && (
+                      <div className="typing-indicator">
+                        <span>Thinking</span>
+                        <div className="typing-dot"></div>
+                        <div className="typing-dot"></div>
+                        <div className="typing-dot"></div>
+                      </div>
+                    )}
+                    <div ref={messagesEndRef} />
+                  </>
+                )}
+              </div>
+
+              {/* Input area */}
+              <div className="chat-input-area">
+                {selectedText && (
+                  <div className="selected-text-chip">
+                    <div className="selected-text-chip-content">
+                      Using: "{selectedText.substring(0, 50)}{selectedText.length > 50 ? '...' : ''}"
+                    </div>
+                    <button
+                      onClick={() => setSelectedText('')}
+                      className="selected-text-chip-close"
+                      title="Remove selection"
+                    >
+                      ×
+                    </button>
+                  </div>
+                )}
+                <div className="flex flex-col space-y-2">
+                  <div className="flex">
+                    <textarea
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder={selectedText ? "Ask about selected text..." : "Ask about Physical AI or select text..."}
+                      className="chat-textarea"
+                      disabled={isLoading}
+                      autoFocus
+                      rows={1}
+                    />
+                    <button
+                      onClick={handleSendMessage}
+                      disabled={isLoading || !inputValue.trim()}
+                      className="send-button"
+                      title="Send message"
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </>
   );

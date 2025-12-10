@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-1-2-foundations/sensor-systems-deep-dive",
-  "title": "Sensor Systems Deep Dive: Multi-Modal Perception for Embodied Intelligence",
-  "description": "Comprehensive analysis of sensor technologies enabling robotic perception in 2025",
+  "title": "sensor-systems-deep-dive",
+  "description": "---",
   "source": "@site/docs/chapters/01-weeks-1-2-foundations/04-sensor-systems-deep-dive.mdx",
   "sourceDirName": "chapters/01-weeks-1-2-foundations",
   "slug": "/chapters/weeks-1-2-foundations/sensor-systems-deep-dive",
@@ -12,14 +12,10 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 4,
-  "frontMatter": {
-    "title": "Sensor Systems Deep Dive: Multi-Modal Perception for Embodied Intelligence",
-    "description": "Comprehensive analysis of sensor technologies enabling robotic perception in 2025",
-    "week": "Weeks 1–2"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Humanoid Landscape 2025: Platforms, Capabilities, and Market Dynamics",
+    "title": "humanoid-landscape-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025"
   },
   "next": {

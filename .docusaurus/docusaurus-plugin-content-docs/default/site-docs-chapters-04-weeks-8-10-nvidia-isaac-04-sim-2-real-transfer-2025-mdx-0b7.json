@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025",
-  "title": "Sim-to-Real Transfer 2025: Advanced Techniques and Zero-Shot Learning",
-  "description": "Latest sim-to-real transfer techniques from Figure, Tesla, DeepMind, and zero-shot approaches",
+  "title": "sim2real-transfer-2025",
+  "description": "---",
   "source": "@site/docs/chapters/04-weeks-8-10-nvidia-isaac/04-sim2real-transfer-2025.mdx",
   "sourceDirName": "chapters/04-weeks-8-10-nvidia-isaac",
   "slug": "/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 4,
-  "frontMatter": {
-    "title": "Sim-to-Real Transfer 2025: Advanced Techniques and Zero-Shot Learning",
-    "description": "Latest sim-to-real transfer techniques from Figure, Tesla, DeepMind, and zero-shot approaches",
-    "week": "Weeks 8–10"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Synthetic Data at Scale: Domain Randomization and Active Learning",
+    "title": "synthetic-data-at-scale",
     "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale"
   },
   "next": {
-    "title": "Reinforcement Learning for Humanoids in Isaac: Isaac Lab Migration",
+    "title": "rl-for-humanoids-in-isaac",
     "permalink": "/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac"
   }
 }

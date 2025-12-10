@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
-  "title": "Bipedal Locomotion 2025: ZMP, MPC, and Reinforcement Learning Walking",
-  "description": "Advanced bipedal locomotion techniques with ZMP, MPC, and RL approaches for humanoid robots",
+  "title": "bipedal-locomotion-2025",
+  "description": "---",
   "source": "@site/docs/chapters/05-weeks-11-12-humanoid-development/01-bipedal-locomotion-2025.mdx",
   "sourceDirName": "chapters/05-weeks-11-12-humanoid-development",
   "slug": "/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 1,
-  "frontMatter": {
-    "title": "Bipedal Locomotion 2025: ZMP, MPC, and Reinforcement Learning Walking",
-    "description": "Advanced bipedal locomotion techniques with ZMP, MPC, and RL approaches for humanoid robots",
-    "week": "Weeks 11–12"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
     "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/"
   },
   "next": {
-    "title": "Dexterous Manipulation: From Parallel Grippers to Anthropomorphic Hands",
+    "title": "dexterous-manipulation",
     "permalink": "/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"
   }
 }

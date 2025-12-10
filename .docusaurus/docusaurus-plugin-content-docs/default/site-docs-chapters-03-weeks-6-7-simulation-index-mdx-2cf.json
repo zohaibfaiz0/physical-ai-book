@@ -14,11 +14,11 @@
   "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "ROS 2 Project Walkthrough: Building a Complete Humanoid Robot System",
+    "title": "ros2-project-walkthrough",
     "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough"
   },
   "next": {
-    "title": "Gazebo Mastery 2025: Advanced Simulation Techniques and Best Practices",
+    "title": "gazebo-mastery-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025"
   }
 }

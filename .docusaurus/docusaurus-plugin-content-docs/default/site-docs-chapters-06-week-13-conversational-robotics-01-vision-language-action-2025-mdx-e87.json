@@ -1,7 +1,7 @@
 {
   "id": "chapters/week-13-conversational-robotics/vision-language-action-2025",
-  "title": "Vision-Language-Action Models 2025: RT-2, Octo, OpenVLA and Successors",
-  "description": "Analysis of the latest Vision-Language-Action models including RT-2, Octo, OpenVLA, and their 2025 successors",
+  "title": "vision-language-action-2025",
+  "description": "---",
   "source": "@site/docs/chapters/06-week-13-conversational-robotics/01-vision-language-action-2025.mdx",
   "sourceDirName": "chapters/06-week-13-conversational-robotics",
   "slug": "/chapters/week-13-conversational-robotics/vision-language-action-2025",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 1,
-  "frontMatter": {
-    "title": "Vision-Language-Action Models 2025: RT-2, Octo, OpenVLA and Successors",
-    "description": "Analysis of the latest Vision-Language-Action models including RT-2, Octo, OpenVLA, and their 2025 successors",
-    "week": "Week 13"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "index",
     "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/"
   },
   "next": {
-    "title": "Voice-to-Action Pipeline: From Speech Recognition to ROS2 Actions",
+    "title": "voice-to-action-pipeline",
     "permalink": "/physical-ai-book/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline"
   }
 }

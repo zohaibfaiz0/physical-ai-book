@@ -8,7 +8,7 @@
           "label": "Next",
           "isLast": true,
           "path": "/physical-ai-book/docs",
-          "mainDocId": "chapters/weeks-1-2-foundations/index",
+          "mainDocId": "intro",
           "docs": [
             {
               "id": "chapters/appendices/index",
@@ -187,16 +187,15 @@
             },
             {
               "id": "test",
-              "path": "/physical-ai-book/docs/test",
-              "sidebar": "tutorialSidebar"
+              "path": "/physical-ai-book/docs/test"
             }
           ],
           "draftIds": [],
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/physical-ai-book/docs/chapters/weeks-1-2-foundations/",
-                "label": "index"
+                "path": "/physical-ai-book/docs/intro",
+                "label": "intro"
               }
             }
           }

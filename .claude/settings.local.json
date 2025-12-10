@@ -4,7 +4,16 @@
       "Bash(python test_imports.py)",
       "Bash(python -c \"from qdrant_client import QdrantClient; print(''search'' in dir(QdrantClient)); print(''query_points'' in dir(QdrantClient))\")",
       "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
-      "Bash(powershell \"Get-ChildItem backend\\app\")"
+      "Bash(powershell \"Get-ChildItem backend\\app\")",
+      "Bash(dir docs)",
+      "Bash(dir docschapters)",
+      "Bash(powershell \"Get-ChildItem docs -Recurse\")",
+      "Bash(powershell \"Get-ChildItem docs/chapters -Recurse -Name *.mdx\")",
+      "Bash(powershell \"Get-ChildItem -Path . -Recurse -Name *.md\")",
+      "Bash(npx docusaurus start --port 3003)",
+      "Bash(mkdir -p src/theme)",
+      "Bash(npx docusaurus --help:*)",
+      "Bash(npx docusaurus build)"
     ],
     "deny": [],
     "ask": []

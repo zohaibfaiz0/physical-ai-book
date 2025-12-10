@@ -25,7 +25,7 @@ class IngestionPipeline:
             is_separator_regex=False,
         )
 
-    async def run_ingestion(self, docs_path: str = "../../docs"):
+    async def run_ingestion(self, docs_path: str = "../docs"):
         """Run the complete ingestion pipeline"""
         logger.info("Starting ingestion pipeline...")
         

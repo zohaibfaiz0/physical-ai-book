@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-6-7-simulation/unity-digital-twin",
-  "title": "Unity Digital Twin: Photorealistic Simulation for Robotics",
-  "description": "Unity-based digital twin development for robotics with NVIDIA Isaac Sim integration",
+  "title": "unity-digital-twin",
+  "description": "---",
   "source": "@site/docs/chapters/03-weeks-6-7-simulation/02-unity-digital-twin.mdx",
   "sourceDirName": "chapters/03-weeks-6-7-simulation",
   "slug": "/chapters/weeks-6-7-simulation/unity-digital-twin",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 2,
-  "frontMatter": {
-    "title": "Unity Digital Twin: Photorealistic Simulation for Robotics",
-    "description": "Unity-based digital twin development for robotics with NVIDIA Isaac Sim integration",
-    "week": "Weeks 6–7"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Gazebo Mastery 2025: Advanced Simulation Techniques and Best Practices",
+    "title": "gazebo-mastery-2025",
     "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025"
   },
   "next": {
-    "title": "Sensor Simulation: LIDAR, IMU, and Depth Camera Modeling",
+    "title": "sensor-simulation-lidar-imu-depth",
     "permalink": "/physical-ai-book/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth"
   }
 }

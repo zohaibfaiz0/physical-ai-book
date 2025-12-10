@@ -1,14 +1,387 @@
 ---
 title: "Introduction"
 description: "Getting started with Physical AI and Humanoid Robotics"
+hide_title: true
+hide_table_of_contents: true
 ---
 
 import BookChat from '@site/src/components/BookChat';
 
-# Introduction to Physical AI and Humanoid Robotics
+<style jsx>{`
+  /* Use Docusaurus theme-aware CSS variables */
+  :root {
+    --background-primary: var(--ifm-background-color);
+    --text-primary: var(--ifm-color-content);
+    --text-secondary: var(--ifm-color-content-secondary);
+    --text-inverse: white;
+    --card-bg: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+    --link-color: var(--ifm-link-color);
+  }
 
-Welcome to the Living Book on Physical AI and Humanoid Robotics: From Embodiment to Real-World Intelligence.
+  [data-theme='light'] {
+    --feature-icon-color: #334155;
+    --stats-bg: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
+    --stats-text: #334155;
+    --course-details-text: #1e293b;
+    --course-details-title: #0f172a;
+    --checkmark-color: #10b981;
+  }
+  [data-theme='dark'] {
+    --feature-icon-color: #cbd5e1;
+    --stats-bg: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
+    --stats-text: #cbd5e1;
+    --course-details-text: #e2e8f0;
+    --course-details-title: white;
+    --checkmark-color: #34d399;
+  }
 
-This interactive textbook provides a comprehensive guide to developing embodied AI systems and humanoid robots. Throughout this book, you'll find interactive content and examples that will help you understand the complex concepts in embodied artificial intelligence.
+  .hero {
+    margin: 0 !important;
+    padding: 8rem 0 !important;
+    width: 100% !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    text-align: center;
+    color: white;
+  }
+  .hero .container {
+    max-width: 1280px !important;
+    padding: 0 2rem !important;
+  }
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+  }
+  .hero-text {
+    max-width: 800px;
+  }
+  .hero-visual {
+    font-size: 22rem;
+    opacity: 0.9;
+    filter: drop-shadow(0 30px 60px rgba(6, 182, 212, 0.3));
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 6rem 0 !important; }
+    .hero-visual { font-size: 14rem; }
+  }
+  .main-wrapper > div > div > div:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 
-<BookChat />
+  /* Buttons */
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .button--primary {
+    background: #0ea5e9;
+    color: white;
+  }
+  .button--secondary {
+    background: transparent;
+    border: 2px solid #cbd5e1;
+    color: #cbd5e1;
+  }
+  [data-theme='light'] .button--secondary {
+    border-color: #94a3b8;
+    color: #334155;
+  }
+
+  /* Stats Bar — now theme-aware */
+  .stats-bar {
+    text-align: center;
+    padding: 1rem;
+    background: var(--stats-bg);
+    color: var(--stats-text);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Features Section */
+  .features-section .container {
+    margin-top: 4rem;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: var(--card-bg);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  .icon {
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--feature-icon-color);
+  }
+  .feature-card h3 {
+    color: var(--text-primary);
+  }
+  .feature-card p {
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* Course Outline */
+  .course-outline .container {
+    margin-top: 4rem;
+  }
+  .course-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  .week-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .week-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .checkmark {
+    font-size: 1.5rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+    color: var(--checkmark-color);
+  }
+  .week-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+  }
+  .week-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* ✅ "What You'll Master" — now theme-safe */
+  .course-details h3 {
+    color: var(--course-details-title);
+    margin-bottom: 1rem;
+  }
+  .course-details ul {
+    padding-left: 1.25rem;
+    color: var(--course-details-text);
+  }
+  .course-details li {
+    margin-bottom: 0.5rem;
+    color: var(--course-details-text);
+  }
+
+  /* Interactive Section */
+  .interactive-section .container {
+    margin-top: 4rem;
+    color: var(--text-primary);
+  }
+  .interactive-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  .interactive-col {
+    flex: 1;
+    min-width: 0;
+  }
+  .interactive-col h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+  .interactive-col p,
+  .interactive-col ul {
+    color: var(--text-secondary);
+  }
+  .interactive-col ul {
+    padding-left: 1.25rem;
+    margin: 1rem 0;
+  }
+  @media (max-width: 992px) {
+    .interactive-row {
+      flex-direction: column;
+    }
+  }
+
+  /* Section Headings */
+  .features-section h2,
+  .course-outline h2,
+  .interactive-section h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  /* Hero text override */
+  .hero h1,
+  .hero p,
+  .hero__subtitle {
+    color: white !important;
+  }
+`}</style>
+
+<!-- Hero Section -->
+<section className="hero">
+  <div className="container">
+    <div className="hero-inner">
+      <div className="hero-text">
+        <h1>Master <span className="gradient-text">Physical AI</span> & Humanoid Robotics</h1>
+        <p className="hero__subtitle">
+          Build intelligent robots that understand and interact with the physical world. From ROS 2 to autonomous humanoids.
+        </p>
+        <div className="cta-buttons">
+          <a href="/docs/chapters/01-weeks-1-2-foundations" className="button button--primary">
+            Start Learning
+          </a>
+          <a href="/docs" className="button button--secondary">
+            Browse Chapters
+          </a>
+        </div>
+      </div>
+      <div className="hero-visual">
+        <div className="robot-illustration"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ✅ Theme-aware Stats Bar -->
+<div className="stats-bar">
+  35+ Chapters • 400+ Concepts • AI-Powered Assistant • 100% Free
+</div>
+
+<!-- Features Section -->
+<section className="features-section">
+  <div className="container">
+    <h2>Everything You Need to Master Physical AI</h2>
+    <div className="features-grid">
+      <div className="feature-card">
+        <div className="icon">📘</div>
+        <h3>Comprehensive Curriculum</h3>
+        <p>Complete 13-week program covering all aspects of physical AI and humanoid robotics from fundamentals to advanced control systems.</p>
+      </div>
+      <div className="feature-card">
+        <div className="icon">⚡</div>
+        <h3>AI-Powered Learning</h3>
+        <p>Chat with our RAG assistant about any concept instantly. Get explanations, examples, and references to relevant chapters.</p>
+      </div>
+      <div className="feature-card">
+        <div className="icon">🤖</div>
+        <h3>Hands-On Projects</h3>
+        <p>Build real humanoid control systems with practical exercises and projects that reinforce theoretical concepts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Course Outline Section -->
+<section className="course-outline">
+  <div className="container">
+    <h2>Complete 13-Week Curriculum</h2>
+    <div className="course-grid">
+      <div className="week-list">
+        <div className="week-item">
+          <span className="checkmark">✅</span>
+          <div className="week-description">
+            <div className="week-title">Weeks 1-2: Foundations</div>
+            <div className="week-subtitle">Embodied Intelligence & Humanoid Landscape</div>
+          </div>
+        </div>
+        <div className="week-item">
+          <span className="checkmark">✅</span>
+          <div className="week-description">
+            <div className="week-title">Weeks 3-5: ROS2</div>
+            <div className="week-subtitle">Core Architecture & Node Development</div>
+          </div>
+        </div>
+        <div className="week-item">
+          <span className="checkmark">✅</span>
+          <div className="week-description">
+            <div className="week-title">Weeks 6-7: Simulation</div>
+            <div className="week-subtitle">Gazebo & Physics Engines</div>
+          </div>
+        </div>
+        <div className="week-item">
+          <span className="checkmark">✅</span>
+          <div className="week-description">
+            <div className="week-title">Weeks 8-10: NVIDIA Isaac</div>
+            <div className="week-subtitle">Isaac Sim & RL for Humanoids</div>
+          </div>
+        </div>
+        <div className="week-item">
+          <span className="checkmark">✅</span>
+          <div className="week-description">
+            <div className="week-title">Weeks 11-12: Humanoid Development</div>
+            <div className="week-subtitle">Bipedal Locomotion & Control</div>
+          </div>
+        </div>
+        <div className="week-item">
+          <span className="checkmark">✅</span>
+          <div className="week-description">
+            <div className="week-title">Week 13: Conversational Robotics</div>
+            <div className="week-subtitle">Vision-Language-Action Integration</div>
+          </div>
+        </div>
+      </div>
+      <div className="course-details">
+        <h3>What You'll Master</h3>
+        <ul>
+          <li>Fundamentals of embodied intelligence and humanoid robotics</li>
+          <li>ROS 2 development for humanoid robots</li>
+          <li>NVIDIA Isaac and Isaac Sim for simulation</li>
+          <li>Control systems and locomotion algorithms</li>
+          <li>Computer vision and sensor fusion</li>
+          <li>Reinforcement learning for humanoid control</li>
+          <li>Conversational AI for robotics applications</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Learning Section -->
+<section className="interactive-section">
+  <div className="container">
+    <h2>Interactive Learning Experience</h2>
+    <div className="interactive-row">
+      <div className="interactive-col">
+        <h3>Learn with Contextual Support</h3>
+        <p>Our AI-powered assistant is available to help you understand concepts, provide examples, and answer questions about the material.</p>
+        <p>Simply select any text on the page and use the chat button to ask specific questions about that content, or ask general questions about Physical AI and robotics.</p>
+        <ul>
+          <li>Get instant explanations of complex concepts</li>
+          <li>Ask for code examples and implementation details</li>
+          <li>Request clarifications on theoretical topics</li>
+          <li>Find related content across the curriculum</li>
+        </ul>
+      </div>
+      <div className="interactive-col">
+        <h3>Try Our AI Assistant</h3>
+        <p>Experience our RAG-powered chatbot that has access to the entire book content. Ask anything about Physical AI and Humanoid Robotics!</p>
+        <BookChat navbarMode={false} />
+      </div>
+    </div>
+  </div>
+</section>

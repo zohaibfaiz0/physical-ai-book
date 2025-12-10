@@ -1,7 +1,7 @@
 {
   "id": "chapters/weeks-3-5-ros2/nodes-topics-services-actions",
-  "title": "Nodes, Topics, Services, and Actions: Communication Primitives in ROS 2",
-  "description": "Comprehensive guide to ROS 2 communication patterns and their implementation",
+  "title": "nodes-topics-services-actions",
+  "description": "---",
   "source": "@site/docs/chapters/02-weeks-3-5-ros2/02-nodes-topics-services-actions.mdx",
   "sourceDirName": "chapters/02-weeks-3-5-ros2",
   "slug": "/chapters/weeks-3-5-ros2/nodes-topics-services-actions",
@@ -12,18 +12,14 @@
   "tags": [],
   "version": "current",
   "sidebarPosition": 2,
-  "frontMatter": {
-    "title": "Nodes, Topics, Services, and Actions: Communication Primitives in ROS 2",
-    "description": "Comprehensive guide to ROS 2 communication patterns and their implementation",
-    "week": "Weeks 3–5"
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "ROS 2 Core Architecture: Distributed Systems and Middleware in 2025",
+    "title": "ros2-core-architecture",
     "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-core-architecture"
   },
   "next": {
-    "title": "URDF, Xacro, and SDF: Robot Description for Humanoid Systems",
+    "title": "urdf-xacro-sdf-humanoids",
     "permalink": "/physical-ai-book/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids"
   }
 }

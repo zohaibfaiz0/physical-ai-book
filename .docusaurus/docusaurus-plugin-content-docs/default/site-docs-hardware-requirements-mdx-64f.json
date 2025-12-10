@@ -17,11 +17,11 @@
   },
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "index",
-    "permalink": "/physical-ai-book/docs/chapters/appendices/"
-  },
-  "next": {
     "title": "Introduction",
     "permalink": "/physical-ai-book/docs/intro"
+  },
+  "next": {
+    "title": "Preface",
+    "permalink": "/physical-ai-book/docs/preface"
   }
 }

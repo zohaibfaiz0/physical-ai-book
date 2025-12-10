@@ -8,6 +8,7 @@ import logging
 import asyncio
 from datetime import datetime
 import uuid
+import google.generativeai as genai
 
 from .config import settings
 from .db import db_manager
@@ -62,6 +63,11 @@ async def lifespan(app: FastAPI):
                 logger.info("Continuing without ingestion. Make sure the docs/ directory exists and contains MDX files.")
     except Exception as e:
         logger.error(f"Document count check failed: {e}")
+
+    # Print startup banner
+    print("\n\033[92m" + "="*70)  # Green color
+    print("Physical AI Book RAG Backend (Gemini) READY - http://localhost:8000")
+    print("="*70 + "\033[0m")  # Reset color
 
     yield
 
@@ -121,22 +127,22 @@ async def general_exception_handler(request, exc):
         }
     )
 
-@app.get("/health", response_model=HealthCheck)
+@app.get("/health")
 async def health_check():
     """Health check endpoint"""
     try:
         # Check services
-        # Check Groq by attempting a simple model call
-        groq_status = "disconnected"
+        # Check Gemini by attempting a simple model call
+        gemini_status = "disconnected"
         try:
-            from groq import AsyncGroq
-            groq_client = AsyncGroq(api_key=settings.GROQ_API_KEY)
-            # Test with a simple models list call instead of chat completion
-            models = await groq_client.models.list()
-            if models:
-                groq_status = "connected"
+            # Use the existing generation system to test connection
+            test_model = genai.GenerativeModel('gemini-1.5-flash')
+            # Make a simple test call
+            response = await test_model.generate_content_async("Hello", generation_config={"max_output_tokens": 10})
+            if response:
+                gemini_status = "connected"
         except Exception:
-            groq_status = "disconnected"
+            gemini_status = "disconnected"
 
         qdrant_status = "disconnected"
         try:
@@ -148,24 +154,30 @@ async def health_check():
 
         neon_status = "disconnected"
         try:
-            # Test database connection by attempting to get collections
+            # Test database connection
             await db_manager.connect()
             neon_status = "connected"
         except Exception:
             neon_status = "disconnected"
 
-        services = {
-            "groq": groq_status,
-            "qdrant": qdrant_status,
-            "neon": neon_status
-        }
+        # Get document count
+        try:
+            docs_indexed = await vector_store.count_documents()
+        except Exception:
+            docs_indexed = 0
 
-        return HealthCheck(
-            status="healthy",
-            timestamp=datetime.utcnow().isoformat(),
-            version="1.0.0",
-            services=services
-        )
+        return {
+            "status": "healthy",
+            "provider": "gemini",
+            "model": "gemini-2.5-flash",
+            "docs_indexed": docs_indexed,
+            "services": {
+                "gemini": gemini_status,
+                "qdrant": qdrant_status,
+                "neon": neon_status
+            },
+            "timestamp": datetime.utcnow().isoformat()
+        }
     except Exception as e:
         logger.error(f"Health check failed: {e}")
         raise HTTPException(status_code=503, detail="Service unhealthy")
