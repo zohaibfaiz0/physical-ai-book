@@ -3,14 +3,16 @@
 
   WORKDIR /app
 
+  # Set PYTHONPATH to ensure imports work correctly
+  ENV PYTHONPATH=/app
+
   # Install only essential build dependencies
   RUN apk add --no-cache gcc g++ curl make
 
-  # Copy and install requirements - install sentence-transformers separately for better caching
+  # Copy and install requirements
   COPY requirements.txt .
   RUN pip install --no-cache-dir --upgrade pip && \
-      pip install --no-cache-dir fastapi==0.115.0 uvicorn[standard]==0.30.6 google-generativeai==0.8.0 && \
-      pip install --no-cache-dir --force-reinstall --no-deps sentence-transformers==3.0.1 && \
+      pip install --no-cache-dir -r requirements.txt && \
       pip cache purge
 
   # Copy app code
