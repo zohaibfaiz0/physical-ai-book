@@ -10,12 +10,14 @@
 ## Railway Configuration
 - [ ] Created new project from GitHub
 - [ ] Set Root Directory to `backend`
+- [ ] Dockerfile automatically detected (no Procfile/Dockerfile conflicts)
 - [ ] Generated Railway domain
-- [ ] Added all 5 environment variables
+- [ ] Added all 5 environment variables (GEMINI_API_KEY, NEON_DATABASE_URL, QDRANT_URL, QDRANT_API_KEY, QDRANT_COLLECTION_NAME)
 - [ ] Environment variables marked as private
 
 ## During Deployment
 - [ ] Build completed successfully
+- [ ] Model cached successfully in logs
 - [ ] No size errors in logs
 - [ ] No permission errors
 - [ ] Service shows as "Active"
@@ -40,5 +42,6 @@
 - [ ] Root directory set to `backend` (not repo root)
 - [ ] Frontend files excluded via .dockerignore
 - [ ] Requirements.txt optimized (removed langchain)
+- [ ] Single Dockerfile deployment (no conflicting configs)
 - [ ] Non-root user in Dockerfile
 - [ ] CORS allows Railway domain

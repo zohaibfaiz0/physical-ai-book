@@ -28,40 +28,37 @@
 4. Set to: `backend`
 5. Click "Save"
 
+**Docker Build Configuration:**
+- Railway will automatically detect and use the Dockerfile
+- No additional build configuration needed
+- The Dockerfile is optimized for model pre-caching
+
 **Port Configuration:**
-- Railway auto-detects port from your code
-- Ensure app uses `$PORT` environment variable
-
-**Build Command:**
-- Leave as default (Railway auto-detects)
-- Or set to: `pip install -r requirements.txt`
-
-**Start Command:**
-- Railway auto-detects from Procfile
-- Or manually set: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- App automatically uses `$PORT` environment variable from Railway
+- Dockerfile and app code are configured for Railway's port system
 
 ### 4. Set Environment Variables
 1. Go to "Variables" tab
 2. Click "New Variable" for each:
-
 ```
 GEMINI_API_KEY=your_gemini_key
 NEON_DATABASE_URL=your_neon_url
 QDRANT_URL=your_qdrant_url
 QDRANT_API_KEY=your_qdrant_key
 QDRANT_COLLECTION_NAME=physical-ai-book
-PORT=8000
 ```
 
 **Important:**
 - Use "Add Variable" button for each
 - No quotes around values
 - Mark sensitive variables as "private"
+- PORT is automatically set by Railway (don't set manually)
 
 ### 5. Deploy
 - Railway auto-deploys on every push to main
-- First deployment takes 5-10 minutes
+- First deployment takes 5-10 minutes (due to model download)
 - Watch logs in "Deployments" tab
+- Initial build includes pre-caching the sentence transformer model
 
 ### 6. Get Your URL
 1. Go to "Settings" tab
@@ -98,8 +95,13 @@ npm run deploy
 - Should be under 100MB (excluding node_modules)
 - Ensure .dockerignore excludes frontend files
 
+### Build Fails During Model Download
+- First deployment includes downloading sentence transformer model
+- This can take several minutes
+- Check logs - "Model cached successfully" indicates success
+
 ### Permission Errors
-- Dockerfile uses non-root user
+- Dockerfile uses non-root user (railwayuser)
 - Railway handles permissions automatically
 - Check logs for specific permission issues
 
@@ -114,6 +116,7 @@ npm run deploy
 - Verify all environment variables are set
 - Check database connection strings
 - Review startup logs
+- Ensure Qdrant and Neon connections are valid
 
 ### CORS Errors
 - Ensure CORS allows Railway domain
