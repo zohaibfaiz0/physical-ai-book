@@ -1,0 +1,75 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+Virtual environments
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+OS
+.DS_Store
+Thumbs.db
+*.log
+Git
+.git/
+.github/
+.gitignore
+.gitattributes
+Documentation
+*.md
+README.md
+LICENSE
+docs/
+Tests
+tests/
+test_*.py
+*_test.py
+.pytest_cache/
+.coverage
+htmlcov/
+Build artifacts
+dist/
+build/
+*.egg-info/
+.eggs/
+Other deployment configs
+fly.toml
+.fly/
+railway.json
+koyeb.yaml
+render.yaml
+Frontend (CRITICAL - DO NOT INCLUDE)
+../node_modules/
+../static/
+../src/
+../docs/
+../build/
+../dist/
+../public/
+../.docusaurus/
+../package.json
+../package-lock.json
+../yarn.lock
+../.config.js
+../.config.ts
+Cache and temp
+.cache/
+*.tmp
+*.temp
+.mypy_cache/
+.ruff_cache/
+Secrets (should be in Railway env vars)
+.env
+.env.local
+.env.production

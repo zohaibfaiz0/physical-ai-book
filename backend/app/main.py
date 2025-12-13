@@ -91,14 +91,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "http://localhost:3001",
-        "https://*.github.io",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
-        "http://localhost:3000/book",  # Docusaurus default
-        "http://127.0.0.1:3000/book", # Docusaurus default
-        "http://0.0.0.0:3000",        # Alternative
-        "*"
+        "https://zohaibfaiz0.github.io",
+        "https://*.railway.app",  # Railway wildcard
     ],
     allow_credentials=True,
     allow_methods=["*"],

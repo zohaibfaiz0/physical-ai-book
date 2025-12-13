@@ -61,3 +61,6 @@ coverage/
 backend/.env
 backend/.env.local
 backend/*.env
+
+# Railway
+.railway/
