@@ -18,12 +18,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Pre-download model to cache during build (Railway friendly)
-RUN python -c " \
-    from sentence_transformers import SentenceTransformer; \
-    import os; \
-    os.environ['TOKENIZERS_PARALLELISM'] = 'false'; \
-    model = SentenceTransformer('all-MiniLM-L6-v2'); \
-    print('Model all-MiniLM-L6-v2 cached successfully')"
+RUN python -c "from sentence_transformers import SentenceTransformer; import os; os.environ['TOKENIZERS_PARALLELISM'] = 'false'; model = SentenceTransformer('all-MiniLM-L6-v2'); print('Model all-MiniLM-L6-v2 cached successfully')"
 
 # Copy ONLY app code (not entire backend folder)
 COPY app/ ./app/
