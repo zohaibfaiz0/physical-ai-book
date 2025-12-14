@@ -3,11 +3,12 @@ import asyncio
 import hashlib
 from pathlib import Path
 from typing import List, Dict, Any
-from sentence_transformers import SentenceTransformer
+import google.generativeai as genai
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from .vector_store import vector_store
 from .db import db_manager
 from .utils import clean_markdown, extract_metadata_from_path
+from .config import settings
 import logging
 import re
 
@@ -15,8 +16,9 @@ logger = logging.getLogger(__name__)
 
 class IngestionPipeline:
     def __init__(self):
-        # Initialize the embedding model
-        self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+        # Initialize Google's embedding model
+        genai.configure(api_key=settings.GEMINI_API_KEY)
+        self.embedding_model = genai.embed_content
         # Initialize text splitter
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
@@ -62,8 +64,13 @@ class IngestionPipeline:
                 # Split content into chunks
                 chunks = self.text_splitter.split_text(content)
 
-                # Generate embeddings for all chunks at once (more efficient)
-                embeddings = self.embedding_model.encode(chunks).tolist()
+                # Generate embeddings for all chunks using Google's API
+                embeddings_response = self.embedding_model(
+                    model="models/embedding-001",
+                    content=chunks,
+                    task_type="RETRIEVAL_DOCUMENT"
+                )
+                embeddings = embeddings_response['embedding']
 
                 # Prepare batch data for vector store
                 chunk_data_batch = []

@@ -13,8 +13,8 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = "gemini"  # Default to gemini
     GEMINI_MODEL: str = "gemini-2.5-flash"  # Default Gemini model
 
-    # Embeddings
-    EMBEDDING_MODEL: str = "sentence-transformers/all-MiniLM-L6-v2"
+    # Embeddings - using Google's embedding API
+    EMBEDDING_MODEL: str = "models/embedding-001"
 
     # Neon Postgres
     NEON_DATABASE_URL: str

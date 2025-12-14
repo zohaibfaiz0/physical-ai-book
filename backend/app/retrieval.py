@@ -1,5 +1,5 @@
 from typing import List, Dict, Any, Optional
-from sentence_transformers import SentenceTransformer
+import google.generativeai as genai
 from .vector_store import vector_store
 from .config import settings
 import logging
@@ -8,12 +8,18 @@ logger = logging.getLogger(__name__)
 
 class RetrievalSystem:
     def __init__(self):
-        # Initialize the embedding model for queries
-        self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+        # Initialize Google's embedding model for queries
+        genai.configure(api_key=settings.GEMINI_API_KEY)
+        self.embedding_model = genai.embed_content
 
     async def embed_query(self, question: str) -> List[float]:
         """Generate embedding for a query"""
-        embedding = self.embedding_model.encode(question).tolist()
+        embedding_response = self.embedding_model(
+            model="models/embedding-001",
+            content=[question],
+            task_type="RETRIEVAL_QUERY"
+        )
+        embedding = embedding_response['embedding'][0]  # Get the first (and only) embedding
         return embedding
 
     async def retrieve(self, question: str, selected_text: Optional[str] = None,
@@ -28,8 +34,13 @@ class RetrievalSystem:
 
     async def _retrieve_selected_text(self, selected_text: str) -> List[Dict[str, Any]]:
         """Handle retrieval when user provides specific text"""
-        # Generate embedding for the selected text
-        embedding = self.embedding_model.encode(selected_text).tolist()
+        # Generate embedding for the selected text using Google's API
+        embedding_response = self.embedding_model(
+            model="models/embedding-001",
+            content=[selected_text],
+            task_type="RETRIEVAL_DOCUMENT"
+        )
+        embedding = embedding_response['embedding'][0]  # Get the first (and only) embedding
 
         # Return as a single chunk with high relevance
         return [{
