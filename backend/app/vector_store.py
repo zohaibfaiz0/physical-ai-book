@@ -33,15 +33,15 @@ class VectorStore:
             collection_names = [c.name for c in collections.collections]
 
             if self.collection_name not in collection_names:
-                # Create collection with 384-dimensional vectors (for all-MiniLM-L6-v2)
+                # Create collection with 768-dimensional vectors (for Google's embedding-001 model)
                 self.client.create_collection(
                     collection_name=self.collection_name,
                     vectors_config=models.VectorParams(
-                        size=384,  # all-MiniLM-L6-v2 produces 384-dimensional vectors
+                        size=768,  # Google's embedding-001 model produces 768-dimensional vectors
                         distance=models.Distance.COSINE
                     )
                 )
-                logger.info(f"Created collection '{self.collection_name}' with 384-dimensional vectors")
+                logger.info(f"Created collection '{self.collection_name}' with 768-dimensional vectors")
             else:
                 logger.info(f"Collection '{self.collection_name}' already exists")
         except Exception as e:
@@ -61,7 +61,7 @@ class VectorStore:
             for i, chunk in enumerate(chunks):
                 point = models.PointStruct(
                     id=chunk.get('id', i),  # Use provided ID or index
-                    vector=chunk['embedding'],  # 384-dimensional vector
+                    vector=chunk['embedding'],  # 768-dimensional vector
                     payload={
                         'content': chunk['content'],
                         'metadata': chunk.get('metadata', {}),

@@ -3,6 +3,41 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
+    path: '/physical-ai-book/__docusaurus/debug',
+    component: ComponentCreator('/physical-ai-book/__docusaurus/debug', '12f'),
+    exact: true
+  },
+  {
+    path: '/physical-ai-book/__docusaurus/debug/config',
+    component: ComponentCreator('/physical-ai-book/__docusaurus/debug/config', '4d3'),
+    exact: true
+  },
+  {
+    path: '/physical-ai-book/__docusaurus/debug/content',
+    component: ComponentCreator('/physical-ai-book/__docusaurus/debug/content', 'a5b'),
+    exact: true
+  },
+  {
+    path: '/physical-ai-book/__docusaurus/debug/globalData',
+    component: ComponentCreator('/physical-ai-book/__docusaurus/debug/globalData', 'abe'),
+    exact: true
+  },
+  {
+    path: '/physical-ai-book/__docusaurus/debug/metadata',
+    component: ComponentCreator('/physical-ai-book/__docusaurus/debug/metadata', '587'),
+    exact: true
+  },
+  {
+    path: '/physical-ai-book/__docusaurus/debug/registry',
+    component: ComponentCreator('/physical-ai-book/__docusaurus/debug/registry', '2ef'),
+    exact: true
+  },
+  {
+    path: '/physical-ai-book/__docusaurus/debug/routes',
+    component: ComponentCreator('/physical-ai-book/__docusaurus/debug/routes', '1a5'),
+    exact: true
+  },
+  {
     path: '/physical-ai-book/search',
     component: ComponentCreator('/physical-ai-book/search', '28f'),
     exact: true

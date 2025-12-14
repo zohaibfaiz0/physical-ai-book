@@ -55,7 +55,7 @@ The RAG chatbot backend provides:
 
 - `GROQ_API_KEY`: Your Groq API key for LLM calls
 - `MODEL_NAME`: LLM model to use (default: `llama-3.1-8b-instant`)
-- `EMBEDDING_MODEL`: Sentence transformer model for embeddings (default: `sentence-transformers/all-MiniLM-L6-v2`)
+- `EMBEDDING_MODEL`: Embedding model for vector generation (default: `models/embedding-001`)
 - `NEON_DATABASE_URL`: Connection string for Neon Postgres
 - `QDRANT_URL`: Qdrant Cloud cluster URL
 - `QDRANT_API_KEY`: Qdrant API key
