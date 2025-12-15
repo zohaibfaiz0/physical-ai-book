@@ -106,7 +106,7 @@ const BookChat: React.FC<BookChatProps> = ({ navbarMode = false }) => {
 
     try {
       // Call the backend /chat endpoint
-      const BACKEND_URL = 'http://localhost:8000';
+      const BACKEND_URL = 'http://physical-ai-book-production.up.railway.app';
       const response = await fetch(`${BACKEND_URL}/chat`, {
         method: 'POST',
         headers: {
