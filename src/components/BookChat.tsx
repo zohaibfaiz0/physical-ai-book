@@ -35,7 +35,7 @@ const BookChat: React.FC<BookChatProps> = ({ navbarMode = false }) => {
   useEffect(() => {
     const checkBackendStatus = async () => {
       try {
-        const BACKEND_URL = 'http://localhost:8000';
+        const BACKEND_URL = 'https://physical-ai-book-production.up.railway.app';
         const response = await fetch(`${BACKEND_URL}/health`);
         if (!response.ok) {
           setError('Backend server is not running. Please start the backend server to use the chatbot.');
@@ -106,7 +106,7 @@ const BookChat: React.FC<BookChatProps> = ({ navbarMode = false }) => {
 
     try {
       // Call the backend /chat endpoint
-      const BACKEND_URL = 'http://physical-ai-book-production.up.railway.app';
+      const BACKEND_URL = 'https://physical-ai-book-production.up.railway.app';
       const response = await fetch(`${BACKEND_URL}/chat`, {
         method: 'POST',
         headers: {
@@ -223,7 +223,7 @@ const BookChat: React.FC<BookChatProps> = ({ navbarMode = false }) => {
             ...prev.slice(0, -1),
             {
               ...lastMessage,
-              content: `I'm having trouble connecting to the knowledge base. Error: ${errorMessage}\n\nTo use the chatbot, please:\n\n1. Make sure you have Python installed\n2. Navigate to the backend directory: \`cd backend\`\n3. Install dependencies: \`pip install -r requirements.txt\`\n4. Start the backend: \`python -m uvicorn app.main:app --host 0.0.0.0 --port 8000\`\n\nThe chatbot will connect to \`http://localhost:8000\` by default.`,
+              content: `I'm having trouble connecting to the knowledge base. Error: ${errorMessage}\n\nTo use the chatbot, please:\n\n1. Make sure you have Python installed\n2. Navigate to the backend directory: \`cd backend\`\n3. Install dependencies: \`pip install -r requirements.txt\`\n4. Start the backend: \`python -m uvicorn app.main:app --host 0.0.0.0 --port 8000\`\n\nThe chatbot will connect to \`https://physical-ai-book-production.up.railway.app\` by default.`,
             }
           ];
         }
@@ -233,7 +233,7 @@ const BookChat: React.FC<BookChatProps> = ({ navbarMode = false }) => {
           {
             id: Date.now().toString(),
             role: 'assistant',
-            content: `I'm having trouble connecting to the knowledge base. Error: ${errorMessage}\n\nTo use the chatbot, please:\n\n1. Make sure you have Python installed\n2. Navigate to the backend directory: \`cd backend\`\n3. Install dependencies: \`pip install -r requirements.txt\`\n4. Start the backend: \`python -m uvicorn app.main:app --host 0.0.0.0 --port 8000\`\n\nThe chatbot will connect to \`http://localhost:8000\` by default.`,
+            content: `I'm having trouble connecting to the knowledge base. Error: ${errorMessage}\n\nTo use the chatbot, please:\n\n1. Make sure you have Python installed\n2. Navigate to the backend directory: \`cd backend\`\n3. Install dependencies: \`pip install -r requirements.txt\`\n4. Start the backend: \`python -m uvicorn app.main:app --host 0.0.0.0 --port 8000\`\n\nThe chatbot will connect to \`https://physical-ai-book-production.up.railway.app\` by default.`,
             timestamp: new Date(),
           }
         ];
