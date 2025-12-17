@@ -23,12 +23,12 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "C:\\Users\\AA\\Desktop\\sp+\\book\\sidebars.js",
+          "sidebarPath": "C:\\Users\\AA\\Desktop\\sp+\\clone\\clean-repo\\sidebars.js",
           "editUrl": "https://github.com/zohaibfaiz0/physical-ai-book"
         },
         "blog": false,
         "theme": {
-          "customCss": "C:\\Users\\AA\\Desktop\\sp+\\book\\src\\css\\custom.css"
+          "customCss": "C:\\Users\\AA\\Desktop\\sp+\\clone\\clean-repo\\src\\css\\custom.css"
         }
       }
     ]
@@ -366,7 +366,7 @@ export default {
   ],
   "themes": [
     [
-      "C:\\Users\\AA\\Desktop\\sp+\\book\\node_modules\\@easyops-cn\\docusaurus-search-local\\dist\\server\\server\\index.js",
+      "C:\\Users\\AA\\Desktop\\sp+\\clone\\clean-repo\\node_modules\\@easyops-cn\\docusaurus-search-local\\dist\\server\\server\\index.js",
       {
         "hashed": true,
         "language": [
