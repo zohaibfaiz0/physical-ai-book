@@ -1,4 +1,4 @@
-let _backendUrl: string = "https://zohaib009-new-book-backend.hf.space";
+let _backendUrl: string = "https://Zohaib009-new-book-backend.hf.space";
 
 if (typeof window !== "undefined") {
   const runtimeUrl = (window as any).__BACKEND_URL__;
