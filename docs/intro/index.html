@@ -3,252 +3,1076 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
-<title data-rh="true">Introduction | Physical AI and Humanoid Robotics</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://zohaibfaiz0.github.io/physical-ai-book/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://zohaibfaiz0.github.io/physical-ai-book/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Introduction | Physical AI and Humanoid Robotics"><meta data-rh="true" name="description" content="Getting started with Physical AI and Humanoid Robotics"><meta data-rh="true" property="og:description" content="Getting started with Physical AI and Humanoid Robotics"><link data-rh="true" rel="icon" href="/physical-ai-book/img/logo.svg"><link data-rh="true" rel="canonical" href="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro"><link data-rh="true" rel="alternate" href="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro" hreflang="en"><link data-rh="true" rel="alternate" href="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Introduction","item":"https://zohaibfaiz0.github.io/physical-ai-book/docs/intro"}]}</script><script src="/js/navbar-chat.js" async></script><link rel="stylesheet" href="/physical-ai-book/assets/css/styles.3afa4518.css">
-<script src="/physical-ai-book/assets/js/runtime~main.c9ddf52b.js" defer="defer"></script>
-<script src="/physical-ai-book/assets/js/main.e67e3077.js" defer="defer"></script>
+<title data-rh="true">Introduction | Physical AI and Humanoid Robotics</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://zohaibfaiz0.github.io/physical-ai-book/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://zohaibfaiz0.github.io/physical-ai-book/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Introduction | Physical AI and Humanoid Robotics"><meta data-rh="true" name="description" content="Getting started with Physical AI and Humanoid Robotics"><meta data-rh="true" property="og:description" content="Getting started with Physical AI and Humanoid Robotics"><link data-rh="true" rel="icon" href="/physical-ai-book/img/logo.svg"><link data-rh="true" rel="canonical" href="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro"><link data-rh="true" rel="alternate" href="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro" hreflang="en"><link data-rh="true" rel="alternate" href="https://zohaibfaiz0.github.io/physical-ai-book/docs/intro" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Introduction","item":"https://zohaibfaiz0.github.io/physical-ai-book/docs/intro"}]}</script><script src="/js/navbar-chat.js" async></script><link rel="stylesheet" href="/physical-ai-book/assets/css/styles.28c0da6c.css">
+<script src="/physical-ai-book/assets/js/runtime~main.5a44ceff.js" defer="defer"></script>
+<script src="/physical-ai-book/assets/js/main.a3cbbf43.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
 <symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
 </defs></svg>
-<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/physical-ai-book/"><div class="navbar__logo"><img src="/physical-ai-book/img/logo.svg" alt="Physical AI and Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/physical-ai-book/img/logo.svg" alt="Physical AI and Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Physical AI &amp; Humanoid Robotics</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/physical-ai-book/docs/intro">Documentation</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/zohaibfaiz0/physical-ai-book" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub</a><div class="navbar__item"><div class="navbar__item--rag-status"><span class="rag-status-indicator"></span>RAG Active</div></div><div class="navbar__item"><div id="navbar-chat-container"></div></div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z"><input placeholder="Search" aria-label="Search" class="navbar__search-input" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/physical-ai-book/docs/intro"><span title="Introduction" class="categoryLinkLabel_W154">Introduction</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/physical-ai-book/docs/intro"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/hardware-requirements"><span title="Hardware Requirements" class="categoryLinkLabel_W154">Hardware Requirements</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/hardware-requirements"><span title="Hardware Requirements" class="linkLabel_WmDU">Hardware Requirements</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/preface"><span title="Preface" class="categoryLinkLabel_W154">Preface</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/preface"><span title="Preface" class="linkLabel_WmDU">Preface</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/"><span title="Chapters" class="categoryLinkLabel_W154">Chapters</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/"><span title="Weeks 1-2: Foundations of Physical AI" class="categoryLinkLabel_W154">Weeks 1-2: Foundations of Physical AI</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"><span title="embodied-intelligence-2025" class="linkLabel_WmDU">embodied-intelligence-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics"><span title="physical-laws-and-robotics" class="linkLabel_WmDU">physical-laws-and-robotics</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025"><span title="humanoid-landscape-2025" class="linkLabel_WmDU">humanoid-landscape-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive"><span title="sensor-systems-deep-dive" class="linkLabel_WmDU">sensor-systems-deep-dive</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/"><span title="Weeks 3-5: ROS2" class="categoryLinkLabel_W154">Weeks 3-5: ROS2</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-core-architecture"><span title="ros2-core-architecture" class="linkLabel_WmDU">ros2-core-architecture</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions"><span title="nodes-topics-services-actions" class="linkLabel_WmDU">nodes-topics-services-actions</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids"><span title="urdf-xacro-sdf-humanoids" class="linkLabel_WmDU">urdf-xacro-sdf-humanoids</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge"><span title="rclpy-agent-bridge" class="linkLabel_WmDU">rclpy-agent-bridge</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough"><span title="ros2-project-walkthrough" class="linkLabel_WmDU">ros2-project-walkthrough</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/"><span title="Weeks 6-7: Simulation" class="categoryLinkLabel_W154">Weeks 6-7: Simulation</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025"><span title="gazebo-mastery-2025" class="linkLabel_WmDU">gazebo-mastery-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/unity-digital-twin"><span title="unity-digital-twin" class="linkLabel_WmDU">unity-digital-twin</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth"><span title="sensor-simulation-lidar-imu-depth" class="linkLabel_WmDU">sensor-simulation-lidar-imu-depth</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap"><span title="physics-engines-and-sim2real-gap" class="linkLabel_WmDU">physics-engines-and-sim2real-gap</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/"><span title="Weeks 8-10: NVIDIA Isaac" class="categoryLinkLabel_W154">Weeks 8-10: NVIDIA Isaac</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"><span title="isaac-sim-2025-mastery" class="linkLabel_WmDU">isaac-sim-2025-mastery</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam"><span title="isaac-ros-gemini-and-vslam" class="linkLabel_WmDU">isaac-ros-gemini-and-vslam</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale"><span title="synthetic-data-at-scale" class="linkLabel_WmDU">synthetic-data-at-scale</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025"><span title="sim2real-transfer-2025" class="linkLabel_WmDU">sim2real-transfer-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac"><span title="rl-for-humanoids-in-isaac" class="linkLabel_WmDU">rl-for-humanoids-in-isaac</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/"><span title="Weeks 11-12: Humanoid Development" class="categoryLinkLabel_W154">Weeks 11-12: Humanoid Development</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025"><span title="bipedal-locomotion-2025" class="linkLabel_WmDU">bipedal-locomotion-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"><span title="dexterous-manipulation" class="linkLabel_WmDU">dexterous-manipulation</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/whole-body-control"><span title="whole-body-control" class="linkLabel_WmDU">whole-body-control</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"><span title="humanoid-benchmarks-2025" class="linkLabel_WmDU">humanoid-benchmarks-2025</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/"><span title="Week 13: Conversational Robotics" class="categoryLinkLabel_W154">Week 13: Conversational Robotics</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"><span title="vision-language-action-2025" class="linkLabel_WmDU">vision-language-action-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline"><span title="voice-to-action-pipeline" class="linkLabel_WmDU">voice-to-action-pipeline</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid"><span title="capstone-full-autonomous-humanoid" class="linkLabel_WmDU">capstone-full-autonomous-humanoid</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" tabindex="0" href="/physical-ai-book/docs/chapters/appendices/"><span title="Appendices" class="categoryLinkLabel_W154">Appendices</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/appendices/"><span title="index" class="linkLabel_WmDU">index</span></a></li></ul></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/physical-ai-book/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Introduction</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Introduction</span></li></ul></nav><div class="theme-doc-markdown markdown"><style>
-/* Use Docusaurus theme-aware CSS variables */
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/physical-ai-book/"><div class="navbar__logo"><img src="/physical-ai-book/img/logo.svg" alt="Physical AI and Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/physical-ai-book/img/logo.svg" alt="Physical AI and Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Physical AI &amp; Humanoid Robotics</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/physical-ai-book/docs/intro">Documentation</a><a class="navbar__item navbar__link" href="/physical-ai-book/dashboard">Dashboard</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div id="navbar-chat-container" style="margin-right:8px"></div><div class="navbar__item--rag-status" style="display:flex;align-items:center;margin-right:8px"><span class="rag-status-indicator" style="width:8px;height:8px;border-radius:50%;background-color:#22c55e;margin-right:6px;display:inline-block"></span><span style="font-size:0.85rem">RAG Active</span></div><div class="skeleton_EzaT"></div><a href="https://github.com/zohaibfaiz0/physical-ai-book" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z"><input placeholder="Search" aria-label="Search" class="navbar__search-input" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/physical-ai-book/docs/intro"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/physical-ai-book/docs/hardware-requirements"><span title="Hardware Requirements" class="linkLabel_WmDU">Hardware Requirements</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/physical-ai-book/docs/preface"><span title="Preface" class="linkLabel_WmDU">Preface</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/"><span title="Weeks 1-2: Foundations of Physical AI" class="categoryLinkLabel_W154">Weeks 1-2: Foundations of Physical AI</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/embodied-intelligence-2025"><span title="embodied-intelligence-2025" class="linkLabel_WmDU">embodied-intelligence-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/physical-laws-and-robotics"><span title="physical-laws-and-robotics" class="linkLabel_WmDU">physical-laws-and-robotics</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/humanoid-landscape-2025"><span title="humanoid-landscape-2025" class="linkLabel_WmDU">humanoid-landscape-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/sensor-systems-deep-dive"><span title="sensor-systems-deep-dive" class="linkLabel_WmDU">sensor-systems-deep-dive</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/"><span title="Weeks 3-5: ROS2" class="categoryLinkLabel_W154">Weeks 3-5: ROS2</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-core-architecture"><span title="ros2-core-architecture" class="linkLabel_WmDU">ros2-core-architecture</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/nodes-topics-services-actions"><span title="nodes-topics-services-actions" class="linkLabel_WmDU">nodes-topics-services-actions</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/urdf-xacro-sdf-humanoids"><span title="urdf-xacro-sdf-humanoids" class="linkLabel_WmDU">urdf-xacro-sdf-humanoids</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/rclpy-agent-bridge"><span title="rclpy-agent-bridge" class="linkLabel_WmDU">rclpy-agent-bridge</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/ros2-project-walkthrough"><span title="ros2-project-walkthrough" class="linkLabel_WmDU">ros2-project-walkthrough</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/"><span title="Weeks 6-7: Simulation" class="categoryLinkLabel_W154">Weeks 6-7: Simulation</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/gazebo-mastery-2025"><span title="gazebo-mastery-2025" class="linkLabel_WmDU">gazebo-mastery-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/unity-digital-twin"><span title="unity-digital-twin" class="linkLabel_WmDU">unity-digital-twin</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/sensor-simulation-lidar-imu-depth"><span title="sensor-simulation-lidar-imu-depth" class="linkLabel_WmDU">sensor-simulation-lidar-imu-depth</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-6-7-simulation/physics-engines-and-sim2real-gap"><span title="physics-engines-and-sim2real-gap" class="linkLabel_WmDU">physics-engines-and-sim2real-gap</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/"><span title="Weeks 8-10: NVIDIA Isaac" class="categoryLinkLabel_W154">Weeks 8-10: NVIDIA Isaac</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-sim-2025-mastery"><span title="isaac-sim-2025-mastery" class="linkLabel_WmDU">isaac-sim-2025-mastery</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/isaac-ros-gemini-and-vslam"><span title="isaac-ros-gemini-and-vslam" class="linkLabel_WmDU">isaac-ros-gemini-and-vslam</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/synthetic-data-at-scale"><span title="synthetic-data-at-scale" class="linkLabel_WmDU">synthetic-data-at-scale</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/sim2real-transfer-2025"><span title="sim2real-transfer-2025" class="linkLabel_WmDU">sim2real-transfer-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-8-10-nvidia-isaac/rl-for-humanoids-in-isaac"><span title="rl-for-humanoids-in-isaac" class="linkLabel_WmDU">rl-for-humanoids-in-isaac</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/"><span title="Weeks 11-12: Humanoid Development" class="categoryLinkLabel_W154">Weeks 11-12: Humanoid Development</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/bipedal-locomotion-2025"><span title="bipedal-locomotion-2025" class="linkLabel_WmDU">bipedal-locomotion-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/dexterous-manipulation"><span title="dexterous-manipulation" class="linkLabel_WmDU">dexterous-manipulation</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/whole-body-control"><span title="whole-body-control" class="linkLabel_WmDU">whole-body-control</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/weeks-11-12-humanoid-development/humanoid-benchmarks-2025"><span title="humanoid-benchmarks-2025" class="linkLabel_WmDU">humanoid-benchmarks-2025</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/"><span title="Week 13: Conversational Robotics" class="categoryLinkLabel_W154">Week 13: Conversational Robotics</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/"><span title="index" class="linkLabel_WmDU">index</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/vision-language-action-2025"><span title="vision-language-action-2025" class="linkLabel_WmDU">vision-language-action-2025</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/voice-to-action-pipeline"><span title="voice-to-action-pipeline" class="linkLabel_WmDU">voice-to-action-pipeline</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/week-13-conversational-robotics/capstone-full-autonomous-humanoid"><span title="capstone-full-autonomous-humanoid" class="linkLabel_WmDU">capstone-full-autonomous-humanoid</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/physical-ai-book/docs/chapters/appendices/"><span title="Appendices" class="categoryLinkLabel_W154">Appendices</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/physical-ai-book/docs/chapters/appendices/"><span title="index" class="linkLabel_WmDU">index</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/physical-ai-book/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Introduction</span></li></ul></nav><div class="theme-doc-markdown markdown"><style>
+/* ==============================================
+   INTRO PAGE - PREMIUM DESIGN SYSTEM
+   (Works within Docusaurus container)
+   ============================================== */
+
+/* CSS Variables */
 :root {
-  --background-primary: var(--ifm-background-color);
-  --text-primary: var(--ifm-color-content);
-  --text-secondary: var(--ifm-color-content-secondary);
-  --text-inverse: white;
-  --card-bg: var(--ifm-card-background-color, var(--ifm-background-surface-color));
-  --link-color: var(--ifm-link-color);
+  /* Light Mode */
+  --intro-bg-primary: #FFFFFF;
+  --intro-bg-secondary: #F8FAFC;
+  --intro-bg-tertiary: #F1F5F9;
+  --intro-surface: #FFFFFF;
+  --intro-surface-hover: #F8FAFC;
+  
+  --intro-border: rgba(0, 0, 0, 0.08);
+  --intro-border-hover: rgba(0, 0, 0, 0.12);
+  
+  --intro-text-primary: #0F172A;
+  --intro-text-secondary: #475569;
+  --intro-text-tertiary: #64748B;
+  
+  --intro-primary: #7C3AED;
+  --intro-primary-light: #8B5CF6;
+  --intro-secondary: #2563EB;
+  --intro-accent: #059669;
+  
+  --intro-glow: rgba(124, 58, 237, 0.08);
+  --intro-glow-strong: rgba(124, 58, 237, 0.12);
+  
+  --intro-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --intro-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --intro-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.1);
+  
+  --intro-gradient: linear-gradient(135deg, #7C3AED 0%, #2563EB 50%, #059669 100%);
 }
 
-[data-theme=&#x27;light&#x27;] {
-  --feature-icon-color: #334155;
-  --stats-bg: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
-  --stats-text: #334155;
-  --course-details-text: #1e293b;
-  --course-details-title: #0f172a;
-  --checkmark-color: #10b981;
-}
 [data-theme=&#x27;dark&#x27;] {
-  --feature-icon-color: #cbd5e1;
-  --stats-bg: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
-  --stats-text: #cbd5e1;
-  --course-details-text: #e2e8f0;
-  --course-details-title: white;
-  --checkmark-color: #34d399;
+  --intro-bg-primary: #09090B;
+  --intro-bg-secondary: #0F0F12;
+  --intro-bg-tertiary: #18181B;
+  --intro-surface: #1C1C21;
+  --intro-surface-hover: #232329;
+  
+  --intro-border: rgba(255, 255, 255, 0.08);
+  --intro-border-hover: rgba(255, 255, 255, 0.12);
+  
+  --intro-text-primary: #FAFAFA;
+  --intro-text-secondary: #A1A1AA;
+  --intro-text-tertiary: #71717A;
+  
+  --intro-primary: #8B5CF6;
+  --intro-primary-light: #A78BFA;
+  --intro-secondary: #3B82F6;
+  --intro-accent: #10B981;
+  
+  --intro-glow: rgba(139, 92, 246, 0.12);
+  --intro-glow-strong: rgba(139, 92, 246, 0.2);
+  
+  --intro-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --intro-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --intro-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+  
+  --intro-gradient: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #10B981 100%);
 }
 
-.hero {
-  margin: 0 !important;
-  padding: 8rem 0 !important;
-  width: 100% !important;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+/* ==============================================
+   HERO SECTION
+   ============================================== */
+.intro-hero {
+  position: relative;
+  padding: 60px 0 80px;
+  overflow: hidden;
+}
+
+/* Hero Background Effects */
+.intro-hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.intro-hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 20%, transparent 80%);
+}
+
+[data-theme=&#x27;light&#x27;] .intro-hero__grid {
+  background-image: 
+    linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+}
+
+.intro-hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: introFloat 20s ease-in-out infinite;
+}
+
+.intro-hero__orb--1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15), transparent 70%);
+  top: -20%;
+  left: -15%;
+}
+
+.intro-hero__orb--2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.12), transparent 70%);
+  bottom: -15%;
+  right: -10%;
+  animation-delay: -7s;
+}
+
+.intro-hero__orb--3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent 70%);
+  top: 40%;
+  left: 50%;
+  animation-delay: -14s;
+}
+
+[data-theme=&#x27;light&#x27;] .intro-hero__orb--1 {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.1), transparent 70%);
+}
+
+[data-theme=&#x27;light&#x27;] .intro-hero__orb--2 {
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.08), transparent 70%);
+}
+
+[data-theme=&#x27;light&#x27;] .intro-hero__orb--3 {
+  background: radial-gradient(circle, rgba(5, 150, 105, 0.06), transparent 70%);
+}
+
+/* Hero Content */
+.intro-hero__content {
+  position: relative;
+  z-index: 1;
   text-align: center;
-  color: white;
-}
-.hero .container {
-  max-width: 1280px !important;
-  padding: 0 2rem !important;
-}
-.hero-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4rem;
-}
-.hero-text {
   max-width: 800px;
+  margin: 0 auto;
 }
-.hero-visual {
-  font-size: 22rem;
-  opacity: 0.9;
-  filter: drop-shadow(0 30px 60px rgba(6, 182, 212, 0.3));
+
+/* Badge */
+.intro-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--intro-surface);
+  border: 1px solid var(--intro-border);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--intro-text-secondary);
+  margin-bottom: 28px;
+  animation: introFadeInDown 600ms ease-out;
 }
-@media (max-width: 768px) {
-  .hero { padding: 6rem 0 !important; }
-  .hero-visual { font-size: 14rem; }
+
+[data-theme=&#x27;light&#x27;] .intro-hero__badge {
+  box-shadow: var(--intro-shadow-sm);
 }
-.main-wrapper &gt; div &gt; div &gt; div:first-child {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+
+.intro-hero__badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--intro-accent);
+  border-radius: 50%;
+  animation: introPulse 2s ease-in-out infinite;
+}
+
+.intro-hero__badge-text {
+  background: var(--intro-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Title */
+.intro-hero__title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--intro-text-primary);
+  margin-bottom: 20px;
+  animation: introFadeInUp 600ms ease-out 100ms backwards;
+}
+
+.intro-hero__title-gradient {
+  background: var(--intro-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline;
+}
+
+/* Subtitle */
+.intro-hero__subtitle {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--intro-text-secondary);
+  margin: 0 auto 32px;
+  max-width: 600px;
+  animation: introFadeInUp 600ms ease-out 200ms backwards;
+}
+
+/* Robot Visual */
+.intro-hero__visual {
+  position: relative;
+  margin: 40px auto;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: introFadeIn 800ms ease-out 300ms backwards;
+}
+
+.intro-hero__robot-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--intro-glow-strong), transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+.intro-hero__robot-emoji {
+  font-size: 120px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+  animation: introFloat 6s ease-in-out infinite;
+}
+
+.intro-hero__robot-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  opacity: 0.2;
+}
+
+.intro-hero__robot-ring--1 {
+  width: 180px;
+  height: 180px;
+  border-color: var(--intro-primary);
+  animation: introRotate 20s linear infinite;
+}
+
+.intro-hero__robot-ring--2 {
+  width: 230px;
+  height: 230px;
+  border-color: var(--intro-secondary);
+  animation: introRotate 25s linear infinite reverse;
+}
+
+.intro-hero__robot-ring--3 {
+  width: 280px;
+  height: 280px;
+  border-color: var(--intro-accent);
+  animation: introRotate 30s linear infinite;
 }
 
 /* Buttons */
-.cta-buttons {
+.intro-hero__buttons {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 16px;
   justify-content: center;
-  margin-top: 1.5rem;
-}
-.button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-block;
-}
-.button--primary {
-  background: #0ea5e9;
-  color: white;
-}
-.button--secondary {
-  background: transparent;
-  border: 2px solid #cbd5e1;
-  color: #cbd5e1;
-}
-[data-theme=&#x27;light&#x27;] .button--secondary {
-  border-color: #94a3b8;
-  color: #334155;
+  animation: introFadeInUp 600ms ease-out 400ms backwards;
 }
 
-/* Stats Bar — now theme-aware */
-.stats-bar {
-  text-align: center;
-  padding: 1rem;
-  background: var(--stats-bg);
-  color: var(--stats-text);
+.intro-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none !important;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
-/* Features Section */
-.features-section .container {
-  margin-top: 4rem;
+.intro-btn--primary {
+  background: linear-gradient(135deg, var(--intro-primary) 0%, var(--intro-primary-light) 100%);
+  color: white !important;
+  border: none;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.35);
 }
-.features-grid {
+
+[data-theme=&#x27;light&#x27;] .intro-btn--primary {
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+.intro-btn--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.45);
+}
+
+.intro-btn--primary::before {
+  content: &#x27;&#x27;;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 500ms;
+}
+
+.intro-btn--primary:hover::before {
+  transform: translateX(100%);
+}
+
+.intro-btn--secondary {
+  background: var(--intro-surface);
+  color: var(--intro-text-primary) !important;
+  border: 1px solid var(--intro-border);
+}
+
+[data-theme=&#x27;light&#x27;] .intro-btn--secondary {
+  box-shadow: var(--intro-shadow-sm);
+}
+
+.intro-btn--secondary:hover {
+  background: var(--intro-surface-hover);
+  border-color: var(--intro-primary);
+  transform: translateY(-3px);
+}
+
+.intro-btn__icon {
+  transition: transform 200ms ease;
+}
+
+.intro-btn:hover .intro-btn__icon--arrow {
+  transform: translateX(3px);
+}
+
+/* ==============================================
+   STATS SECTION
+   ============================================== */
+.intro-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 40px 0;
+  margin: 40px 0;
+  border-top: 1px solid var(--intro-border);
+  border-bottom: 1px solid var(--intro-border);
 }
-.feature-card {
+
+@media (max-width: 768px) {
+  .intro-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+.intro-stats__item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1rem;
-  padding: 1.5rem;
-  border-radius: 12px;
-  background: var(--card-bg);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-.icon {
-  font-size: 3rem;
-  line-height: 1;
-  color: var(--feature-icon-color);
-}
-.feature-card h3 {
-  color: var(--text-primary);
-}
-.feature-card p {
-  color: var(--text-secondary);
-  margin: 0;
+  padding: 24px 16px;
+  background: var(--intro-surface);
+  border: 1px solid var(--intro-border);
+  border-radius: 16px;
+  transition: all 250ms ease;
 }
 
-/* Course Outline */
-.course-outline .container {
-  margin-top: 4rem;
+.intro-stats__item:hover {
+  border-color: var(--intro-primary);
+  transform: translateY(-4px);
 }
-.course-grid {
+
+[data-theme=&#x27;dark&#x27;] .intro-stats__item:hover {
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.1);
+}
+
+[data-theme=&#x27;light&#x27;] .intro-stats__item:hover {
+  box-shadow: var(--intro-shadow-md);
+}
+
+.intro-stats__icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.intro-stats__value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: var(--intro-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.intro-stats__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--intro-text-secondary);
+  margin-top: 4px;
+}
+
+/* ==============================================
+   SECTION HEADERS
+   ============================================== */
+.intro-section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.intro-section-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--intro-primary);
+  margin-bottom: 12px;
+}
+
+.intro-section-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--intro-text-primary);
+  margin-bottom: 14px;
+}
+
+.intro-section-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--intro-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ==============================================
+   FEATURES SECTION
+   ============================================== */
+.intro-features {
+  padding: 60px 0;
+}
+
+.intro-features__grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 3rem;
-  margin-top: 2rem;
-}
-.week-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-.week-item {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-}
-.checkmark {
-  font-size: 1.5rem;
-  margin-top: 0.25rem;
-  flex-shrink: 0;
-  color: var(--checkmark-color);
-}
-.week-title {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: var(--text-primary);
-}
-.week-subtitle {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
-/* ✅ &quot;What You&#x27;ll Master&quot; — now theme-safe */
-.course-details h3 {
-  color: var(--course-details-title);
-  margin-bottom: 1rem;
-}
-.course-details ul {
-  padding-left: 1.25rem;
-  color: var(--course-details-text);
-}
-.course-details li {
-  margin-bottom: 0.5rem;
-  color: var(--course-details-text);
-}
-
-/* Interactive Section */
-.interactive-section .container {
-  margin-top: 4rem;
-  color: var(--text-primary);
-}
-.interactive-row {
-  display: flex;
-  gap: 3rem;
-  margin-top: 2rem;
-}
-.interactive-col {
-  flex: 1;
-  min-width: 0;
-}
-.interactive-col h3 {
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-.interactive-col p,
-.interactive-col ul {
-  color: var(--text-secondary);
-}
-.interactive-col ul {
-  padding-left: 1.25rem;
-  margin: 1rem 0;
-}
-@media (max-width: 992px) {
-  .interactive-row {
-    flex-direction: column;
+@media (max-width: 900px) {
+  .intro-features__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
-/* Section Headings */
-.features-section h2,
-.course-outline h2,
-.interactive-section h2 {
-  color: var(--text-primary);
-  margin-bottom: 1.5rem;
-  text-align: center;
+.intro-feature-card {
+  position: relative;
+  padding: 28px;
+  background: var(--intro-surface);
+  border: 1px solid var(--intro-border);
+  border-radius: 20px;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
-/* Hero text override */
-.hero h1,
-.hero p,
-.hero__subtitle {
-  color: white !important;
+.intro-feature-card::before {
+  content: &#x27;&#x27;;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--intro-glow), transparent 60%);
+  opacity: 0;
+  transition: opacity 250ms ease;
+  pointer-events: none;
+}
+
+.intro-feature-card:hover {
+  border-color: var(--intro-primary);
+  transform: translateY(-6px);
+}
+
+[data-theme=&#x27;light&#x27;] .intro-feature-card:hover {
+  box-shadow: var(--intro-shadow-lg);
+}
+
+[data-theme=&#x27;dark&#x27;] .intro-feature-card:hover {
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.12);
+}
+
+.intro-feature-card:hover::before {
+  opacity: 1;
+}
+
+.intro-feature-card__icon {
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  background: var(--intro-glow);
+  border: 1px solid var(--intro-border);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  transition: all 250ms ease;
+}
+
+.intro-feature-card:hover .intro-feature-card__icon {
+  border-color: var(--intro-primary);
+  transform: scale(1.05);
+}
+
+.intro-feature-card__title {
+  position: relative;
+  z-index: 1;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--intro-text-primary);
+  margin-bottom: 10px;
+}
+
+.intro-feature-card__description {
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--intro-text-secondary);
+  margin: 0;
+}
+
+/* ==============================================
+   CURRICULUM SECTION
+   ============================================== */
+.intro-curriculum {
+  padding: 60px 0;
+  margin-top: 20px;
+  position: relative;
+}
+
+.intro-curriculum__layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .intro-curriculum__layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* Timeline */
+.intro-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-timeline-item {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.intro-timeline-item__connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6px;
+}
+
+.intro-timeline-item__dot {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, var(--intro-primary) 0%, var(--intro-secondary) 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 16px var(--intro-glow-strong);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.intro-timeline-item__dot::before {
+  content: &#x27;&#x27;;
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--intro-primary);
+  opacity: 0.25;
+}
+
+.intro-timeline-item__line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(180deg, var(--intro-primary) 0%, var(--intro-border) 100%);
+  margin: 8px 0;
+  min-height: 20px;
+  border-radius: 1px;
+}
+
+.intro-timeline-item:last-child .intro-timeline-item__line {
+  display: none;
+}
+
+.intro-timeline-item__content {
+  flex: 1;
+  padding-bottom: 24px;
+}
+
+.intro-timeline-item__card {
+  padding: 20px 24px;
+  background: var(--intro-surface);
+  border: 1px solid var(--intro-border);
+  border-radius: 14px;
+  transition: all 250ms ease;
+}
+
+.intro-timeline-item__card:hover {
+  border-color: var(--intro-primary);
+  transform: translateX(8px);
+}
+
+[data-theme=&#x27;light&#x27;] .intro-timeline-item__card:hover {
+  box-shadow: var(--intro-shadow-md);
+}
+
+[data-theme=&#x27;dark&#x27;] .intro-timeline-item__card:hover {
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.1);
+}
+
+.intro-timeline-item__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.intro-timeline-item__icon {
+  font-size: 22px;
+}
+
+.intro-timeline-item__week {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--intro-primary);
+  padding: 4px 12px;
+  background: var(--intro-glow);
+  border-radius: 100px;
+}
+
+.intro-timeline-item__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--intro-text-primary);
+  margin-bottom: 4px;
+}
+
+.intro-timeline-item__description {
+  font-size: 13px;
+  color: var(--intro-text-secondary);
+  margin: 0;
+}
+
+/* What You&#x27;ll Master Card */
+.intro-master-card {
+  padding: 28px;
+  background: var(--intro-surface);
+  border: 1px solid var(--intro-border);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme=&#x27;light&#x27;] .intro-master-card {
+  box-shadow: var(--intro-shadow-md);
+}
+
+.intro-master-card::before {
+  content: &#x27;&#x27;;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--intro-gradient);
+}
+
+.intro-master-card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--intro-text-primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.intro-master-card__title-icon {
+  font-size: 22px;
+}
+
+.intro-master-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.intro-master-card__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--intro-text-secondary);
+  line-height: 1.5;
+}
+
+.intro-master-card__check {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--intro-accent);
+  border-radius: 6px;
+  font-size: 12px;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+[data-theme=&#x27;light&#x27;] .intro-master-card__check {
+  background: rgba(5, 150, 105, 0.1);
+}
+
+/* ==============================================
+   INTERACTIVE SECTION
+   ============================================== */
+.intro-interactive {
+  padding: 60px 0;
+  margin-top: 20px;
+}
+
+.intro-interactive__layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .intro-interactive__layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.intro-interactive__content {
+  padding-top: 10px;
+}
+
+.intro-interactive__title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--intro-text-primary);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.intro-interactive__title-icon {
+  font-size: 26px;
+}
+
+.intro-interactive__description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--intro-text-secondary);
+  margin-bottom: 24px;
+}
+
+.intro-interactive__features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.intro-interactive__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--intro-surface);
+  border: 1px solid var(--intro-border);
+  border-radius: 14px;
+  transition: all 250ms ease;
+}
+
+.intro-interactive__feature:hover {
+  border-color: var(--intro-primary);
+  transform: translateX(6px);
+}
+
+.intro-interactive__feature-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--intro-glow);
+  border-radius: 12px;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.intro-interactive__feature-text {
+  font-size: 14px;
+  color: var(--intro-text-secondary);
+  line-height: 1.6;
+}
+
+.intro-interactive__feature-text strong {
+  color: var(--intro-text-primary);
+}
+
+/* Chat Container */
+.intro-interactive__chat {
+  background: var(--intro-surface);
+  border: 1px solid var(--intro-border);
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme=&#x27;light&#x27;] .intro-interactive__chat {
+  box-shadow: var(--intro-shadow-lg);
+}
+
+[data-theme=&#x27;dark&#x27;] .intro-interactive__chat {
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.3);
+}
+
+.intro-interactive__chat::before {
+  content: &#x27;&#x27;;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--intro-gradient);
+}
+
+.intro-interactive__chat-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--intro-border);
+}
+
+.intro-interactive__chat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--intro-primary), var(--intro-secondary));
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.intro-interactive__chat-info {
+  flex: 1;
+}
+
+.intro-interactive__chat-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--intro-text-primary);
+}
+
+.intro-interactive__chat-subtitle {
+  font-size: 13px;
+  color: var(--intro-text-tertiary);
+}
+
+.intro-interactive__chat-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--intro-accent);
+}
+
+.intro-interactive__chat-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--intro-accent);
+  border-radius: 50%;
+  animation: introPulse 2s ease-in-out infinite;
+}
+
+/* ==============================================
+   ANIMATIONS
+   ============================================== */
+@keyframes introFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes introRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes introFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes introFadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(24px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes introFadeInDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-16px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes introPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* ==============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================== */
+@media (max-width: 640px) {
+  .intro-hero {
+    padding: 40px 0 60px;
+  }
+
+  .intro-hero__visual {
+    width: 220px;
+    height: 220px;
+    margin: 32px auto;
+  }
+
+  .intro-hero__robot-emoji {
+    font-size: 90px;
+  }
+
+  .intro-hero__robot-ring--1 {
+    width: 140px;
+    height: 140px;
+  }
+
+  .intro-hero__robot-ring--2 {
+    width: 180px;
+    height: 180px;
+  }
+
+  .intro-hero__robot-ring--3 {
+    width: 220px;
+    height: 220px;
+  }
+
+  .intro-hero__buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .intro-btn {
+    justify-content: center;
+  }
+
+  .intro-features,
+  .intro-curriculum,
+  .intro-interactive {
+    padding: 40px 0;
+  }
+
+  .intro-section-header {
+    margin-bottom: 32px;
+  }
+
+  .intro-timeline-item__card {
+    padding: 16px 18px;
+  }
+
+  .intro-master-card {
+    padding: 22px;
+  }
+
+  .intro-interactive__chat {
+    padding: 20px;
+  }
 }
 </style>
-<section class="hero"><div class="container"><div class="hero-inner"><div class="hero-text"><h1>Master <span class="gradient-text">Physical AI</span> &amp; Humanoid Robotics</h1><p class="hero__subtitle"></p><p>Build intelligent robots that understand and interact with the physical world. From ROS 2 to autonomous humanoids.</p><p></p><div class="cta-buttons"><a href="/docs/chapters/01-weeks-1-2-foundations" class="button button--primary"><p>Start Learning</p></a><a href="/docs" class="button button--secondary"><p>Browse Chapters</p></a></div></div><div class="hero-visual"><div class="robot-illustration"></div></div></div></div></section>
-<div class="stats-bar"><p>35+ Chapters • 400+ Concepts • AI-Powered Assistant • 100% Free</p></div>
-<section class="features-section"><div class="container"><h2>Everything You Need to Master Physical AI</h2><div class="features-grid"><div class="feature-card"><div class="icon">📘</div><h3>Comprehensive Curriculum</h3><p>Complete 13-week program covering all aspects of physical AI and humanoid robotics from fundamentals to advanced control systems.</p></div><div class="feature-card"><div class="icon">⚡</div><h3>AI-Powered Learning</h3><p>Chat with our RAG assistant about any concept instantly. Get explanations, examples, and references to relevant chapters.</p></div><div class="feature-card"><div class="icon">🤖</div><h3>Hands-On Projects</h3><p>Build real humanoid control systems with practical exercises and projects that reinforce theoretical concepts.</p></div></div></div></section>
-<section class="course-outline"><div class="container"><h2>Complete 13-Week Curriculum</h2><div class="course-grid"><div class="week-list"><div class="week-item"><span class="checkmark">✅</span><div class="week-description"><div class="week-title">Weeks 1-2: Foundations</div><div class="week-subtitle">Embodied Intelligence &amp; Humanoid Landscape</div></div></div><div class="week-item"><span class="checkmark">✅</span><div class="week-description"><div class="week-title">Weeks 3-5: ROS2</div><div class="week-subtitle">Core Architecture &amp; Node Development</div></div></div><div class="week-item"><span class="checkmark">✅</span><div class="week-description"><div class="week-title">Weeks 6-7: Simulation</div><div class="week-subtitle">Gazebo &amp; Physics Engines</div></div></div><div class="week-item"><span class="checkmark">✅</span><div class="week-description"><div class="week-title">Weeks 8-10: NVIDIA Isaac</div><div class="week-subtitle">Isaac Sim &amp; RL for Humanoids</div></div></div><div class="week-item"><span class="checkmark">✅</span><div class="week-description"><div class="week-title">Weeks 11-12: Humanoid Development</div><div class="week-subtitle">Bipedal Locomotion &amp; Control</div></div></div><div class="week-item"><span class="checkmark">✅</span><div class="week-description"><div class="week-title">Week 13: Conversational Robotics</div><div class="week-subtitle">Vision-Language-Action Integration</div></div></div></div><div class="course-details"><h3>What You&#x27;ll Master</h3><ul><li>Fundamentals of embodied intelligence and humanoid robotics</li><li>ROS 2 development for humanoid robots</li><li>NVIDIA Isaac and Isaac Sim for simulation</li><li>Control systems and locomotion algorithms</li><li>Computer vision and sensor fusion</li><li>Reinforcement learning for humanoid control</li><li>Conversational AI for robotics applications</li></ul></div></div></div></section>
-<section class="interactive-section"><div class="container"><h2>Interactive Learning Experience</h2><div class="interactive-row"><div class="interactive-col"><h3>Learn with Contextual Support</h3><p>Our AI-powered assistant is available to help you understand concepts, provide examples, and answer questions about the material.</p><p>Simply select any text on the page and use the chat button to ask specific questions about that content, or ask general questions about Physical AI and robotics.</p><ul><li>Get instant explanations of complex concepts</li><li>Ask for code examples and implementation details</li><li>Request clarifications on theoretical topics</li><li>Find related content across the curriculum</li></ul></div><div class="interactive-col"><h3>Try Our AI Assistant</h3><p>Experience our RAG-powered chatbot that has access to the entire book content. Ask anything about Physical AI and Humanoid Robotics!</p><button class="chat-button" aria-label="Open chat" title="Physical AI Assistant">🤖</button></div></div></div></section></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/zohaibfaiz0/physical-ai-book/docs/intro.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--next" href="/physical-ai-book/docs/hardware-requirements"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Hardware Requirements</div></a></nav></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/physical-ai-book/docs/intro">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/physical-ai-book/docs/chapters/01-weeks-1-2-foundations">Week 1-2: Foundations</a></li><li class="footer__item"><a class="footer__link-item" href="/physical-ai-book/docs/chapters/02-weeks-3-5-ros2">Week 3-5: ROS2</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/zohaibfaiz0/physical-ai-book" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Repository<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://docusaurus.io" target="_blank" rel="noopener noreferrer" class="footer__link-item">Docusaurus<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Built with AI</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Gemini 2.5 Flash<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://qdrant.tech" target="_blank" rel="noopener noreferrer" class="footer__link-item">Qdrant Vector DB<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://neon.tech" target="_blank" rel="noopener noreferrer" class="footer__link-item">Neon Postgres<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Physical AI and Humanoid Robotics Book. Built with Docusaurus. <div class="footer__rag-stats">RAG Queries Served: <span id="rag-queries-count">∞</span> | Live Status: <span class="rag-status-indicator"></span> Active</div></div></div></div></footer></div>
+<!-- -->
+<!-- -->
+<!-- -->
+<div class="intro-hero"><div class="intro-hero__bg"><div class="intro-hero__grid"></div><div class="intro-hero__orb intro-hero__orb--1"></div><div class="intro-hero__orb intro-hero__orb--2"></div><div class="intro-hero__orb intro-hero__orb--3"></div></div><div class="intro-hero__content"><div class="intro-hero__badge"><span class="intro-hero__badge-dot"></span><span class="intro-hero__badge-text">AI-Powered Learning Platform</span></div><h1 class="intro-hero__title"><p>Master <span class="intro-hero__title-gradient">Physical AI</span> &amp; Humanoid Robotics</p></h1><p class="intro-hero__subtitle"></p><p>Build intelligent robots that understand and interact with the physical world.
+From ROS 2 fundamentals to autonomous humanoids — your complete journey starts here.</p><p></p><div class="intro-hero__visual"><div class="intro-hero__robot-glow"></div><div class="intro-hero__robot-emoji">🤖</div><div class="intro-hero__robot-ring intro-hero__robot-ring--1"></div><div class="intro-hero__robot-ring intro-hero__robot-ring--2"></div><div class="intro-hero__robot-ring intro-hero__robot-ring--3"></div></div><div class="intro-hero__buttons"><a href="/docs/chapters/01-weeks-1-2-foundations" class="intro-btn intro-btn--primary"><span>Start Learning</span><span class="intro-btn__icon intro-btn__icon--arrow">→</span></a><a href="/docs" class="intro-btn intro-btn--secondary"><span class="intro-btn__icon">📖</span><span>Browse Chapters</span></a></div></div></div>
+<!-- -->
+<!-- -->
+<!-- -->
+<div class="intro-stats"><div class="intro-stats__item"><span class="intro-stats__icon">📖</span><span class="intro-stats__value">35+</span><span class="intro-stats__label">Chapters</span></div><div class="intro-stats__item"><span class="intro-stats__icon">💡</span><span class="intro-stats__value">400+</span><span class="intro-stats__label">Concepts</span></div><div class="intro-stats__item"><span class="intro-stats__icon">🤖</span><span class="intro-stats__value">24/7</span><span class="intro-stats__label">AI Assistant</span></div><div class="intro-stats__item"><span class="intro-stats__icon">🎓</span><span class="intro-stats__value">100%</span><span class="intro-stats__label">Free Forever</span></div></div>
+<!-- -->
+<!-- -->
+<!-- -->
+<div class="intro-features"><div class="intro-section-header"><span class="intro-section-eyebrow">Why Choose Us</span><h2 class="intro-section-title"><p>Everything You Need to Master <span class="intro-hero__title-gradient">Physical AI</span></p></h2><p class="intro-section-subtitle"></p><p>Comprehensive curriculum, hands-on projects, and AI-powered assistance to accelerate your robotics journey.</p><p></p></div><div class="intro-features__grid"><div class="intro-feature-card"><div class="intro-feature-card__icon">📘</div><h3 class="intro-feature-card__title">Comprehensive Curriculum</h3><p class="intro-feature-card__description"></p><p>Complete 13-week program covering all aspects of physical AI and humanoid robotics from fundamentals to advanced systems.</p><p></p></div><div class="intro-feature-card"><div class="intro-feature-card__icon">⚡</div><h3 class="intro-feature-card__title">AI-Powered Learning</h3><p class="intro-feature-card__description"></p><p>Chat with our RAG assistant about any concept. Get explanations, code examples, and references instantly.</p><p></p></div><div class="intro-feature-card"><div class="intro-feature-card__icon">🤖</div><h3 class="intro-feature-card__title">Hands-On Projects</h3><p class="intro-feature-card__description"></p><p>Build real humanoid control systems with practical exercises and projects that reinforce concepts.</p><p></p></div></div></div>
+<!-- -->
+<!-- -->
+<!-- -->
+<div class="intro-curriculum"><div class="intro-section-header"><span class="intro-section-eyebrow">Curriculum</span><h2 class="intro-section-title"><p>Complete <span class="intro-hero__title-gradient">13-Week</span> Learning Path</p></h2><p class="intro-section-subtitle"></p><p>A structured journey from robotics fundamentals to building autonomous humanoid systems.</p><p></p></div><div class="intro-curriculum__layout"><div class="intro-timeline"><div class="intro-timeline-item"><div class="intro-timeline-item__connector"><div class="intro-timeline-item__dot"></div><div class="intro-timeline-item__line"></div></div><div class="intro-timeline-item__content"><div class="intro-timeline-item__card"><div class="intro-timeline-item__header"><span class="intro-timeline-item__icon">🏗️</span><span class="intro-timeline-item__week">Weeks 1-2</span></div><h4 class="intro-timeline-item__title">Foundations</h4><p class="intro-timeline-item__description">Embodied Intelligence &amp; Humanoid Landscape</p></div></div></div><div class="intro-timeline-item"><div class="intro-timeline-item__connector"><div class="intro-timeline-item__dot"></div><div class="intro-timeline-item__line"></div></div><div class="intro-timeline-item__content"><div class="intro-timeline-item__card"><div class="intro-timeline-item__header"><span class="intro-timeline-item__icon">🤖</span><span class="intro-timeline-item__week">Weeks 3-5</span></div><h4 class="intro-timeline-item__title">ROS 2 Mastery</h4><p class="intro-timeline-item__description">Core Architecture &amp; Node Development</p></div></div></div><div class="intro-timeline-item"><div class="intro-timeline-item__connector"><div class="intro-timeline-item__dot"></div><div class="intro-timeline-item__line"></div></div><div class="intro-timeline-item__content"><div class="intro-timeline-item__card"><div class="intro-timeline-item__header"><span class="intro-timeline-item__icon">🌐</span><span class="intro-timeline-item__week">Weeks 6-7</span></div><h4 class="intro-timeline-item__title">Simulation</h4><p class="intro-timeline-item__description">Gazebo &amp; Physics Engines</p></div></div></div><div class="intro-timeline-item"><div class="intro-timeline-item__connector"><div class="intro-timeline-item__dot"></div><div class="intro-timeline-item__line"></div></div><div class="intro-timeline-item__content"><div class="intro-timeline-item__card"><div class="intro-timeline-item__header"><span class="intro-timeline-item__icon">🎮</span><span class="intro-timeline-item__week">Weeks 8-10</span></div><h4 class="intro-timeline-item__title">NVIDIA Isaac</h4><p class="intro-timeline-item__description">Isaac Sim &amp; RL for Humanoids</p></div></div></div><div class="intro-timeline-item"><div class="intro-timeline-item__connector"><div class="intro-timeline-item__dot"></div><div class="intro-timeline-item__line"></div></div><div class="intro-timeline-item__content"><div class="intro-timeline-item__card"><div class="intro-timeline-item__header"><span class="intro-timeline-item__icon">🚶</span><span class="intro-timeline-item__week">Weeks 11-12</span></div><h4 class="intro-timeline-item__title">Humanoid Development</h4><p class="intro-timeline-item__description">Bipedal Locomotion &amp; Control</p></div></div></div><div class="intro-timeline-item"><div class="intro-timeline-item__connector"><div class="intro-timeline-item__dot"></div><div class="intro-timeline-item__line"></div></div><div class="intro-timeline-item__content"><div class="intro-timeline-item__card"><div class="intro-timeline-item__header"><span class="intro-timeline-item__icon">💬</span><span class="intro-timeline-item__week">Week 13</span></div><h4 class="intro-timeline-item__title">Conversational Robotics</h4><p class="intro-timeline-item__description">Vision-Language-Action Integration</p></div></div></div></div><div class="intro-curriculum__sidebar"><div class="intro-master-card"><h3 class="intro-master-card__title"><p><span class="intro-master-card__title-icon">🎯</span>
+What You&#x27;ll Master</p></h3><ul class="intro-master-card__list"><li class="intro-master-card__item"><span class="intro-master-card__check">✓</span><span>Embodied intelligence and humanoid robotics fundamentals</span></li><li class="intro-master-card__item"><span class="intro-master-card__check">✓</span><span>ROS 2 development for humanoid robots</span></li><li class="intro-master-card__item"><span class="intro-master-card__check">✓</span><span>NVIDIA Isaac and Isaac Sim simulation</span></li><li class="intro-master-card__item"><span class="intro-master-card__check">✓</span><span>Control systems and locomotion algorithms</span></li><li class="intro-master-card__item"><span class="intro-master-card__check">✓</span><span>Computer vision and sensor fusion</span></li><li class="intro-master-card__item"><span class="intro-master-card__check">✓</span><span>Reinforcement learning for humanoid control</span></li><li class="intro-master-card__item"><span class="intro-master-card__check">✓</span><span>Conversational AI for robotics</span></li></ul></div></div></div></div>
+<!-- -->
+<!-- -->
+<!-- -->
+<div class="intro-interactive"><div class="intro-section-header"><span class="intro-section-eyebrow">AI Assistant</span><h2 class="intro-section-title"><p>Interactive <span class="intro-hero__title-gradient">Learning</span> Experience</p></h2><p class="intro-section-subtitle"></p><p>Get instant help from our AI assistant trained on the entire curriculum.</p><p></p></div><div class="intro-interactive__layout"><div class="intro-interactive__content"><h3 class="intro-interactive__title"><p><span class="intro-interactive__title-icon">✨</span>
+Learn with Contextual Support</p></h3><p class="intro-interactive__description"></p><p>Our AI-powered assistant is available 24/7 to help you understand concepts, provide examples, and answer questions about Physical AI and robotics.</p><p></p><div class="intro-interactive__features"><div class="intro-interactive__feature"><div class="intro-interactive__feature-icon">💡</div><p class="intro-interactive__feature-text"></p><p><strong>Instant explanations</strong> of complex robotics concepts with real-world examples</p><p></p></div><div class="intro-interactive__feature"><div class="intro-interactive__feature-icon">💻</div><p class="intro-interactive__feature-text"></p><p><strong>Code examples</strong> and implementation details for ROS 2, Python, and more</p><p></p></div><div class="intro-interactive__feature"><div class="intro-interactive__feature-icon">🔗</div><p class="intro-interactive__feature-text"></p><p><strong>Cross-references</strong> to related content across the entire curriculum</p><p></p></div><div class="intro-interactive__feature"><div class="intro-interactive__feature-icon">🎯</div><p class="intro-interactive__feature-text"></p><p><strong>Personalized guidance</strong> based on your learning progress and goals</p><p></p></div></div></div><div class="intro-interactive__chat"><div class="intro-interactive__chat-header"><div class="intro-interactive__chat-icon">🤖</div><div class="intro-interactive__chat-info"><div class="intro-interactive__chat-title">AI Learning Assistant</div><div class="intro-interactive__chat-subtitle">Powered by RAG Technology</div></div><div class="intro-interactive__chat-status"><span class="intro-interactive__chat-status-dot"></span><p>Online</p></div></div><button class="chat-button" aria-label="Open chat" title="Physical AI Assistant">🤖</button></div></div></div></div><div style="margin-bottom:1rem;margin-top:1rem"><button class="completion-btn loading" disabled=""><span>Loading...</span></button></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/zohaibfaiz0/physical-ai-book/docs/intro.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--next" href="/physical-ai-book/docs/hardware-requirements"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Hardware Requirements</div></a></nav></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/physical-ai-book/docs/intro">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/physical-ai-book/docs/chapters/weeks-1-2-foundations/index">Week 1-2: Foundations</a></li><li class="footer__item"><a class="footer__link-item" href="/physical-ai-book/docs/chapters/weeks-3-5-ros2/index">Week 3-5: ROS2</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/zohaibfaiz0/physical-ai-book" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Repository<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://docusaurus.io" target="_blank" rel="noopener noreferrer" class="footer__link-item">Docusaurus<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Built with AI</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Gemini 2.5 Flash<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://qdrant.tech" target="_blank" rel="noopener noreferrer" class="footer__link-item">Qdrant Vector DB<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://neon.tech" target="_blank" rel="noopener noreferrer" class="footer__link-item">Neon Postgres<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Physical AI and Humanoid Robotics Book. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
