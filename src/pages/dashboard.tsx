@@ -35,7 +35,7 @@ const DashboardPage: React.FC = () => {
           throw new Error('No authentication token found');
         }
 
-        const response = await fetch(`http://localhost:8000/progress`, {
+        const response = await fetch(`${API_URL}/progress`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
