@@ -8,380 +8,1385 @@ hide_table_of_contents: true
 import BookChat from '@site/src/components/BookChat';
 
 <style jsx>{`
-  /* Use Docusaurus theme-aware CSS variables */
+  /* ==============================================
+     INTRO PAGE - PREMIUM DESIGN SYSTEM
+     (Works within Docusaurus container)
+     ============================================== */
+
+  /* CSS Variables */
   :root {
-    --background-primary: var(--ifm-background-color);
-    --text-primary: var(--ifm-color-content);
-    --text-secondary: var(--ifm-color-content-secondary);
-    --text-inverse: white;
-    --card-bg: var(--ifm-card-background-color, var(--ifm-background-surface-color));
-    --link-color: var(--ifm-link-color);
+    /* Light Mode */
+    --intro-bg-primary: #FFFFFF;
+    --intro-bg-secondary: #F8FAFC;
+    --intro-bg-tertiary: #F1F5F9;
+    --intro-surface: #FFFFFF;
+    --intro-surface-hover: #F8FAFC;
+    
+    --intro-border: rgba(0, 0, 0, 0.08);
+    --intro-border-hover: rgba(0, 0, 0, 0.12);
+    
+    --intro-text-primary: #0F172A;
+    --intro-text-secondary: #475569;
+    --intro-text-tertiary: #64748B;
+    
+    --intro-primary: #7C3AED;
+    --intro-primary-light: #8B5CF6;
+    --intro-secondary: #2563EB;
+    --intro-accent: #059669;
+    
+    --intro-glow: rgba(124, 58, 237, 0.08);
+    --intro-glow-strong: rgba(124, 58, 237, 0.12);
+    
+    --intro-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --intro-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --intro-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.1);
+    
+    --intro-gradient: linear-gradient(135deg, #7C3AED 0%, #2563EB 50%, #059669 100%);
   }
 
-  [data-theme='light'] {
-    --feature-icon-color: #334155;
-    --stats-bg: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
-    --stats-text: #334155;
-    --course-details-text: #1e293b;
-    --course-details-title: #0f172a;
-    --checkmark-color: #10b981;
-  }
   [data-theme='dark'] {
-    --feature-icon-color: #cbd5e1;
-    --stats-bg: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
-    --stats-text: #cbd5e1;
-    --course-details-text: #e2e8f0;
-    --course-details-title: white;
-    --checkmark-color: #34d399;
+    --intro-bg-primary: #09090B;
+    --intro-bg-secondary: #0F0F12;
+    --intro-bg-tertiary: #18181B;
+    --intro-surface: #1C1C21;
+    --intro-surface-hover: #232329;
+    
+    --intro-border: rgba(255, 255, 255, 0.08);
+    --intro-border-hover: rgba(255, 255, 255, 0.12);
+    
+    --intro-text-primary: #FAFAFA;
+    --intro-text-secondary: #A1A1AA;
+    --intro-text-tertiary: #71717A;
+    
+    --intro-primary: #8B5CF6;
+    --intro-primary-light: #A78BFA;
+    --intro-secondary: #3B82F6;
+    --intro-accent: #10B981;
+    
+    --intro-glow: rgba(139, 92, 246, 0.12);
+    --intro-glow-strong: rgba(139, 92, 246, 0.2);
+    
+    --intro-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --intro-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --intro-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+    
+    --intro-gradient: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #10B981 100%);
   }
 
-  .hero {
-    margin: 0 !important;
-    padding: 8rem 0 !important;
-    width: 100% !important;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  /* ==============================================
+     HERO SECTION
+     ============================================== */
+  .intro-hero {
+    position: relative;
+    padding: 60px 0 80px;
+    overflow: hidden;
+  }
+
+  /* Hero Background Effects */
+  .intro-hero__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .intro-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 20%, transparent 80%);
+  }
+
+  [data-theme='light'] .intro-hero__grid {
+    background-image: 
+      linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+  }
+
+  .intro-hero__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: introFloat 20s ease-in-out infinite;
+  }
+
+  .intro-hero__orb--1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15), transparent 70%);
+    top: -20%;
+    left: -15%;
+  }
+
+  .intro-hero__orb--2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.12), transparent 70%);
+    bottom: -15%;
+    right: -10%;
+    animation-delay: -7s;
+  }
+
+  .intro-hero__orb--3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent 70%);
+    top: 40%;
+    left: 50%;
+    animation-delay: -14s;
+  }
+
+  [data-theme='light'] .intro-hero__orb--1 {
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.1), transparent 70%);
+  }
+
+  [data-theme='light'] .intro-hero__orb--2 {
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.08), transparent 70%);
+  }
+
+  [data-theme='light'] .intro-hero__orb--3 {
+    background: radial-gradient(circle, rgba(5, 150, 105, 0.06), transparent 70%);
+  }
+
+  /* Hero Content */
+  .intro-hero__content {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    color: white;
-  }
-  .hero .container {
-    max-width: 1280px !important;
-    padding: 0 2rem !important;
-  }
-  .hero-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4rem;
-  }
-  .hero-text {
     max-width: 800px;
+    margin: 0 auto;
   }
-  .hero-visual {
-    font-size: 22rem;
-    opacity: 0.9;
-    filter: drop-shadow(0 30px 60px rgba(6, 182, 212, 0.3));
+
+  /* Badge */
+  .intro-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: var(--intro-surface);
+    border: 1px solid var(--intro-border);
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--intro-text-secondary);
+    margin-bottom: 28px;
+    animation: introFadeInDown 600ms ease-out;
   }
-  @media (max-width: 768px) {
-    .hero { padding: 6rem 0 !important; }
-    .hero-visual { font-size: 14rem; }
+
+  [data-theme='light'] .intro-hero__badge {
+    box-shadow: var(--intro-shadow-sm);
   }
-  .main-wrapper > div > div > div:first-child {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+
+  .intro-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--intro-accent);
+    border-radius: 50%;
+    animation: introPulse 2s ease-in-out infinite;
+  }
+
+  .intro-hero__badge-text {
+    background: var(--intro-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Title */
+  .intro-hero__title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--intro-text-primary);
+    margin-bottom: 20px;
+    animation: introFadeInUp 600ms ease-out 100ms backwards;
+  }
+
+  .intro-hero__title-gradient {
+    background: var(--intro-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline;
+  }
+
+  /* Subtitle */
+  .intro-hero__subtitle {
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--intro-text-secondary);
+    margin: 0 auto 32px;
+    max-width: 600px;
+    animation: introFadeInUp 600ms ease-out 200ms backwards;
+  }
+
+  /* Robot Visual */
+  .intro-hero__visual {
+    position: relative;
+    margin: 40px auto;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: introFadeIn 800ms ease-out 300ms backwards;
+  }
+
+  .intro-hero__robot-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--intro-glow-strong), transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+  }
+
+  .intro-hero__robot-emoji {
+    font-size: 120px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+    animation: introFloat 6s ease-in-out infinite;
+  }
+
+  .intro-hero__robot-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid;
+    opacity: 0.2;
+  }
+
+  .intro-hero__robot-ring--1 {
+    width: 180px;
+    height: 180px;
+    border-color: var(--intro-primary);
+    animation: introRotate 20s linear infinite;
+  }
+
+  .intro-hero__robot-ring--2 {
+    width: 230px;
+    height: 230px;
+    border-color: var(--intro-secondary);
+    animation: introRotate 25s linear infinite reverse;
+  }
+
+  .intro-hero__robot-ring--3 {
+    width: 280px;
+    height: 280px;
+    border-color: var(--intro-accent);
+    animation: introRotate 30s linear infinite;
   }
 
   /* Buttons */
-  .cta-buttons {
+  .intro-hero__buttons {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 16px;
     justify-content: center;
-    margin-top: 1.5rem;
-  }
-  .button {
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-block;
-  }
-  .button--primary {
-    background: #0ea5e9;
-    color: white;
-  }
-  .button--secondary {
-    background: transparent;
-    border: 2px solid #cbd5e1;
-    color: #cbd5e1;
-  }
-  [data-theme='light'] .button--secondary {
-    border-color: #94a3b8;
-    color: #334155;
+    animation: introFadeInUp 600ms ease-out 400ms backwards;
   }
 
-  /* Stats Bar — now theme-aware */
-  .stats-bar {
-    text-align: center;
-    padding: 1rem;
-    background: var(--stats-bg);
-    color: var(--stats-text);
+  .intro-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none !important;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
   }
 
-  /* Features Section */
-  .features-section .container {
-    margin-top: 4rem;
+  .intro-btn--primary {
+    background: linear-gradient(135deg, var(--intro-primary) 0%, var(--intro-primary-light) 100%);
+    color: white !important;
+    border: none;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.35);
   }
-  .features-grid {
+
+  [data-theme='light'] .intro-btn--primary {
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+  }
+
+  .intro-btn--primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.45);
+  }
+
+  .intro-btn--primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 500ms;
+  }
+
+  .intro-btn--primary:hover::before {
+    transform: translateX(100%);
+  }
+
+  .intro-btn--secondary {
+    background: var(--intro-surface);
+    color: var(--intro-text-primary) !important;
+    border: 1px solid var(--intro-border);
+  }
+
+  [data-theme='light'] .intro-btn--secondary {
+    box-shadow: var(--intro-shadow-sm);
+  }
+
+  .intro-btn--secondary:hover {
+    background: var(--intro-surface-hover);
+    border-color: var(--intro-primary);
+    transform: translateY(-3px);
+  }
+
+  .intro-btn__icon {
+    transition: transform 200ms ease;
+  }
+
+  .intro-btn:hover .intro-btn__icon--arrow {
+    transform: translateX(3px);
+  }
+
+  /* ==============================================
+     STATS SECTION
+     ============================================== */
+  .intro-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 40px 0;
+    margin: 40px 0;
+    border-top: 1px solid var(--intro-border);
+    border-bottom: 1px solid var(--intro-border);
   }
-  .feature-card {
+
+  @media (max-width: 768px) {
+    .intro-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  .intro-stats__item {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    border-radius: 12px;
-    background: var(--card-bg);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
-  .icon {
-    font-size: 3rem;
-    line-height: 1;
-    color: var(--feature-icon-color);
-  }
-  .feature-card h3 {
-    color: var(--text-primary);
-  }
-  .feature-card p {
-    color: var(--text-secondary);
-    margin: 0;
+    padding: 24px 16px;
+    background: var(--intro-surface);
+    border: 1px solid var(--intro-border);
+    border-radius: 16px;
+    transition: all 250ms ease;
   }
 
-  /* Course Outline */
-  .course-outline .container {
-    margin-top: 4rem;
+  .intro-stats__item:hover {
+    border-color: var(--intro-primary);
+    transform: translateY(-4px);
   }
-  .course-grid {
+
+  [data-theme='dark'] .intro-stats__item:hover {
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.1);
+  }
+
+  [data-theme='light'] .intro-stats__item:hover {
+    box-shadow: var(--intro-shadow-md);
+  }
+
+  .intro-stats__icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .intro-stats__value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: var(--intro-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+  }
+
+  .intro-stats__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--intro-text-secondary);
+    margin-top: 4px;
+  }
+
+  /* ==============================================
+     SECTION HEADERS
+     ============================================== */
+  .intro-section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .intro-section-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--intro-primary);
+    margin-bottom: 12px;
+  }
+
+  .intro-section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--intro-text-primary);
+    margin-bottom: 14px;
+  }
+
+  .intro-section-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--intro-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ==============================================
+     FEATURES SECTION
+     ============================================== */
+  .intro-features {
+    padding: 60px 0;
+  }
+
+  .intro-features__grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    margin-top: 2rem;
-  }
-  .week-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  .week-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-  .checkmark {
-    font-size: 1.5rem;
-    margin-top: 0.25rem;
-    flex-shrink: 0;
-    color: var(--checkmark-color);
-  }
-  .week-title {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: var(--text-primary);
-  }
-  .week-subtitle {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 
-  /* ✅ "What You'll Master" — now theme-safe */
-  .course-details h3 {
-    color: var(--course-details-title);
-    margin-bottom: 1rem;
-  }
-  .course-details ul {
-    padding-left: 1.25rem;
-    color: var(--course-details-text);
-  }
-  .course-details li {
-    margin-bottom: 0.5rem;
-    color: var(--course-details-text);
-  }
-
-  /* Interactive Section */
-  .interactive-section .container {
-    margin-top: 4rem;
-    color: var(--text-primary);
-  }
-  .interactive-row {
-    display: flex;
-    gap: 3rem;
-    margin-top: 2rem;
-  }
-  .interactive-col {
-    flex: 1;
-    min-width: 0;
-  }
-  .interactive-col h3 {
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-  }
-  .interactive-col p,
-  .interactive-col ul {
-    color: var(--text-secondary);
-  }
-  .interactive-col ul {
-    padding-left: 1.25rem;
-    margin: 1rem 0;
-  }
-  @media (max-width: 992px) {
-    .interactive-row {
-      flex-direction: column;
+  @media (max-width: 900px) {
+    .intro-features__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
     }
   }
 
-  /* Section Headings */
-  .features-section h2,
-  .course-outline h2,
-  .interactive-section h2 {
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
-    text-align: center;
+  .intro-feature-card {
+    position: relative;
+    padding: 28px;
+    background: var(--intro-surface);
+    border: 1px solid var(--intro-border);
+    border-radius: 20px;
+    transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
   }
 
-  /* Hero text override */
-  .hero h1,
-  .hero p,
-  .hero__subtitle {
-    color: white !important;
+  .intro-feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, var(--intro-glow), transparent 60%);
+    opacity: 0;
+    transition: opacity 250ms ease;
+    pointer-events: none;
+  }
+
+  .intro-feature-card:hover {
+    border-color: var(--intro-primary);
+    transform: translateY(-6px);
+  }
+
+  [data-theme='light'] .intro-feature-card:hover {
+    box-shadow: var(--intro-shadow-lg);
+  }
+
+  [data-theme='dark'] .intro-feature-card:hover {
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.12);
+  }
+
+  .intro-feature-card:hover::before {
+    opacity: 1;
+  }
+
+  .intro-feature-card__icon {
+    position: relative;
+    z-index: 1;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    background: var(--intro-glow);
+    border: 1px solid var(--intro-border);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    transition: all 250ms ease;
+  }
+
+  .intro-feature-card:hover .intro-feature-card__icon {
+    border-color: var(--intro-primary);
+    transform: scale(1.05);
+  }
+
+  .intro-feature-card__title {
+    position: relative;
+    z-index: 1;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--intro-text-primary);
+    margin-bottom: 10px;
+  }
+
+  .intro-feature-card__description {
+    position: relative;
+    z-index: 1;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--intro-text-secondary);
+    margin: 0;
+  }
+
+  /* ==============================================
+     CURRICULUM SECTION
+     ============================================== */
+  .intro-curriculum {
+    padding: 60px 0;
+    margin-top: 20px;
+    position: relative;
+  }
+
+  .intro-curriculum__layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .intro-curriculum__layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  /* Timeline */
+  .intro-timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .intro-timeline-item {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+
+  .intro-timeline-item__connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6px;
+  }
+
+  .intro-timeline-item__dot {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, var(--intro-primary) 0%, var(--intro-secondary) 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 16px var(--intro-glow-strong);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .intro-timeline-item__dot::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--intro-primary);
+    opacity: 0.25;
+  }
+
+  .intro-timeline-item__line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(180deg, var(--intro-primary) 0%, var(--intro-border) 100%);
+    margin: 8px 0;
+    min-height: 20px;
+    border-radius: 1px;
+  }
+
+  .intro-timeline-item:last-child .intro-timeline-item__line {
+    display: none;
+  }
+
+  .intro-timeline-item__content {
+    flex: 1;
+    padding-bottom: 24px;
+  }
+
+  .intro-timeline-item__card {
+    padding: 20px 24px;
+    background: var(--intro-surface);
+    border: 1px solid var(--intro-border);
+    border-radius: 14px;
+    transition: all 250ms ease;
+  }
+
+  .intro-timeline-item__card:hover {
+    border-color: var(--intro-primary);
+    transform: translateX(8px);
+  }
+
+  [data-theme='light'] .intro-timeline-item__card:hover {
+    box-shadow: var(--intro-shadow-md);
+  }
+
+  [data-theme='dark'] .intro-timeline-item__card:hover {
+    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.1);
+  }
+
+  .intro-timeline-item__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .intro-timeline-item__icon {
+    font-size: 22px;
+  }
+
+  .intro-timeline-item__week {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--intro-primary);
+    padding: 4px 12px;
+    background: var(--intro-glow);
+    border-radius: 100px;
+  }
+
+  .intro-timeline-item__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--intro-text-primary);
+    margin-bottom: 4px;
+  }
+
+  .intro-timeline-item__description {
+    font-size: 13px;
+    color: var(--intro-text-secondary);
+    margin: 0;
+  }
+
+  /* What You'll Master Card */
+  .intro-master-card {
+    padding: 28px;
+    background: var(--intro-surface);
+    border: 1px solid var(--intro-border);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-theme='light'] .intro-master-card {
+    box-shadow: var(--intro-shadow-md);
+  }
+
+  .intro-master-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--intro-gradient);
+  }
+
+  .intro-master-card__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--intro-text-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .intro-master-card__title-icon {
+    font-size: 22px;
+  }
+
+  .intro-master-card__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .intro-master-card__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--intro-text-secondary);
+    line-height: 1.5;
+  }
+
+  .intro-master-card__check {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--intro-accent);
+    border-radius: 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  [data-theme='light'] .intro-master-card__check {
+    background: rgba(5, 150, 105, 0.1);
+  }
+
+  /* ==============================================
+     INTERACTIVE SECTION
+     ============================================== */
+  .intro-interactive {
+    padding: 60px 0;
+    margin-top: 20px;
+  }
+
+  .intro-interactive__layout {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .intro-interactive__layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  .intro-interactive__content {
+    padding-top: 10px;
+  }
+
+  .intro-interactive__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--intro-text-primary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .intro-interactive__title-icon {
+    font-size: 26px;
+  }
+
+  .intro-interactive__description {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--intro-text-secondary);
+    margin-bottom: 24px;
+  }
+
+  .intro-interactive__features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .intro-interactive__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--intro-surface);
+    border: 1px solid var(--intro-border);
+    border-radius: 14px;
+    transition: all 250ms ease;
+  }
+
+  .intro-interactive__feature:hover {
+    border-color: var(--intro-primary);
+    transform: translateX(6px);
+  }
+
+  .intro-interactive__feature-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--intro-glow);
+    border-radius: 12px;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .intro-interactive__feature-text {
+    font-size: 14px;
+    color: var(--intro-text-secondary);
+    line-height: 1.6;
+  }
+
+  .intro-interactive__feature-text strong {
+    color: var(--intro-text-primary);
+  }
+
+  /* Chat Container */
+  .intro-interactive__chat {
+    background: var(--intro-surface);
+    border: 1px solid var(--intro-border);
+    border-radius: 20px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-theme='light'] .intro-interactive__chat {
+    box-shadow: var(--intro-shadow-lg);
+  }
+
+  [data-theme='dark'] .intro-interactive__chat {
+    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .intro-interactive__chat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--intro-gradient);
+  }
+
+  .intro-interactive__chat-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--intro-border);
+  }
+
+  .intro-interactive__chat-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--intro-primary), var(--intro-secondary));
+    border-radius: 14px;
+    font-size: 24px;
+  }
+
+  .intro-interactive__chat-info {
+    flex: 1;
+  }
+
+  .intro-interactive__chat-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--intro-text-primary);
+  }
+
+  .intro-interactive__chat-subtitle {
+    font-size: 13px;
+    color: var(--intro-text-tertiary);
+  }
+
+  .intro-interactive__chat-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--intro-accent);
+  }
+
+  .intro-interactive__chat-status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--intro-accent);
+    border-radius: 50%;
+    animation: introPulse 2s ease-in-out infinite;
+  }
+
+  /* ==============================================
+     ANIMATIONS
+     ============================================== */
+  @keyframes introFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+
+  @keyframes introRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes introFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes introFadeInUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(24px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes introFadeInDown {
+    from { 
+      opacity: 0; 
+      transform: translateY(-16px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes introPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+  }
+
+  /* ==============================================
+     RESPONSIVE ADJUSTMENTS
+     ============================================== */
+  @media (max-width: 640px) {
+    .intro-hero {
+      padding: 40px 0 60px;
+    }
+
+    .intro-hero__visual {
+      width: 220px;
+      height: 220px;
+      margin: 32px auto;
+    }
+
+    .intro-hero__robot-emoji {
+      font-size: 90px;
+    }
+
+    .intro-hero__robot-ring--1 {
+      width: 140px;
+      height: 140px;
+    }
+
+    .intro-hero__robot-ring--2 {
+      width: 180px;
+      height: 180px;
+    }
+
+    .intro-hero__robot-ring--3 {
+      width: 220px;
+      height: 220px;
+    }
+
+    .intro-hero__buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .intro-btn {
+      justify-content: center;
+    }
+
+    .intro-features,
+    .intro-curriculum,
+    .intro-interactive {
+      padding: 40px 0;
+    }
+
+    .intro-section-header {
+      margin-bottom: 32px;
+    }
+
+    .intro-timeline-item__card {
+      padding: 16px 18px;
+    }
+
+    .intro-master-card {
+      padding: 22px;
+    }
+
+    .intro-interactive__chat {
+      padding: 20px;
+    }
   }
 `}</style>
 
-<!-- Hero Section -->
-<section className="hero">
-  <div className="container">
-    <div className="hero-inner">
-      <div className="hero-text">
-        <h1>Master <span className="gradient-text">Physical AI</span> & Humanoid Robotics</h1>
-        <p className="hero__subtitle">
-          Build intelligent robots that understand and interact with the physical world. From ROS 2 to autonomous humanoids.
-        </p>
-        <div className="cta-buttons">
-          <a href="/docs/chapters/01-weeks-1-2-foundations" className="button button--primary">
-            Start Learning
-          </a>
-          <a href="/docs" className="button button--secondary">
-            Browse Chapters
-          </a>
-        </div>
-      </div>
-      <div className="hero-visual">
-        <div className="robot-illustration"></div>
-      </div>
+{/* ============================================== */}
+{/* HERO SECTION */}
+{/* ============================================== */}
+<div className="intro-hero">
+  <div className="intro-hero__bg">
+    <div className="intro-hero__grid"></div>
+    <div className="intro-hero__orb intro-hero__orb--1"></div>
+    <div className="intro-hero__orb intro-hero__orb--2"></div>
+    <div className="intro-hero__orb intro-hero__orb--3"></div>
+  </div>
+  
+  <div className="intro-hero__content">
+    <div className="intro-hero__badge">
+      <span className="intro-hero__badge-dot"></span>
+      <span className="intro-hero__badge-text">AI-Powered Learning Platform</span>
+    </div>
+    
+    <h1 className="intro-hero__title">
+      Master <span className="intro-hero__title-gradient">Physical AI</span> & Humanoid Robotics
+    </h1>
+    
+    <p className="intro-hero__subtitle">
+      Build intelligent robots that understand and interact with the physical world. 
+      From ROS 2 fundamentals to autonomous humanoids — your complete journey starts here.
+    </p>
+    
+    <div className="intro-hero__visual">
+      <div className="intro-hero__robot-glow"></div>
+      <div className="intro-hero__robot-emoji">🤖</div>
+      <div className="intro-hero__robot-ring intro-hero__robot-ring--1"></div>
+      <div className="intro-hero__robot-ring intro-hero__robot-ring--2"></div>
+      <div className="intro-hero__robot-ring intro-hero__robot-ring--3"></div>
+    </div>
+    
+    <div className="intro-hero__buttons">
+      <a href="/docs/chapters/01-weeks-1-2-foundations" className="intro-btn intro-btn--primary">
+        <span>Start Learning</span>
+        <span className="intro-btn__icon intro-btn__icon--arrow">→</span>
+      </a>
+      <a href="/docs" className="intro-btn intro-btn--secondary">
+        <span className="intro-btn__icon">📖</span>
+        <span>Browse Chapters</span>
+      </a>
     </div>
   </div>
-</section>
-
-<!-- ✅ Theme-aware Stats Bar -->
-<div className="stats-bar">
-  35+ Chapters • 400+ Concepts • AI-Powered Assistant • 100% Free
 </div>
 
-<!-- Features Section -->
-<section className="features-section">
-  <div className="container">
-    <h2>Everything You Need to Master Physical AI</h2>
-    <div className="features-grid">
-      <div className="feature-card">
-        <div className="icon">📘</div>
-        <h3>Comprehensive Curriculum</h3>
-        <p>Complete 13-week program covering all aspects of physical AI and humanoid robotics from fundamentals to advanced control systems.</p>
-      </div>
-      <div className="feature-card">
-        <div className="icon">⚡</div>
-        <h3>AI-Powered Learning</h3>
-        <p>Chat with our RAG assistant about any concept instantly. Get explanations, examples, and references to relevant chapters.</p>
-      </div>
-      <div className="feature-card">
-        <div className="icon">🤖</div>
-        <h3>Hands-On Projects</h3>
-        <p>Build real humanoid control systems with practical exercises and projects that reinforce theoretical concepts.</p>
-      </div>
+{/* ============================================== */}
+{/* STATS SECTION */}
+{/* ============================================== */}
+<div className="intro-stats">
+  <div className="intro-stats__item">
+    <span className="intro-stats__icon">📖</span>
+    <span className="intro-stats__value">35+</span>
+    <span className="intro-stats__label">Chapters</span>
+  </div>
+  <div className="intro-stats__item">
+    <span className="intro-stats__icon">💡</span>
+    <span className="intro-stats__value">400+</span>
+    <span className="intro-stats__label">Concepts</span>
+  </div>
+  <div className="intro-stats__item">
+    <span className="intro-stats__icon">🤖</span>
+    <span className="intro-stats__value">24/7</span>
+    <span className="intro-stats__label">AI Assistant</span>
+  </div>
+  <div className="intro-stats__item">
+    <span className="intro-stats__icon">🎓</span>
+    <span className="intro-stats__value">100%</span>
+    <span className="intro-stats__label">Free Forever</span>
+  </div>
+</div>
+
+{/* ============================================== */}
+{/* FEATURES SECTION */}
+{/* ============================================== */}
+<div className="intro-features">
+  <div className="intro-section-header">
+    <span className="intro-section-eyebrow">Why Choose Us</span>
+    <h2 className="intro-section-title">
+      Everything You Need to Master <span className="intro-hero__title-gradient">Physical AI</span>
+    </h2>
+    <p className="intro-section-subtitle">
+      Comprehensive curriculum, hands-on projects, and AI-powered assistance to accelerate your robotics journey.
+    </p>
+  </div>
+  
+  <div className="intro-features__grid">
+    <div className="intro-feature-card">
+      <div className="intro-feature-card__icon">📘</div>
+      <h3 className="intro-feature-card__title">Comprehensive Curriculum</h3>
+      <p className="intro-feature-card__description">
+        Complete 13-week program covering all aspects of physical AI and humanoid robotics from fundamentals to advanced systems.
+      </p>
+    </div>
+    
+    <div className="intro-feature-card">
+      <div className="intro-feature-card__icon">⚡</div>
+      <h3 className="intro-feature-card__title">AI-Powered Learning</h3>
+      <p className="intro-feature-card__description">
+        Chat with our RAG assistant about any concept. Get explanations, code examples, and references instantly.
+      </p>
+    </div>
+    
+    <div className="intro-feature-card">
+      <div className="intro-feature-card__icon">🤖</div>
+      <h3 className="intro-feature-card__title">Hands-On Projects</h3>
+      <p className="intro-feature-card__description">
+        Build real humanoid control systems with practical exercises and projects that reinforce concepts.
+      </p>
     </div>
   </div>
-</section>
+</div>
 
-<!-- Course Outline Section -->
-<section className="course-outline">
-  <div className="container">
-    <h2>Complete 13-Week Curriculum</h2>
-    <div className="course-grid">
-      <div className="week-list">
-        <div className="week-item">
-          <span className="checkmark">✅</span>
-          <div className="week-description">
-            <div className="week-title">Weeks 1-2: Foundations</div>
-            <div className="week-subtitle">Embodied Intelligence & Humanoid Landscape</div>
-          </div>
+{/* ============================================== */}
+{/* CURRICULUM SECTION */}
+{/* ============================================== */}
+<div className="intro-curriculum">
+  <div className="intro-section-header">
+    <span className="intro-section-eyebrow">Curriculum</span>
+    <h2 className="intro-section-title">
+      Complete <span className="intro-hero__title-gradient">13-Week</span> Learning Path
+    </h2>
+    <p className="intro-section-subtitle">
+      A structured journey from robotics fundamentals to building autonomous humanoid systems.
+    </p>
+  </div>
+  
+  <div className="intro-curriculum__layout">
+    <div className="intro-timeline">
+      <div className="intro-timeline-item">
+        <div className="intro-timeline-item__connector">
+          <div className="intro-timeline-item__dot"></div>
+          <div className="intro-timeline-item__line"></div>
         </div>
-        <div className="week-item">
-          <span className="checkmark">✅</span>
-          <div className="week-description">
-            <div className="week-title">Weeks 3-5: ROS2</div>
-            <div className="week-subtitle">Core Architecture & Node Development</div>
-          </div>
-        </div>
-        <div className="week-item">
-          <span className="checkmark">✅</span>
-          <div className="week-description">
-            <div className="week-title">Weeks 6-7: Simulation</div>
-            <div className="week-subtitle">Gazebo & Physics Engines</div>
-          </div>
-        </div>
-        <div className="week-item">
-          <span className="checkmark">✅</span>
-          <div className="week-description">
-            <div className="week-title">Weeks 8-10: NVIDIA Isaac</div>
-            <div className="week-subtitle">Isaac Sim & RL for Humanoids</div>
-          </div>
-        </div>
-        <div className="week-item">
-          <span className="checkmark">✅</span>
-          <div className="week-description">
-            <div className="week-title">Weeks 11-12: Humanoid Development</div>
-            <div className="week-subtitle">Bipedal Locomotion & Control</div>
-          </div>
-        </div>
-        <div className="week-item">
-          <span className="checkmark">✅</span>
-          <div className="week-description">
-            <div className="week-title">Week 13: Conversational Robotics</div>
-            <div className="week-subtitle">Vision-Language-Action Integration</div>
+        <div className="intro-timeline-item__content">
+          <div className="intro-timeline-item__card">
+            <div className="intro-timeline-item__header">
+              <span className="intro-timeline-item__icon">🏗️</span>
+              <span className="intro-timeline-item__week">Weeks 1-2</span>
+            </div>
+            <h4 className="intro-timeline-item__title">Foundations</h4>
+            <p className="intro-timeline-item__description">Embodied Intelligence & Humanoid Landscape</p>
           </div>
         </div>
       </div>
-      <div className="course-details">
-        <h3>What You'll Master</h3>
-        <ul>
-          <li>Fundamentals of embodied intelligence and humanoid robotics</li>
-          <li>ROS 2 development for humanoid robots</li>
-          <li>NVIDIA Isaac and Isaac Sim for simulation</li>
-          <li>Control systems and locomotion algorithms</li>
-          <li>Computer vision and sensor fusion</li>
-          <li>Reinforcement learning for humanoid control</li>
-          <li>Conversational AI for robotics applications</li>
+      
+      <div className="intro-timeline-item">
+        <div className="intro-timeline-item__connector">
+          <div className="intro-timeline-item__dot"></div>
+          <div className="intro-timeline-item__line"></div>
+        </div>
+        <div className="intro-timeline-item__content">
+          <div className="intro-timeline-item__card">
+            <div className="intro-timeline-item__header">
+              <span className="intro-timeline-item__icon">🤖</span>
+              <span className="intro-timeline-item__week">Weeks 3-5</span>
+            </div>
+            <h4 className="intro-timeline-item__title">ROS 2 Mastery</h4>
+            <p className="intro-timeline-item__description">Core Architecture & Node Development</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="intro-timeline-item">
+        <div className="intro-timeline-item__connector">
+          <div className="intro-timeline-item__dot"></div>
+          <div className="intro-timeline-item__line"></div>
+        </div>
+        <div className="intro-timeline-item__content">
+          <div className="intro-timeline-item__card">
+            <div className="intro-timeline-item__header">
+              <span className="intro-timeline-item__icon">🌐</span>
+              <span className="intro-timeline-item__week">Weeks 6-7</span>
+            </div>
+            <h4 className="intro-timeline-item__title">Simulation</h4>
+            <p className="intro-timeline-item__description">Gazebo & Physics Engines</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="intro-timeline-item">
+        <div className="intro-timeline-item__connector">
+          <div className="intro-timeline-item__dot"></div>
+          <div className="intro-timeline-item__line"></div>
+        </div>
+        <div className="intro-timeline-item__content">
+          <div className="intro-timeline-item__card">
+            <div className="intro-timeline-item__header">
+              <span className="intro-timeline-item__icon">🎮</span>
+              <span className="intro-timeline-item__week">Weeks 8-10</span>
+            </div>
+            <h4 className="intro-timeline-item__title">NVIDIA Isaac</h4>
+            <p className="intro-timeline-item__description">Isaac Sim & RL for Humanoids</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="intro-timeline-item">
+        <div className="intro-timeline-item__connector">
+          <div className="intro-timeline-item__dot"></div>
+          <div className="intro-timeline-item__line"></div>
+        </div>
+        <div className="intro-timeline-item__content">
+          <div className="intro-timeline-item__card">
+            <div className="intro-timeline-item__header">
+              <span className="intro-timeline-item__icon">🚶</span>
+              <span className="intro-timeline-item__week">Weeks 11-12</span>
+            </div>
+            <h4 className="intro-timeline-item__title">Humanoid Development</h4>
+            <p className="intro-timeline-item__description">Bipedal Locomotion & Control</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="intro-timeline-item">
+        <div className="intro-timeline-item__connector">
+          <div className="intro-timeline-item__dot"></div>
+          <div className="intro-timeline-item__line"></div>
+        </div>
+        <div className="intro-timeline-item__content">
+          <div className="intro-timeline-item__card">
+            <div className="intro-timeline-item__header">
+              <span className="intro-timeline-item__icon">💬</span>
+              <span className="intro-timeline-item__week">Week 13</span>
+            </div>
+            <h4 className="intro-timeline-item__title">Conversational Robotics</h4>
+            <p className="intro-timeline-item__description">Vision-Language-Action Integration</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div className="intro-curriculum__sidebar">
+      <div className="intro-master-card">
+        <h3 className="intro-master-card__title">
+          <span className="intro-master-card__title-icon">🎯</span>
+          What You'll Master
+        </h3>
+        <ul className="intro-master-card__list">
+          <li className="intro-master-card__item">
+            <span className="intro-master-card__check">✓</span>
+            <span>Embodied intelligence and humanoid robotics fundamentals</span>
+          </li>
+          <li className="intro-master-card__item">
+            <span className="intro-master-card__check">✓</span>
+            <span>ROS 2 development for humanoid robots</span>
+          </li>
+          <li className="intro-master-card__item">
+            <span className="intro-master-card__check">✓</span>
+            <span>NVIDIA Isaac and Isaac Sim simulation</span>
+          </li>
+          <li className="intro-master-card__item">
+            <span className="intro-master-card__check">✓</span>
+            <span>Control systems and locomotion algorithms</span>
+          </li>
+          <li className="intro-master-card__item">
+            <span className="intro-master-card__check">✓</span>
+            <span>Computer vision and sensor fusion</span>
+          </li>
+          <li className="intro-master-card__item">
+            <span className="intro-master-card__check">✓</span>
+            <span>Reinforcement learning for humanoid control</span>
+          </li>
+          <li className="intro-master-card__item">
+            <span className="intro-master-card__check">✓</span>
+            <span>Conversational AI for robotics</span>
+          </li>
         </ul>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- Interactive Learning Section -->
-<section className="interactive-section">
-  <div className="container">
-    <h2>Interactive Learning Experience</h2>
-    <div className="interactive-row">
-      <div className="interactive-col">
-        <h3>Learn with Contextual Support</h3>
-        <p>Our AI-powered assistant is available to help you understand concepts, provide examples, and answer questions about the material.</p>
-        <p>Simply select any text on the page and use the chat button to ask specific questions about that content, or ask general questions about Physical AI and robotics.</p>
-        <ul>
-          <li>Get instant explanations of complex concepts</li>
-          <li>Ask for code examples and implementation details</li>
-          <li>Request clarifications on theoretical topics</li>
-          <li>Find related content across the curriculum</li>
-        </ul>
-      </div>
-      <div className="interactive-col">
-        <h3>Try Our AI Assistant</h3>
-        <p>Experience our RAG-powered chatbot that has access to the entire book content. Ask anything about Physical AI and Humanoid Robotics!</p>
-        <BookChat navbarMode={false} />
+{/* ============================================== */}
+{/* INTERACTIVE SECTION */}
+{/* ============================================== */}
+<div className="intro-interactive">
+  <div className="intro-section-header">
+    <span className="intro-section-eyebrow">AI Assistant</span>
+    <h2 className="intro-section-title">
+      Interactive <span className="intro-hero__title-gradient">Learning</span> Experience
+    </h2>
+    <p className="intro-section-subtitle">
+      Get instant help from our AI assistant trained on the entire curriculum.
+    </p>
+  </div>
+  
+  <div className="intro-interactive__layout">
+    <div className="intro-interactive__content">
+      <h3 className="intro-interactive__title">
+        <span className="intro-interactive__title-icon">✨</span>
+        Learn with Contextual Support
+      </h3>
+      <p className="intro-interactive__description">
+        Our AI-powered assistant is available 24/7 to help you understand concepts, provide examples, and answer questions about Physical AI and robotics.
+      </p>
+      
+      <div className="intro-interactive__features">
+        <div className="intro-interactive__feature">
+          <div className="intro-interactive__feature-icon">💡</div>
+          <p className="intro-interactive__feature-text">
+            <strong>Instant explanations</strong> of complex robotics concepts with real-world examples
+          </p>
+        </div>
+        <div className="intro-interactive__feature">
+          <div className="intro-interactive__feature-icon">💻</div>
+          <p className="intro-interactive__feature-text">
+            <strong>Code examples</strong> and implementation details for ROS 2, Python, and more
+          </p>
+        </div>
+        <div className="intro-interactive__feature">
+          <div className="intro-interactive__feature-icon">🔗</div>
+          <p className="intro-interactive__feature-text">
+            <strong>Cross-references</strong> to related content across the entire curriculum
+          </p>
+        </div>
+        <div className="intro-interactive__feature">
+          <div className="intro-interactive__feature-icon">🎯</div>
+          <p className="intro-interactive__feature-text">
+            <strong>Personalized guidance</strong> based on your learning progress and goals
+          </p>
+        </div>
       </div>
     </div>
+    
+    <div className="intro-interactive__chat">
+      <div className="intro-interactive__chat-header">
+        <div className="intro-interactive__chat-icon">🤖</div>
+        <div className="intro-interactive__chat-info">
+          <div className="intro-interactive__chat-title">AI Learning Assistant</div>
+          <div className="intro-interactive__chat-subtitle">Powered by RAG Technology</div>
+        </div>
+        <div className="intro-interactive__chat-status">
+          <span className="intro-interactive__chat-status-dot"></span>
+          Online
+        </div>
+      </div>
+      <BookChat navbarMode={false} />
+    </div>
   </div>
-</section>
+</div>

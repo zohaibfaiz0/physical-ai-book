@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     GEMINI_MODEL: str = "gemini-2.5-flash"  # Default Gemini model
 
     # Embeddings - using Google's embedding API
-    EMBEDDING_MODEL: str = "models/embedding-001"
+    EMBEDDING_MODEL: str = "models/embedding-004"
 
     # Neon Postgres
     NEON_DATABASE_URL: str
@@ -24,9 +24,13 @@ class Settings(BaseSettings):
     QDRANT_API_KEY: str
     QDRANT_COLLECTION_NAME: str = "physical-ai-book"
 
+    # JWT Secret for auth
+    JWT_SECRET_KEY: str = "your-super-secret-key-change-in-production"
+
     # Server
-    HOST: str = "127.0.0.1"
-    PORT: int = 8000
+    HOST: str = "0.0.0.0"
+    PORT: int = 7860
+    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:3001"
 
     class Config:
         env_file = ".env"

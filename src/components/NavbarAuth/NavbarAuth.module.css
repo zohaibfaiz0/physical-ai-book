@@ -1,0 +1,115 @@
+.userMenu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* Ensure this container doesn't clip modals */
+    overflow: visible;
+    z-index: 1;
+}
+
+.userButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--ifm-font-color-base);
+}
+
+.userButton:hover {
+    background: var(--ifm-color-emphasis-100);
+}
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--ifm-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.userName {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.signInButton {
+    background: var(--ifm-color-primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.signInButton:hover {
+    background: var(--ifm-color-primary-dark);
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--ifm-background-color);
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 1000;
+    margin-top: 0.5rem;
+}
+
+.dropdownHeader {
+    padding: 1rem;
+}
+
+.dropdownHeader strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.dropdownHeader span {
+    font-size: 0.8rem;
+    color: var(--ifm-color-emphasis-600);
+}
+
+.dropdownItem {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ifm-font-color-base);
+    font-size: 0.9rem;
+}
+
+.dropdownItem:hover {
+    background: var(--ifm-color-emphasis-100);
+}
+
+.skeleton {
+    width: 80px;
+    height: 32px;
+    background: var(--ifm-color-emphasis-200);
+    border-radius: 20px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}

@@ -20,6 +20,14 @@ from .generation import generation_system
 from .models import ChatRequest, ChatResponse, HealthCheck, ConversationHistoryResponse
 from .utils import format_sources
 
+# Authentication
+from .auth_routes import auth_router
+from .auth_db import init_auth_tables, close_pool
+
+# Progress tracking
+from .routers.progress import progress_router
+from .progress_db import init_progress_tables
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -37,6 +45,22 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"Database connection failed: {e}. Backend will start but conversation history will not be saved.")
         # Continue startup even if database fails
+
+    # Initialize auth database
+    try:
+        await init_auth_tables()
+        logger.info("Auth database connection established successfully")
+    except Exception as e:
+        logger.error(f"Auth database connection failed: {e}. Backend will start but authentication will not be available.")
+        # Continue startup even if auth database fails
+
+    # Initialize progress database
+    try:
+        await init_progress_tables()
+        logger.info("Progress database connection established successfully")
+    except Exception as e:
+        logger.error(f"Progress database connection failed: {e}. Backend will start but progress tracking will not be available.")
+        # Continue startup even if progress database fails
 
     # Initialize vector store
     try:
@@ -66,7 +90,7 @@ async def lifespan(app: FastAPI):
 
     # Print startup banner
     print("\n\033[92m" + "="*70)  # Green color
-    print("Physical AI Book RAG Backend (Gemini) READY - http://localhost:8000")
+    print(f"Physical AI Book RAG Backend (Gemini) READY - http://{settings.HOST}:{settings.PORT}")
     print("="*70 + "\033[0m")  # Reset color
 
     yield
@@ -78,6 +102,12 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"Error closing database connection: {e}")
 
+    # Close auth database
+    try:
+        await close_pool()
+    except Exception as e:
+        logger.error(f"Error closing auth database connection: {e}")
+
 # Create FastAPI app
 app = FastAPI(
     title="Physical AI and Humanoid Robotics RAG Chatbot",
@@ -87,17 +117,21 @@ app = FastAPI(
 )
 
 # Add CORS middleware
+_origins = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://zohaibfaiz0.github.io",
-        "https://*.railway.app",  # Railway wildcard
-    ],
+    allow_origins=_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Auth routes
+app.include_router(auth_router)
+
+# Progress routes
+app.include_router(progress_router)
 
 # Exception handlers
 @app.exception_handler(RequestValidationError)
@@ -283,6 +317,9 @@ async def clear_conversation(conversation_id: str):
     except Exception as e:
         logger.error(f"Clear conversation failed: {e}")
         raise HTTPException(status_code=500, detail="Failed to clear conversation")
+
+
+
 
 if __name__ == "__main__":
     import uvicorn

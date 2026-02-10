@@ -1,0 +1,259 @@
+.authContainer {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.progressBar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.progressStep {
+    flex: 1;
+    height: 4px;
+    background: var(--ifm-color-emphasis-300);
+    border-radius: 2px;
+    transition: background 0.3s;
+}
+
+.progressActive {
+    background: var(--ifm-color-primary);
+}
+
+.stepContent h3 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--ifm-background-color);
+    color: var(--ifm-font-color-base);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--ifm-color-primary);
+    box-shadow: 0 0 0 3px var(--ifm-color-primary-light);
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--ifm-font-color-base);
+}
+
+.chipContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.chip {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+}
+
+.chip:hover {
+    border-color: var(--ifm-color-primary);
+}
+
+.chipActive {
+    background: var(--ifm-color-primary);
+    border-color: var(--ifm-color-primary);
+    color: white;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.checkboxLabel input {
+    width: 18px;
+    height: 18px;
+}
+
+.buttonRow {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.button,
+.buttonPrimary {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--ifm-color-primary);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.button:hover,
+.buttonPrimary:hover {
+    background: var(--ifm-color-primary-dark);
+}
+
+.button:disabled,
+.buttonPrimary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.buttonSecondary {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ifm-font-color-base);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.buttonSecondary:hover {
+    background: var(--ifm-color-emphasis-100);
+}
+
+.error {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    color: #dc2626;
+    font-size: 0.875rem;
+}
+
+.switchAuth {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--ifm-font-color-secondary);
+}
+
+.linkButton {
+    background: none;
+    border: none;
+    color: var(--ifm-color-primary);
+    cursor: pointer;
+    font-size: inherit;
+    text-decoration: underline;
+}
+
+.linkButton:hover {
+    color: var(--ifm-color-primary-dark);
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--ifm-font-color-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Modal Styles */
+.modalOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* The parent container (#modal-root) has z-index, not the overlay */
+    backdrop-filter: blur(4px);
+    padding: 20px;
+    /* Add scroll if needed */
+    overflow: auto;
+    /* Ensure the overlay is not clipped by parent containers */
+    contain: layout style paint;
+}
+
+.modal {
+    background: var(--ifm-background-color);
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 85vh;
+    min-height: 400px;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /* Ensure modal is properly positioned */
+    margin: 0 auto;
+    transform: none;
+    /* Better scrolling experience */
+    -webkit-overflow-scrolling: touch;
+    /* Ensure the modal is not clipped by parent containers */
+    contain: layout style paint;
+    /* Ensure content is visible */
+    overscroll-behavior: contain;
+}
+
+/* Improve scroll bar appearance */
+.modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: var(--ifm-color-emphasis-100);
+    border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background: var(--ifm-color-emphasis-400);
+    border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background: var(--ifm-color-emphasis-500);
+}
+
+.closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--ifm-color-emphasis-200);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.closeButton:hover {
+    background: var(--ifm-color-emphasis-300);
+}

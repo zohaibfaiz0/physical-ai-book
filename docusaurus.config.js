@@ -1,12 +1,13 @@
 // @ts-check
+const isVercel = process.env.VERCEL === '1';
 // `@ts-check` enables ts-error checking for the config file
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Physical AI and Humanoid Robotics',
   tagline: 'From Embodiment to Real-World Intelligence',
-  url: 'https://zohaibfaiz0.github.io',
-  baseUrl: '/physical-ai-book/',
+  url: isVercel ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://physical-ai-book.vercel.app') : 'https://zohaibfaiz0.github.io',
+  baseUrl: isVercel ? '/' : '/physical-ai-book/',
   onBrokenLinks: 'warn', // Changed to 'warn' for GitHub Pages deployment - Updated for latest fixes
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
@@ -17,6 +18,9 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+  customFields: {
+   backendUrl: process.env.BACKEND_URL || 'http://localhost:8000',
   },
 
   presets: [
@@ -63,19 +67,26 @@ const config = {
             label: 'Documentation',
           },
           {
-            to: 'https://github.com/zohaibfaiz0/physical-ai-book',
+            to: '/dashboard',
+            label: 'Dashboard',
+            position: 'left',
+          },
+          {
+            type: 'custom-navbarChatContainer',
+            position: 'right',
+          },
+          {
+            type: 'custom-navbarRagStatus',
+            position: 'right',
+          },
+          {
+            type: 'custom-navbarAuth',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/zohaibfaiz0/physical-ai-book',
             label: 'GitHub',
             position: 'right',
-          },
-          {
-            type: 'html',
-            position: 'right',
-            value: '<div class="navbar__item--rag-status"><span class="rag-status-indicator"></span>RAG Active</div>',
-          },
-          {
-            type: 'html',
-            position: 'right',
-            value: '<div id="navbar-chat-container"></div>',
           },
         ],
       },
@@ -91,11 +102,11 @@ const config = {
               },
               {
                 label: 'Week 1-2: Foundations',
-                to: '/docs/chapters/01-weeks-1-2-foundations',
+                to: '/docs/chapters/weeks-1-2-foundations/index',
               },
               {
                 label: 'Week 3-5: ROS2',
-                to: '/docs/chapters/02-weeks-3-5-ros2',
+                to: '/docs/chapters/weeks-3-5-ros2/index',
               },
             ],
           },
@@ -130,7 +141,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Physical AI and Humanoid Robotics Book. Built with Docusaurus. <div class="footer__rag-stats">RAG Queries Served: <span id="rag-queries-count">∞</span> | Live Status: <span class="rag-status-indicator"></span> Active</div>`,
+                copyright: `Copyright © ${new Date().getFullYear()} Physical AI and Humanoid Robotics Book. Built with Docusaurus.`,
       },
       prism: {
         theme: require('prism-react-renderer/themes/github'),

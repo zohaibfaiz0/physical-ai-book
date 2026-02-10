@@ -1,335 +1,2158 @@
 // src/pages/index.js
 
-import React from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
 
-// Define the features data to make the component cleaner
+// --- Data Configuration ---
+
 const features = [
   {
     title: 'Comprehensive Curriculum',
     icon: '📚',
-    description: 'Go from foundational ROS 2 concepts to advanced control systems for autonomous humanoids.',
+    description: 'Master ROS 2 fundamentals to advanced autonomous systems with structured, progressive learning paths designed by industry experts.',
+    color: '#8B5CF6',
+    gradient: 'linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%)',
   },
   {
     title: 'Hands-On Projects',
     icon: '⚙️',
-    description: 'Apply your knowledge with practical exercises and real-world robot simulation projects.',
+    description: 'Build real-world robotics applications through 50+ guided simulations and practical exercises with immediate feedback.',
+    color: '#3B82F6',
+    gradient: 'linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%)',
   },
   {
     title: 'AI-Powered Assistant',
     icon: '🤖',
-    description: 'Stuck on a concept? Our AI assistant is available 24/7 to answer your questions instantly.',
+    description: 'Get instant help from our intelligent assistant trained on robotics, ROS 2, and modern scalable physical AI concepts.',
+    color: '#10B981',
+    gradient: 'linear-gradient(135deg, #10B981 0%, #34D399 100%)',
+  },
+  {
+    title: 'Advanced Control Systems',
+    icon: '🎮',
+    description: 'Learn perception, planning, and control for autonomous humanoid robots and mobile platforms.',
+    color: '#F59E0B',
+    gradient: 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)',
+  },
+  {
+    title: 'Real-World Applications',
+    icon: '🌍',
+    description: 'Apply your skills to solve actual robotics challenges in manipulation, navigation, and human-robot interaction.',
+    color: '#EF4444',
+    gradient: 'linear-gradient(135deg, #EF4444 0%, #F87171 100%)',
+  },
+  {
+    title: 'Community Support',
+    icon: '👥',
+    description: 'Join a global community of 10,000+ robotics enthusiasts and industry professionals.',
+    color: '#EC4899',
+    gradient: 'linear-gradient(135deg, #EC4899 0%, #F472B6 100%)',
   },
 ];
 
-function Feature({ icon, title, description }) {
+const stats = [
+  { number: '35+', label: 'Chapters', icon: '📖', suffix: '' },
+  { number: '400+', label: 'Concepts', icon: '💡', suffix: '' },
+  { number: '24/7', label: 'AI Support', icon: '🤖', suffix: '' },
+  { number: '100%', label: 'Free Forever', icon: '🎓', suffix: '' },
+];
+
+const testimonials = [
+  {
+    name: 'Alex Chen',
+    role: 'Robotics Engineer at Boston Dynamics',
+    avatar: '👨‍💻',
+    text: 'This course transformed my understanding of physical AI. The hands-on approach and real-world projects are incredible!',
+    rating: 5,
+  },
+  {
+    name: 'Sarah Williams',
+    role: 'AI Researcher at MIT',
+    avatar: '👩‍🔬',
+    text: 'Best robotics resource I\'ve found online. The AI assistant makes learning complex concepts so much more efficient.',
+    rating: 5,
+  },
+  {
+    name: 'Michael Park',
+    role: 'Graduate Student',
+    avatar: '🎓',
+    text: 'From zero robotics knowledge to building autonomous systems in 3 months. This course is an absolute game-changer.',
+    rating: 5,
+  },
+];
+
+const learningPath = [
+  { week: '1-2', title: 'Foundations', description: 'ROS 2 basics, Linux, Python for robotics', icon: '🏗️' },
+  { week: '3-4', title: 'Perception', description: 'Sensors, computer vision, SLAM', icon: '👁️' },
+  { week: '5-6', title: 'Control', description: 'Motion planning, kinematics, dynamics', icon: '🎛️' },
+  { week: '7-8', title: 'Integration', description: 'Full autonomous systems, deployment', icon: '🚀' },
+];
+
+const techStack = [
+  { name: 'ROS 2', icon: '🤖' },
+  { name: 'Python', icon: '🐍' },
+  { name: 'Gazebo', icon: '🌐' },
+  { name: 'OpenCV', icon: '📷' },
+  { name: 'PyTorch', icon: '🔥' },
+  { name: 'Nav2', icon: '🧭' },
+];
+
+// --- Utility Components ---
+
+function AnimatedBackground() {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="vv-feature-card">
-        <div className="vv-feature-card__icon">{icon}</div>
-        <h3>{title}</h3>
-        <p>{description}</p>
+    <div className="vv-animated-bg">
+      <div className="vv-grid-pattern"></div>
+      <div className="vv-gradient-orb vv-orb-1"></div>
+      <div className="vv-gradient-orb vv-orb-2"></div>
+      <div className="vv-gradient-orb vv-orb-3"></div>
+    </div>
+  );
+}
+
+function FloatingParticles() {
+  return (
+    <div className="vv-particles">
+      {[...Array(20)].map((_, i) => (
+        <div 
+          key={i} 
+          className="vv-particle"
+          style={{
+            '--delay': `${Math.random() * 5}s`,
+            '--duration': `${15 + Math.random() * 10}s`,
+            '--x-start': `${Math.random() * 100}%`,
+            '--x-end': `${Math.random() * 100}%`,
+            '--size': `${2 + Math.random() * 4}px`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// --- Feature Components ---
+
+function Feature({ icon, title, description, color, gradient, index }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => { if (cardRef.current) observer.unobserve(cardRef.current); };
+  }, []);
+
+  const handleMouseMove = useCallback((e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 25;
+    const rotateY = (centerX - x) / 25;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+  }, []);
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.transform = '';
+    setIsHovered(false);
+  }, []);
+
+  return (
+    <div 
+      ref={cardRef}
+      className="vv-feature-wrapper"
+      style={{ 
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+        transition: `all 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms`
+      }}
+    >
+      <div 
+        className="vv-feature-card"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        style={{ '--feature-color': color, '--feature-gradient': gradient }}
+      >
+        <div className="vv-feature-card__glow"></div>
+        <div className="vv-feature-card__border"></div>
+        <div className="vv-feature-card__content">
+          <div className="vv-feature-card__icon">
+            <span>{icon}</span>
+          </div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <div className="vv-feature-card__arrow">
+            <span>Learn more</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
+function StatCard({ number, label, icon, index }) {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const statRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (statRef.current) observer.observe(statRef.current);
+    return () => { if (statRef.current) observer.unobserve(statRef.current); };
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const target = parseInt(number.replace(/\D/g, '')) || 0;
+    const duration = 2000;
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [isVisible, number]);
+
+  const displayNumber = number.includes('%') ? `${count}%` : number.includes('/') ? number : number.includes('+') ? `${count}+` : count;
+
   return (
-    <header className="vv-hero__section">
+    <div 
+      ref={statRef}
+      className="vv-stat-card"
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.9)',
+        transition: `all 600ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms`
+      }}
+    >
+      <div className="vv-stat-icon-wrapper">
+        <div className="vv-stat-icon">{icon}</div>
+        <div className="vv-stat-icon-ring"></div>
+      </div>
+      <div className="vv-stat-number">{displayNumber}</div>
+      <div className="vv-stat-label">{label}</div>
+    </div>
+  );
+}
+
+function TestimonialCard({ name, role, avatar, text, rating, index }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => { if (cardRef.current) observer.unobserve(cardRef.current); };
+  }, []);
+
+  return (
+    <div 
+      ref={cardRef}
+      className="vv-testimonial-card"
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+        transition: `all 600ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 150}ms`
+      }}
+    >
+      <div className="vv-testimonial-header">
+        <div className="vv-testimonial-avatar">{avatar}</div>
+        <div className="vv-testimonial-info">
+          <div className="vv-testimonial-name">{name}</div>
+          <div className="vv-testimonial-role">{role}</div>
+        </div>
+      </div>
+      <div className="vv-testimonial-rating">
+        {[...Array(rating)].map((_, i) => (
+          <span key={i} className="vv-star">⭐</span>
+        ))}
+      </div>
+      <p className="vv-testimonial-text">"{text}"</p>
+      <div className="vv-testimonial-quote">"</div>
+    </div>
+  );
+}
+
+function LearningPathCard({ week, title, description, icon, index, isLast }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => { if (cardRef.current) observer.unobserve(cardRef.current); };
+  }, []);
+
+  return (
+    <div 
+      ref={cardRef}
+      className="vv-path-item"
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateX(0)' : 'translateX(-30px)',
+        transition: `all 600ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 150}ms`
+      }}
+    >
+      <div className="vv-path-connector">
+        <div className="vv-path-dot"></div>
+        {!isLast && <div className="vv-path-line"></div>}
+      </div>
+      <div className="vv-path-content">
+        <div className="vv-path-icon">{icon}</div>
+        <div className="vv-path-details">
+          <div className="vv-path-week">Week {week}</div>
+          <h4 className="vv-path-title">{title}</h4>
+          <p className="vv-path-description">{description}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// --- Section Components ---
+
+function HomepageHeader() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <header className="vv-hero">
+      <AnimatedBackground />
+      <FloatingParticles />
+      
       <div className="vv-container">
-        <div className="vv-hero__content">
-          <h1 className="vv-hero__title">
-            Master <span className="vv-gradient-text">Physical AI</span> & Humanoid Robotics
-          </h1>
-          <p className="vv-hero__subtitle">
-            Build intelligent robots that understand and interact with the physical world. From ROS 2 to autonomous humanoids.
-          </p>
-          <div className="vv-hero__buttons">
-            <Link
-              className="vv-button vv-button--primary"
-              to="/docs/intro">
-              Start Learning
-            </Link>
-            <Link
-              className="vv-button vv-button--secondary"
-              to="/docs/category/1-introduction-to-physical-ai">
-              Browse Chapters
-            </Link>
+        <div className="vv-hero__grid">
+          <div className="vv-hero__content">
+            <div className="vv-hero__badge">
+              <span className="vv-badge-dot"></span>
+              <span>Now with AI-Powered Learning</span>
+            </div>
+            
+            <h1 className="vv-hero__title">
+              Master{' '}
+              <span className="vv-gradient-text">Physical AI</span>
+              <br />
+              & Humanoid Robotics
+            </h1>
+            
+            <p className="vv-hero__subtitle">
+              Build intelligent robots that understand and interact with the physical world. 
+              From ROS 2 fundamentals to autonomous humanoids — everything you need in one comprehensive platform.
+            </p>
+            
+            <div className="vv-hero__buttons">
+              <Link
+                className="vv-button vv-button--primary"
+                to="/physical-ai-book/docs/intro">
+                <span className="vv-button-text">Start Learning Free</span>
+                <span className="vv-button-icon">→</span>
+                <div className="vv-button-shine"></div>
+              </Link>
+              <Link
+                className="vv-button vv-button--secondary"
+                to="/physical-ai-book/docs/chapters/weeks-1-2-foundations/">
+                <span className="vv-button-icon-left">📖</span>
+                <span>Browse Curriculum</span>
+              </Link>
+            </div>
+            
+            <div className="vv-hero__metrics">
+              <div className="vv-metric">
+                <div className="vv-metric-value">10,000+</div>
+                <div className="vv-metric-label">Active Learners</div>
+              </div>
+              <div className="vv-metric-divider"></div>
+              <div className="vv-metric">
+                <div className="vv-metric-value">4.9/5</div>
+                <div className="vv-metric-label">Average Rating</div>
+              </div>
+              <div className="vv-metric-divider"></div>
+              <div className="vv-metric">
+                <div className="vv-metric-value">Free</div>
+                <div className="vv-metric-label">Forever</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="vv-hero__visual">
+            <div 
+              className="vv-hero__robot-container"
+              style={{
+                transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
+              }}
+            >
+              <div className="vv-robot-glow"></div>
+              <div className="vv-robot-emoji">🤖</div>
+              <div className="vv-robot-ring vv-ring-1"></div>
+              <div className="vv-robot-ring vv-ring-2"></div>
+              <div className="vv-robot-ring vv-ring-3"></div>
+              
+              <div className="vv-floating-badge vv-badge-1">
+                <span>🐍</span> Python
+              </div>
+              <div className="vv-floating-badge vv-badge-2">
+                <span>🤖</span> ROS 2
+              </div>
+              <div className="vv-floating-badge vv-badge-3">
+                <span>🧠</span> AI/ML
+              </div>
+            </div>
           </div>
         </div>
-        <div className="vv-hero__visual">
-          <div className="vv-hero__visual-emoji">🤖</div>
+      </div>
+      
+      <div className="vv-hero__scroll-indicator">
+        <div className="vv-scroll-mouse">
+          <div className="vv-scroll-wheel"></div>
         </div>
+        <span>Scroll to explore</span>
       </div>
     </header>
   );
 }
 
-function StatsBar() {
+function StatsSection() {
   return (
-    <div className="vv-stats-bar">
-      35+ Chapters • 400+ Concepts • AI-Powered Assistant • 100% Free
-    </div>
+    <section className="vv-stats">
+      <div className="vv-container">
+        <div className="vv-stats__grid">
+          {stats.map((stat, idx) => (
+            <StatCard key={idx} {...stat} index={idx} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
+function FeaturesSection() {
+  return (
+    <section className="vv-features">
+      <div className="vv-container">
+        <div className="vv-section-header">
+          <span className="vv-section-eyebrow">Why Choose Us</span>
+          <h2 className="vv-section-title">
+            Everything You Need to <span className="vv-gradient-text">Succeed</span>
+          </h2>
+          <p className="vv-section-subtitle">
+            Comprehensive resources, hands-on projects, and AI-powered support to accelerate your robotics journey from beginner to expert.
+          </p>
+        </div>
+        <div className="vv-features__grid">
+          {features.map((props, idx) => (
+            <Feature key={idx} {...props} index={idx} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LearningPathSection() {
+  return (
+    <section className="vv-learning-path">
+      <div className="vv-container">
+        <div className="vv-learning-path__layout">
+          <div className="vv-learning-path__content">
+            <span className="vv-section-eyebrow">Learning Path</span>
+            <h2 className="vv-section-title">
+              Your Journey to <span className="vv-gradient-text">Mastery</span>
+            </h2>
+            <p className="vv-section-subtitle">
+              A structured 8-week curriculum designed to take you from complete beginner to building autonomous robotic systems.
+            </p>
+            
+            <div className="vv-path-list">
+              {learningPath.map((item, idx) => (
+                <LearningPathCard 
+                  key={idx} 
+                  {...item} 
+                  index={idx} 
+                  isLast={idx === learningPath.length - 1}
+                />
+              ))}
+            </div>
+          </div>
+          
+          <div className="vv-learning-path__visual">
+            <div className="vv-tech-stack">
+              <h3 className="vv-tech-stack__title">Technologies You'll Master</h3>
+              <div className="vv-tech-stack__grid">
+                {techStack.map((tech, idx) => (
+                  <div key={idx} className="vv-tech-item">
+                    <span className="vv-tech-icon">{tech.icon}</span>
+                    <span className="vv-tech-name">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialsSection() {
+  return (
+    <section className="vv-testimonials">
+      <div className="vv-container">
+        <div className="vv-section-header">
+          <span className="vv-section-eyebrow">Testimonials</span>
+          <h2 className="vv-section-title">
+            Loved by <span className="vv-gradient-text">Learners</span> Worldwide
+          </h2>
+          <p className="vv-section-subtitle">
+            Join thousands of students who have transformed their careers with our comprehensive robotics curriculum.
+          </p>
+        </div>
+        <div className="vv-testimonials__grid">
+          {testimonials.map((testimonial, idx) => (
+            <TestimonialCard key={idx} {...testimonial} index={idx} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTASection() {
+  return (
+    <section className="vv-cta">
+      <div className="vv-cta__bg">
+        {/* Main circular radial gradient - contained */}
+        <div className="vv-cta__radial-wrapper">
+          <div className="vv-cta__radial"></div>
+          
+          {/* Concentric rings */}
+          <div className="vv-cta__ring vv-cta__ring--1"></div>
+          <div className="vv-cta__ring vv-cta__ring--2"></div>
+          <div className="vv-cta__ring vv-cta__ring--3"></div>
+        </div>
+        
+        {/* Ambient glow spots */}
+        <div className="vv-cta__glow vv-cta__glow--1"></div>
+        <div className="vv-cta__glow vv-cta__glow--2"></div>
+      </div>
+      
+      <div className="vv-container">
+        <div className="vv-cta__content">
+          <div className="vv-cta__badge">
+            <span className="vv-cta__badge-icon">🚀</span>
+            <span>Start Your Journey Today</span>
+          </div>
+          
+          <h2 className="vv-cta__title">
+            Ready to Build the <span className="vv-gradient-text">Future</span>?
+          </h2>
+          <p className="vv-cta__subtitle">
+            Start your journey into physical AI and humanoid robotics today. 
+            Completely free, forever — no credit card required.
+          </p>
+          <div className="vv-cta__buttons">
+            <Link
+              className="vv-button vv-button--primary vv-button--large vv-button--glow"
+              to="/physical-ai-book/docs/intro">
+              <span className="vv-button-text">Get Started Now</span>
+              <span className="vv-button-icon">→</span>
+              <div className="vv-button-shine"></div>
+            </Link>
+            <Link
+              className="vv-button vv-button--glass"
+              to="/physical-ai-book/docs/chapters/weeks-1-2-foundations/">
+              View Curriculum
+            </Link>
+          </div>
+          <div className="vv-cta__trust">
+            <div className="vv-cta__trust-item">
+              <span className="vv-cta__trust-icon">✓</span>
+              <span>No credit card required</span>
+            </div>
+            <div className="vv-cta__trust-item">
+              <span className="vv-cta__trust-icon">✓</span>
+              <span>Instant access</span>
+            </div>
+            <div className="vv-cta__trust-item">
+              <span className="vv-cta__trust-icon">✓</span>
+              <span>Free forever</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+// --- Main Component ---
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
+  
   return (
     <Layout
       title={`${siteConfig.title} - Master Physical AI & Humanoid Robotics`}
       description="Build intelligent robots that understand and interact with the physical world. From ROS 2 to autonomous humanoids.">
-      {/* This wrapper div scopes all our custom styles */}
-      <div className="vibrant-verdant-homepage">
-        {/* All styles are embedded here to avoid external CSS files */}
+      <div className="vv-homepage">
         <style>{`
-          /* --- 1. Font Imports --- */
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-          @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+          /* ============================================
+             IMPORTS & VARIABLES
+          ============================================ */
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-          /* --- 2. Scoped Theme Variables & Reset --- */
-          .vibrant-verdant-homepage {
-            /* Light Mode Colors */
-            --vv-ifm-color-primary: #10b981;
-            --vv-ifm-color-secondary: #f97316;
-            --vv-ifm-color-emphasis-300: #fbbf24;
-            --vv-ifm-background-color: #ffffff;
-            --vv-ifm-background-surface-color: #f9fafb;
-            --vv-ifm-color-content: #1e293b;
-            --vv-ifm-color-content-secondary: #64748b;
-            --vv-ifm-border-color: #e2e8f0;
-            --vv-hero-bg-gradient: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            --vv-primary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            --vv-secondary-gradient: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+          .vv-homepage {
+            /* Colors - Dark Mode */
+            --vv-primary: #8B5CF6;
+            --vv-primary-light: #A78BFA;
+            --vv-primary-dark: #7C3AED;
+            --vv-secondary: #3B82F6;
+            --vv-accent: #10B981;
+            
+            /* Backgrounds */
+            --vv-bg-primary: #09090B;
+            --vv-bg-secondary: #0F0F12;
+            --vv-bg-tertiary: #18181B;
+            --vv-surface: #1C1C21;
+            --vv-surface-hover: #232329;
+            
+            /* Borders */
+            --vv-border: rgba(255, 255, 255, 0.08);
+            --vv-border-hover: rgba(255, 255, 255, 0.15);
+            --vv-border-active: rgba(139, 92, 246, 0.5);
+            
+            /* Text */
+            --vv-text-primary: #FAFAFA;
+            --vv-text-secondary: #A1A1AA;
+            --vv-text-tertiary: #71717A;
+            
+            /* Effects */
+            --vv-glow: rgba(139, 92, 246, 0.15);
+            --vv-glow-strong: rgba(139, 92, 246, 0.3);
+            --vv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+            --vv-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --vv-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
+            --vv-shadow-glow: 0 0 60px rgba(139, 92, 246, 0.2);
+            
+            /* Transitions */
+            --vv-transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+            --vv-transition: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+            --vv-transition-slow: 500ms cubic-bezier(0.16, 1, 0.3, 1);
+
+            /* Base styles */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vv-bg-primary);
+            color: var(--vv-text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
           }
 
-          [data-theme='dark'] .vibrant-verdant-homepage {
-            /* Dark Mode Colors */
-            --vv-ifm-color-primary: #34d399;
-            --vv-ifm-color-secondary: #fb923c;
-            --vv-ifm-color-emphasis-300: #fcd34d;
-            --vv-ifm-background-color: #0f172a;
-            --vv-ifm-background-surface-color: #1e293b;
-            --vv-ifm-color-content: #f1f5f9;
-            --vv-ifm-color-content-secondary: #94a3b8;
-            --vv-ifm-border-color: #334155;
-            --vv-hero-bg-gradient: linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(52, 211, 153, 0.1) 100%);
-            --vv-primary-gradient: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-            --vv-secondary-gradient: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-          }
-          
-          /* --- 3. Scoped Component Styles --- */
-          .vibrant-verdant-homepage {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            line-height: 1.8;
-            margin-top: 40px; /* Space below the navbar */
-            margin-bottom: 80px; /* Space above the footer */
+          /* Light Mode Variables */
+          [data-theme='light'] .vv-homepage {
+            --vv-primary: #7C3AED;
+            --vv-primary-light: #8B5CF6;
+            --vv-primary-dark: #6D28D9;
+            --vv-secondary: #2563EB;
+            --vv-accent: #059669;
+            
+            --vv-bg-primary: #FFFFFF;
+            --vv-bg-secondary: #F8FAFC;
+            --vv-bg-tertiary: #F1F5F9;
+            --vv-surface: #FFFFFF;
+            --vv-surface-hover: #F8FAFC;
+            
+            --vv-border: rgba(0, 0, 0, 0.08);
+            --vv-border-hover: rgba(0, 0, 0, 0.12);
+            --vv-border-active: rgba(124, 58, 237, 0.5);
+            
+            --vv-text-primary: #0F172A;
+            --vv-text-secondary: #475569;
+            --vv-text-tertiary: #64748B;
+            
+            --vv-glow: rgba(124, 58, 237, 0.1);
+            --vv-glow-strong: rgba(124, 58, 237, 0.2);
+            --vv-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --vv-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --vv-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.1);
+            --vv-shadow-glow: 0 0 60px rgba(124, 58, 237, 0.1);
           }
 
-          .vibrant-verdant-homepage code, .vibrant-verdant-homepage pre {
-            font-family: 'Fira Code', Menlo, Monaco, Consolas, monospace;
-          }
-
+          /* ============================================
+             LAYOUT
+          ============================================ */
           .vv-container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 24px;
           }
 
-          /* Hero Section */
-          .vv-hero__section {
-            background: var(--vv-hero-bg-gradient);
-            padding: 6rem 0;
-            min-height: 700px;
+          @media (min-width: 768px) {
+            .vv-container { padding: 0 48px; }
+          }
+
+          /* ============================================
+             ANIMATED BACKGROUND
+          ============================================ */
+          .vv-animated-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+          }
+
+          .vv-grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+              linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 40%, transparent 100%);
+          }
+
+          [data-theme='light'] .vv-grid-pattern {
+            background-image: 
+              linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+          }
+
+          .vv-gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: float 20s ease-in-out infinite;
+          }
+
+          .vv-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15), transparent 70%);
+            top: -20%;
+            left: -10%;
+          }
+
+          .vv-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -7s;
+          }
+
+          .vv-orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.08), transparent 70%);
+            top: 50%;
+            left: 30%;
+            animation-delay: -14s;
+          }
+
+          /* Particles */
+          .vv-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+          }
+
+          .vv-particle {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 50%;
+            left: var(--x-start);
+            animation: particle-float var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+          }
+
+          [data-theme='light'] .vv-particle {
+            background: rgba(124, 58, 237, 0.2);
+          }
+
+          @keyframes particle-float {
+            0%, 100% {
+              transform: translateY(100vh) translateX(0);
+              opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+              transform: translateY(-100vh) translateX(var(--x-end));
+              opacity: 0;
+            }
+          }
+
+          /* ============================================
+             HERO SECTION
+          ============================================ */
+          .vv-hero {
+            position: relative;
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            padding: 120px 0 80px;
+            overflow: hidden;
           }
-          .vv-hero__section .vv-container {
+
+          .vv-hero__grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr;
+            gap: 60px;
             align-items: center;
+            position: relative;
+            z-index: 2;
           }
-          .vv-hero__content { text-align: left; }
+
+          @media (min-width: 1024px) {
+            .vv-hero__grid {
+              grid-template-columns: 1.2fr 1fr;
+              gap: 80px;
+            }
+          }
+
+          /* Badge */
+          .vv-hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--vv-surface);
+            border: 1px solid var(--vv-border);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--vv-text-secondary);
+            margin-bottom: 24px;
+            animation: fadeInDown 800ms ease-out;
+          }
+
+          .vv-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+          }
+
+          @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+          }
+
+          /* Title */
           .vv-hero__title {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 800;
-            color: var(--vv-ifm-color-content);
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            color: var(--vv-text-primary);
+            animation: fadeInUp 800ms ease-out 100ms backwards;
           }
+
           .vv-gradient-text {
-            background: var(--vv-primary-gradient);
+            background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #10B981 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
           }
-          .vv-hero__subtitle {
-            font-size: 1.25rem;
-            color: var(--vv-ifm-color-content-secondary);
-            margin-bottom: 3rem;
-            max-width: 500px;
+
+          [data-theme='light'] .vv-gradient-text {
+            background: linear-gradient(135deg, #7C3AED 0%, #2563EB 50%, #059669 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
           }
+
+          /* Subtitle */
+          .vv-hero__subtitle {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--vv-text-secondary);
+            max-width: 560px;
+            margin-bottom: 40px;
+            animation: fadeInUp 800ms ease-out 200ms backwards;
+          }
+
+          @media (min-width: 768px) {
+            .vv-hero__subtitle { font-size: 1.25rem; }
+          }
+
+          /* Buttons */
           .vv-hero__buttons {
             display: flex;
-            gap: 1.5rem;
             flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 48px;
+            animation: fadeInUp 800ms ease-out 300ms backwards;
           }
+
           .vv-button {
-            padding: 16px 32px;
-            border-radius: 12px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 28px;
+            font-size: 16px;
             font-weight: 600;
-            font-size: 1rem;
+            text-decoration: none !important;
+            border-radius: 14px;
             cursor: pointer;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            text-decoration: none !important;
-            display: inline-block;
+            transition: all var(--vv-transition);
+            overflow: hidden;
           }
-          .vv-button:hover {
-            transform: scale(1.05);
-            text-decoration: none !important;
-          }
+
           .vv-button--primary {
-            background: var(--vv-primary-gradient) !important;
-            border: none;
-            color: white !important;
-          }
-          .vv-button--secondary {
-            background: transparent;
-            color: var(--vv-ifm-color-primary);
-            border: 2px solid var(--vv-ifm-color-primary);
-          }
-          .vv-button--secondary:hover {
-            background: var(--vv-ifm-color-primary);
+            background: linear-gradient(135deg, var(--vv-primary) 0%, var(--vv-primary-dark) 100%);
             color: white;
+            border: none;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
           }
+
+          .vv-button--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          }
+
+          .vv-button--primary:active {
+            transform: translateY(0);
+          }
+
+          .vv-button-shine {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 600ms;
+          }
+
+          .vv-button--primary:hover .vv-button-shine {
+            transform: translateX(100%);
+          }
+
+          .vv-button-icon {
+            transition: transform var(--vv-transition-fast);
+          }
+
+          .vv-button:hover .vv-button-icon {
+            transform: translateX(4px);
+          }
+
+          .vv-button--secondary {
+            background: var(--vv-surface);
+            color: var(--vv-text-primary);
+            border: 1px solid var(--vv-border);
+            box-shadow: var(--vv-shadow-sm);
+          }
+
+          .vv-button--secondary:hover {
+            background: var(--vv-surface-hover);
+            border-color: var(--vv-border-hover);
+            transform: translateY(-2px);
+          }
+
+          .vv-button--ghost {
+            background: transparent;
+            color: var(--vv-text-primary);
+            border: 1px solid var(--vv-border);
+          }
+
+          .vv-button--ghost:hover {
+            background: var(--vv-surface);
+            border-color: var(--vv-border-hover);
+          }
+
+          .vv-button--large {
+            padding: 18px 36px;
+            font-size: 17px;
+          }
+
+          .vv-button-icon-left {
+            margin-right: 4px;
+          }
+
+          /* Glowing button */
+          .vv-button--glow {
+            box-shadow: 
+              0 4px 20px rgba(139, 92, 246, 0.4),
+              0 0 60px rgba(139, 92, 246, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          }
+
+          .vv-button--glow:hover {
+            box-shadow: 
+              0 8px 30px rgba(139, 92, 246, 0.5),
+              0 0 80px rgba(139, 92, 246, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          }
+
+          [data-theme='light'] .vv-button--glow {
+            box-shadow: 
+              0 4px 20px rgba(124, 58, 237, 0.35),
+              0 0 60px rgba(124, 58, 237, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          }
+
+          [data-theme='light'] .vv-button--glow:hover {
+            box-shadow: 
+              0 8px 30px rgba(124, 58, 237, 0.45),
+              0 0 80px rgba(124, 58, 237, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          }
+
+          /* Glass button */
+          .vv-button--glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: var(--vv-text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+
+          .vv-button--glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+          }
+
+          [data-theme='light'] .vv-button--glass {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+          }
+
+          [data-theme='light'] .vv-button--glass:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+          }
+
+          /* Metrics */
+          .vv-hero__metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: center;
+            animation: fadeInUp 800ms ease-out 400ms backwards;
+          }
+
+          .vv-metric {
+            text-align: left;
+          }
+
+          .vv-metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--vv-text-primary);
+            line-height: 1.2;
+          }
+
+          .vv-metric-label {
+            font-size: 14px;
+            color: var(--vv-text-tertiary);
+          }
+
+          .vv-metric-divider {
+            width: 1px;
+            height: 40px;
+            background: var(--vv-border);
+          }
+
+          /* Hero Visual */
           .vv-hero__visual {
             display: flex;
             justify-content: center;
+            animation: fadeIn 1000ms ease-out 500ms backwards;
+          }
+
+          .vv-hero__robot-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
             align-items: center;
-          }
-          .vv-hero__visual-emoji {
-            font-size: 200px;
-            animation: vv-float 6s ease-in-out infinite;
+            justify-content: center;
+            transition: transform 0.1s ease-out;
           }
 
-          /* Stats Bar */
-          .vv-stats-bar {
-            background: var(--vv-primary-gradient);
-            color: white;
-            text-align: center;
-            font-weight: 600;
-            padding: 2rem;
-            font-size: 1.1rem;
-          }
-
-          /* Features Section */
-          .vibrant-verdant-homepage main {
-            padding: 120px 0; /* Top and bottom padding */
-            background: var(--vv-ifm-background-surface-color);
-            margin-top: 80px;
-          }
-          .vibrant-verdant-homepage main .row {
-            --ifm-spacing-horizontal: 2rem;
-          }
-          .vv-feature-card {
-            background-color: var(--vv-ifm-background-color);
-            border: 1px solid var(--vv-ifm-border-color);
-            border-radius: 20px;
-            padding: 56px;
-            height: 100%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          }
-          .vv-feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-          }
-          .vv-feature-card__icon {
-            font-size: 64px;
-            width: 120px;
-            height: 120px;
-            background-color: rgba(16, 185, 129, 0.1);
+          .vv-robot-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--vv-glow-strong), transparent 70%);
             border-radius: 50%;
+            filter: blur(40px);
+          }
+
+          .vv-robot-emoji {
+            font-size: 160px;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+            animation: float 6s ease-in-out infinite;
+          }
+
+          .vv-robot-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid;
+            opacity: 0.3;
+          }
+
+          .vv-ring-1 {
+            width: 280px;
+            height: 280px;
+            border-color: var(--vv-primary);
+            animation: rotate 20s linear infinite;
+          }
+
+          .vv-ring-2 {
+            width: 340px;
+            height: 340px;
+            border-color: var(--vv-secondary);
+            animation: rotate 25s linear infinite reverse;
+          }
+
+          .vv-ring-3 {
+            width: 400px;
+            height: 400px;
+            border-color: var(--vv-accent);
+            animation: rotate 30s linear infinite;
+          }
+
+          /* Floating Badges */
+          .vv-floating-badge {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--vv-surface);
+            border: 1px solid var(--vv-border);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--vv-text-primary);
+            box-shadow: var(--vv-shadow-md);
+            animation: float 4s ease-in-out infinite;
+          }
+
+          [data-theme='light'] .vv-floating-badge {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          }
+
+          .vv-badge-1 {
+            top: 20%;
+            left: -10%;
+            animation-delay: 0s;
+          }
+
+          .vv-badge-2 {
+            top: 60%;
+            right: -5%;
+            animation-delay: -1.5s;
+          }
+
+          .vv-badge-3 {
+            bottom: 10%;
+            left: 5%;
+            animation-delay: -3s;
+          }
+
+          /* Scroll Indicator */
+          .vv-hero__scroll-indicator {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--vv-text-tertiary);
+            font-size: 12px;
+            animation: fadeIn 1000ms ease-out 1000ms backwards;
+          }
+
+          .vv-scroll-mouse {
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--vv-border);
+            border-radius: 12px;
             display: flex;
             justify-content: center;
+            padding-top: 8px;
+          }
+
+          .vv-scroll-wheel {
+            width: 4px;
+            height: 8px;
+            background: var(--vv-text-tertiary);
+            border-radius: 2px;
+            animation: scroll-bounce 2s ease-in-out infinite;
+          }
+
+          @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(6px); opacity: 0.5; }
+          }
+
+          /* ============================================
+             STATS SECTION
+          ============================================ */
+          .vv-stats {
+            padding: 80px 0;
+            background: var(--vv-bg-secondary);
+            border-top: 1px solid var(--vv-border);
+            border-bottom: 1px solid var(--vv-border);
+          }
+
+          [data-theme='light'] .vv-stats {
+            background: var(--vv-bg-tertiary);
+          }
+
+          .vv-stats__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+          }
+
+          @media (min-width: 768px) {
+            .vv-stats__grid {
+              grid-template-columns: repeat(4, 1fr);
+              gap: 32px;
+            }
+          }
+
+          .vv-stat-card {
+            text-align: center;
+            padding: 32px 20px;
+            background: var(--vv-surface);
+            border: 1px solid var(--vv-border);
+            border-radius: 20px;
+            transition: all var(--vv-transition);
+          }
+
+          .vv-stat-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--vv-border-active);
+            box-shadow: var(--vv-shadow-glow);
+          }
+
+          .vv-stat-icon-wrapper {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+          }
+
+          .vv-stat-icon {
+            position: relative;
+            z-index: 2;
+            width: 64px;
+            height: 64px;
+            display: flex;
             align-items: center;
-            margin-bottom: 2rem;
+            justify-content: center;
+            font-size: 28px;
+            background: linear-gradient(135deg, var(--vv-glow), transparent);
+            border-radius: 16px;
+            border: 1px solid var(--vv-border);
           }
-          .vv-feature-card h3 {
-            font-size: 1.5rem;
+
+          .vv-stat-icon-ring {
+            position: absolute;
+            inset: -4px;
+            border: 2px solid var(--vv-primary);
+            border-radius: 20px;
+            opacity: 0;
+            transition: all var(--vv-transition);
+          }
+
+          .vv-stat-card:hover .vv-stat-icon-ring {
+            opacity: 0.3;
+            inset: -8px;
+          }
+
+          .vv-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--vv-primary) 0%, var(--vv-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+
+          .vv-stat-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--vv-text-secondary);
+          }
+
+          /* ============================================
+             SECTION HEADERS
+          ============================================ */
+          .vv-section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 64px;
+          }
+
+          .vv-section-eyebrow {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--vv-primary);
+            margin-bottom: 16px;
+          }
+
+          .vv-section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--vv-ifm-color-content);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: var(--vv-text-primary);
           }
-          .vv-feature-card p {
-            font-size: 1rem;
-            color: var(--vv-ifm-color-content-secondary);
+
+          .vv-section-subtitle {
+            font-size: 1.125rem;
             line-height: 1.7;
+            color: var(--vv-text-secondary);
+          }
+
+          /* ============================================
+             FEATURES SECTION
+          ============================================ */
+          .vv-features {
+            padding: 120px 0;
+            background: var(--vv-bg-primary);
+          }
+
+          .vv-features__grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+          }
+
+          @media (min-width: 768px) {
+            .vv-features__grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .vv-features__grid {
+              grid-template-columns: repeat(3, 1fr);
+            }
+          }
+
+          .vv-feature-card {
+            position: relative;
+            padding: 32px;
+            background: var(--vv-surface);
+            border-radius: 24px;
+            transition: all var(--vv-transition);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            overflow: hidden;
+          }
+
+          .vv-feature-card__border {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            border: 1px solid var(--vv-border);
+            transition: all var(--vv-transition);
+            pointer-events: none;
+          }
+
+          .vv-feature-card:hover .vv-feature-card__border {
+            border-color: var(--feature-color);
+          }
+
+          .vv-feature-card__glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, var(--vv-glow), transparent 60%);
+            opacity: 0;
+            transition: opacity var(--vv-transition);
+            pointer-events: none;
+          }
+
+          .vv-feature-card:hover .vv-feature-card__glow {
+            opacity: 1;
+          }
+
+          .vv-feature-card__content {
+            position: relative;
+            z-index: 2;
+          }
+
+          .vv-feature-card__icon {
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            background: linear-gradient(135deg, var(--vv-glow), transparent);
+            border: 1px solid var(--vv-border);
+            border-radius: 18px;
+            margin-bottom: 24px;
+            transition: all var(--vv-transition);
+          }
+
+          .vv-feature-card:hover .vv-feature-card__icon {
+            border-color: var(--feature-color);
+            transform: scale(1.05);
+          }
+
+          .vv-feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--vv-text-primary);
+          }
+
+          .vv-feature-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--vv-text-secondary);
+            margin-bottom: 20px;
+          }
+
+          .vv-feature-card__arrow {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--feature-color);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all var(--vv-transition);
+          }
+
+          .vv-feature-card:hover .vv-feature-card__arrow {
+            opacity: 1;
+            transform: translateX(0);
+          }
+
+          /* ============================================
+             LEARNING PATH SECTION
+          ============================================ */
+          .vv-learning-path {
+            padding: 120px 0;
+            background: var(--vv-bg-secondary);
+            border-top: 1px solid var(--vv-border);
+          }
+
+          [data-theme='light'] .vv-learning-path {
+            background: var(--vv-bg-tertiary);
+          }
+
+          .vv-learning-path__layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+          }
+
+          @media (min-width: 1024px) {
+            .vv-learning-path__layout {
+              grid-template-columns: 1.2fr 1fr;
+              gap: 80px;
+              align-items: start;
+            }
+          }
+
+          .vv-learning-path__content .vv-section-header {
+            text-align: left;
+            margin-bottom: 48px;
+          }
+
+          .vv-path-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+          }
+
+          .vv-path-item {
+            display: flex;
+            gap: 20px;
+          }
+
+          .vv-path-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 8px;
+          }
+
+          .vv-path-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--vv-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--vv-glow-strong);
+            flex-shrink: 0;
+          }
+
+          .vv-path-line {
+            width: 2px;
+            flex: 1;
+            background: linear-gradient(180deg, var(--vv-primary), var(--vv-border));
+            margin: 8px 0;
+          }
+
+          .vv-path-content {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0 32px;
+          }
+
+          .vv-path-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: var(--vv-surface);
+            border: 1px solid var(--vv-border);
+            border-radius: 12px;
+            flex-shrink: 0;
+          }
+
+          .vv-path-week {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--vv-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+          }
+
+          .vv-path-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--vv-text-primary);
+          }
+
+          .vv-path-description {
+            font-size: 14px;
+            color: var(--vv-text-secondary);
             margin: 0;
           }
 
-          /* --- 4. Animations --- */
-          @keyframes vv-float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+          /* Tech Stack */
+          .vv-tech-stack {
+            background: var(--vv-surface);
+            border: 1px solid var(--vv-border);
+            border-radius: 24px;
+            padding: 32px;
           }
 
-          /* --- 5. Responsive Adjustments --- */
-          @media screen and (max-width: 996px) {
-            .vibrant-verdant-homepage {
-              margin-top: 20px;
-              margin-bottom: 40px; /* Adjusted for mobile */
-            }
-            .vv-hero__section {
-              padding: 4rem 0;
-              min-height: auto;
-            }
-            .vv-hero__section .vv-container {
-              grid-template-columns: 1fr;
-              text-align: center;
-              gap: 2rem;
-            }
-            .vv-hero__content {
-              text-align: center;
-            }
-            .vv-hero__buttons {
-              justify-content: center;
-            }
-            .vv-hero__visual-emoji {
-              font-size: 150px;
-            }
-            .vv-hero__title {
-              font-size: 2.8rem;
-            }
-            .vibrant-verdant-homepage main {
-              margin-top: 60px;
-              padding: 60px 0;
-            }
-            .vv-feature-card {
-              padding: 40px;
+          [data-theme='light'] .vv-tech-stack {
+            box-shadow: var(--vv-shadow-md);
+          }
+
+          .vv-tech-stack__title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--vv-text-primary);
+          }
+
+          .vv-tech-stack__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+          }
+
+          .vv-tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 20px 12px;
+            background: var(--vv-bg-secondary);
+            border: 1px solid var(--vv-border);
+            border-radius: 16px;
+            transition: all var(--vv-transition);
+          }
+
+          [data-theme='light'] .vv-tech-item {
+            background: var(--vv-bg-tertiary);
+          }
+
+          .vv-tech-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--vv-border-hover);
+          }
+
+          .vv-tech-icon {
+            font-size: 28px;
+          }
+
+          .vv-tech-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--vv-text-secondary);
+          }
+
+          /* ============================================
+             TESTIMONIALS SECTION
+          ============================================ */
+          .vv-testimonials {
+            padding: 120px 0;
+            background: var(--vv-bg-primary);
+          }
+
+          .vv-testimonials__grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+          }
+
+          @media (min-width: 768px) {
+            .vv-testimonials__grid {
+              grid-template-columns: repeat(3, 1fr);
             }
           }
-        `}</style>
 
-        <StatsBar />
+          .vv-testimonial-card {
+            position: relative;
+            padding: 32px;
+            background: var(--vv-surface);
+            border: 1px solid var(--vv-border);
+            border-radius: 24px;
+            transition: all var(--vv-transition);
+            overflow: hidden;
+          }
+
+          .vv-testimonial-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--vv-border-hover);
+            box-shadow: var(--vv-shadow-lg);
+          }
+
+          .vv-testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+          }
+
+          .vv-testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: linear-gradient(135deg, var(--vv-primary), var(--vv-secondary));
+            border-radius: 16px;
+          }
+
+          .vv-testimonial-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--vv-text-primary);
+          }
+
+          .vv-testimonial-role {
+            font-size: 13px;
+            color: var(--vv-text-tertiary);
+          }
+
+          .vv-testimonial-rating {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 16px;
+          }
+
+          .vv-star {
+            font-size: 14px;
+          }
+
+          .vv-testimonial-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--vv-text-secondary);
+            font-style: italic;
+            margin: 0;
+          }
+
+          .vv-testimonial-quote {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 64px;
+            font-weight: 800;
+            color: var(--vv-border);
+            line-height: 1;
+          }
+/* ============================================
+   CTA SECTION - CIRCULAR RADIAL (NO CUTOFF)
+============================================ */
+.vv-cta {
+  position: relative;
+  padding: 180px 0;
+  overflow: visible; /* Allow gradient to be visible */
+  isolation: isolate;
+  background: var(--vv-bg-primary);
+}
+
+[data-theme='light'] .vv-cta {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFBFF 100%);
+}
+
+/* Background container */
+.vv-cta__bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Wrapper to contain and position the radial */
+.vv-cta__radial-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main circular radial gradient - sized to fit */
+.vv-cta__radial {
+  position: absolute;
+  width: min(700px, 90vw);
+  height: min(700px, 90vw);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.4) 0%,
+    rgba(139, 92, 246, 0.25) 25%,
+    rgba(59, 130, 246, 0.15) 50%,
+    rgba(16, 185, 129, 0.08) 70%,
+    transparent 100%
+  );
+  animation: cta-breathe 6s ease-in-out infinite;
+  filter: blur(40px);
+}
+
+[data-theme='light'] .vv-cta__radial {
+  background: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.3) 0%,
+    rgba(124, 58, 237, 0.18) 25%,
+    rgba(37, 99, 235, 0.1) 50%,
+    rgba(5, 150, 105, 0.05) 70%,
+    transparent 100%
+  );
+}
+
+/* Concentric animated rings - sized smaller */
+.vv-cta__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  opacity: 0;
+  animation: cta-ring-expand 4s ease-out infinite;
+}
+
+.vv-cta__ring--1 {
+  width: 100px;
+  height: 100px;
+  border-color: rgba(139, 92, 246, 0.6);
+  animation-delay: 0s;
+}
+
+.vv-cta__ring--2 {
+  width: 100px;
+  height: 100px;
+  border-color: rgba(59, 130, 246, 0.5);
+  animation-delay: 1.3s;
+}
+
+.vv-cta__ring--3 {
+  width: 100px;
+  height: 100px;
+  border-color: rgba(16, 185, 129, 0.4);
+  animation-delay: 2.6s;
+}
+
+[data-theme='light'] .vv-cta__ring--1 {
+  border-color: rgba(124, 58, 237, 0.5);
+}
+
+[data-theme='light'] .vv-cta__ring--2 {
+  border-color: rgba(37, 99, 235, 0.4);
+}
+
+[data-theme='light'] .vv-cta__ring--3 {
+  border-color: rgba(5, 150, 105, 0.35);
+}
+
+/* Ring expansion animation - expands to visible size */
+@keyframes cta-ring-expand {
+  0% {
+    width: 100px;
+    height: 100px;
+    opacity: 0.8;
+  }
+  100% {
+    width: min(600px, 80vw);
+    height: min(600px, 80vw);
+    opacity: 0;
+  }
+}
+
+/* Breathing animation for main radial */
+@keyframes cta-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+}
+
+/* Ambient glow spots - soft accents */
+.vv-cta__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.5;
+}
+
+.vv-cta__glow--1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(139, 92, 246, 0.25);
+  top: 10%;
+  right: 10%;
+  animation: cta-float 15s ease-in-out infinite;
+}
+
+.vv-cta__glow--2 {
+  width: 250px;
+  height: 250px;
+  background: rgba(59, 130, 246, 0.2);
+  bottom: 10%;
+  left: 10%;
+  animation: cta-float 18s ease-in-out infinite reverse;
+}
+
+[data-theme='light'] .vv-cta__glow--1 {
+  background: rgba(124, 58, 237, 0.2);
+}
+
+[data-theme='light'] .vv-cta__glow--2 {
+  background: rgba(37, 99, 235, 0.15);
+}
+
+@keyframes cta-float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(20px, -20px);
+  }
+  50% {
+    transform: translate(0, -30px);
+  }
+  75% {
+    transform: translate(-20px, -10px);
+  }
+}
+
+/* Content */
+.vv-cta__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* CTA Badge */
+.vv-cta__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vv-primary-light);
+  margin-bottom: 32px;
+  backdrop-filter: blur(12px);
+  animation: fadeInDown 600ms ease-out;
+}
+
+[data-theme='light'] .vv-cta__badge {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.2);
+  color: var(--vv-primary);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.1);
+}
+
+.vv-cta__badge-icon {
+  font-size: 20px;
+}
+
+/* Title */
+.vv-cta__title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: var(--vv-text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* Subtitle */
+.vv-cta__subtitle {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--vv-text-secondary);
+  margin-bottom: 48px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Buttons */
+.vv-cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+/* Glowing button enhancement for CTA */
+.vv-cta .vv-button--glow {
+  box-shadow: 
+    0 4px 25px rgba(139, 92, 246, 0.5),
+    0 0 80px rgba(139, 92, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.vv-cta .vv-button--glow:hover {
+  box-shadow: 
+    0 8px 40px rgba(139, 92, 246, 0.6),
+    0 0 120px rgba(139, 92, 246, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+[data-theme='light'] .vv-cta .vv-button--glow {
+  box-shadow: 
+    0 4px 25px rgba(124, 58, 237, 0.4),
+    0 0 60px rgba(124, 58, 237, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+[data-theme='light'] .vv-cta .vv-button--glow:hover {
+  box-shadow: 
+    0 8px 40px rgba(124, 58, 237, 0.5),
+    0 0 100px rgba(124, 58, 237, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Glass button in CTA */
+.vv-cta .vv-button--glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.vv-cta .vv-button--glass:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme='light'] .vv-cta .vv-button--glass {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] .vv-cta .vv-button--glass:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Trust items */
+.vv-cta__trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.vv-cta__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--vv-text-secondary);
+  font-weight: 500;
+}
+
+.vv-cta__trust-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--vv-accent);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+[data-theme='light'] .vv-cta__trust-icon {
+  background: rgba(5, 150, 105, 0.12);
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 768px) {
+  .vv-cta {
+    padding: 120px 0;
+  }
+
+  .vv-cta__radial {
+    width: min(500px, 95vw);
+    height: min(500px, 95vw);
+  }
+
+  .vv-cta__glow--1,
+  .vv-cta__glow--2 {
+    width: 200px;
+    height: 200px;
+    opacity: 0.3;
+  }
+
+  .vv-cta__title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .vv-cta__subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+  }
+
+  .vv-cta__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vv-cta__buttons .vv-button {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .vv-cta__trust {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .vv-cta {
+    padding: 100px 0;
+  }
+
+  .vv-cta__radial {
+    width: 350px;
+    height: 350px;
+  }
+
+  @keyframes cta-ring-expand {
+    0% {
+      width: 80px;
+      height: 80px;
+      opacity: 0.8;
+    }
+    100% {
+      width: 350px;
+      height: 350px;
+      opacity: 0;
+    }
+  }
+}       `}</style>
+
         <HomepageHeader />
-        <main>
-          <div className="vv-container">
-            <div className="row">
-              {features.map((props, idx) => (
-                <Feature key={idx} {...props} />
-              ))}
-            </div>
-          </div>
-        </main>
+        <StatsSection />
+        <FeaturesSection />
+        <LearningPathSection />
+        <TestimonialsSection />
+        <CTASection />
       </div>
     </Layout>
   );

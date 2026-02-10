@@ -66,7 +66,7 @@ class IngestionPipeline:
 
                 # Generate embeddings for all chunks using Google's API
                 embeddings_response = self.embedding_model(
-                    model="models/embedding-001",
+                    model=settings.EMBEDDING_MODEL,
                     content=chunks,
                     task_type="RETRIEVAL_DOCUMENT"
                 )

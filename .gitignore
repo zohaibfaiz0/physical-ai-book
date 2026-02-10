@@ -1,27 +1,93 @@
-# Dependencies
+# ╔═══════════════════════════════════════════════════════════════════════════╗
+# ║                         SAFE GITIGNORE                                     ║
+# ╚═══════════════════════════════════════════════════════════════════════════╝
+
+# =============================================================================
+# DEPENDENCIES
+# =============================================================================
 node_modules/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
+auth-service/node_modules/
+
+# Python virtual environments
+backend/venv/
+backend/venv*/
+backend/env/
+backend/.venv/
 env/
 venv/
-ENV/
+venv*/
 .venv/
-.env
+.venv*/
+ENV/
+env*/
 
-# Builds
-build/
-dist/
+# =============================================================================
+# PYTHON CACHE & BUILD ARTIFACTS
+# =============================================================================
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
 
-# Environment variables
+# Backend specific cache
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.Python
+backend/build/
+backend/dist/
+backend/lib/
+backend/lib64/
+
+# =============================================================================
+# ENVIRONMENT VARIABLES
+# =============================================================================
 .env
 .env.local
+.env.dev
+.env.production
+.env.staging
 .env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# OS generated files
+backend/.env
+backend/.env.local
+backend/*.env
+
+auth-service/.env
+auth-service/.env.local
+
+secrets.json
+local-config.json
+config.local.json
+
+# Keep example files
+!.env.example
+!backend/.env.example
+!auth-service/.env.example
+
+# =============================================================================
+# OS GENERATED FILES
+# =============================================================================
 .DS_Store
 .DS_Store?
 ._*
@@ -29,38 +95,110 @@ dist/
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# IDE
+# =============================================================================
+# IDE / EDITORS
+# =============================================================================
 .vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
 *~
 
-# Backend
-backend/__pycache__/
-backend/*.pyc
+# =============================================================================
+# DOCUSAURUS BUILD & CACHE
+# =============================================================================
+.docusaurus/
+.temp/
+.cache/
+build/
 
-# Logs
+# =============================================================================
+# LOGS
+# =============================================================================
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Coverage
+# =============================================================================
+# COVERAGE
+# =============================================================================
 coverage/
 .coverage
+.coverage.*
 .htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
 
-# Docusaurus
-.docusaurus/
-.temp/
-.cache/
+# =============================================================================
+# AUTH SERVICE BUILD
+# =============================================================================
+auth-service/dist/
+auth-service/build/
 
-# Backend environment
-backend/.env
-backend/.env.local
-backend/*.env
+# =============================================================================
+# TEMPORARY GITIGNORE BACKUP FILES (can delete these)
+# =============================================================================
+.gitignore_safe
+.gitignore_safe_corrected
+.gitignore_safe_final
+.gitignore_safe_final_corrected
 
-# Railway
-.railway/
+# =============================================================================
+# MISC
+# =============================================================================
+nul
+
+# =============================================================================
+# EXPLICIT PROTECTION - NEVER IGNORE THESE
+# =============================================================================
+!src/
+!src/**
+!src/lib/
+!src/lib/**
+!src/components/
+!src/components/**
+!src/css/
+!src/css/**
+!src/js/
+!src/js/**
+!src/pages/
+!src/pages/**
+!src/theme/
+!src/theme/**
+!docs/
+!docs/**
+!backend/app/
+!backend/app/**
+!specs/
+!specs/**
+!history/
+!history/**
+!static/
+!static/**
+!.github/
+!.github/**
+
+# Cleanup additions
+*.backup
+*.bak
+backend/logs.*.log
+backend/6.0.0
+backend/=6.0.0
+backend/python
+404.html
+index.html
+search-index.json
+sitemap.xml
+srccomponentsAuth/
+srccomponentsNavbarAuth/
+test_backend.py
+test_endpoints.py
+verify_installation.py
